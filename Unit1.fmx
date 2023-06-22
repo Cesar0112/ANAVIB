@@ -1,7 +1,7 @@
 object Form1: TForm1
   Left = 0
   Top = 0
-  Caption = 'Form1'
+  Caption = 'ANAVIB'
   ClientHeight = 480
   ClientWidth = 640
   WindowState = wsMaximized
@@ -12,10 +12,10 @@ object Form1: TForm1
   object PlotGrid1: TPlotGrid
     Frequency = 5.000000000000000000
     Marks = 25.000000000000000000
-    Position.X = 48.000000000000000000
+    Position.X = 8.000000000000000000
     Position.Y = 56.000000000000000000
     Size.Width = 393.000000000000000000
-    Size.Height = 145.000000000000000000
+    Size.Height = 121.000000000000000000
     Size.PlatformDefault = False
   end
   object MenuBar1: TMenuBar
@@ -34,5 +34,15 @@ object Form1: TForm1
       Text = '&Salir'
       OnClick = MenuItem2Click
     end
+  end
+  object lblVibraciones: TLabel
+    Position.X = 8.000000000000000000
+    Position.Y = 32.000000000000000000
+    Size.Width = 145.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    StyleLookup = 'listboxheaderlabel'
+    Text = 'Oscilaciones'
+    TabOrder = 3
   end
 end
