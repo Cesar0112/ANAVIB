@@ -10,12 +10,12 @@ uses
 
 type
   TForm1 = class(TForm)
-    PlotGrid1: TPlotGrid;
-    MenuBar1: TMenuBar;
-    MenuItem1: TMenuItem;
-    MenuItem2: TMenuItem;
-    MenuItem3: TMenuItem;
-    lblVibraciones: TLabel;
+    mainMenu: TMainMenu;
+    opcionRuta: TMenuItem;
+    opcionSalir: TMenuItem;
+    opcionRutaVer: TMenuItem;
+    opcionRutaCrear: TMenuItem;
+    Panel1: TPanel;
     procedure MenuItem2Click(Sender: TObject);
 
   private

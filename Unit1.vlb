@@ -1,19 +1,4 @@
-﻿[PlotGrid1]
-Coordinates=99,56,68,36
-Visible=True
-
-[MenuItem2]
-Coordinates=10,56,79,36
-
-[MenuItem3]
-Coordinates=99,10,79,36
-
-[MenuItem1]
-Coordinates=10,10,79,36
-
-[MenuBar1]
+﻿[]
 Coordinates=10,102,73,36
-
-[]
-Coordinates=185,56,91,36
+Visible=True
 

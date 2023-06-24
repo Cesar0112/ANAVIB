@@ -9,40 +9,29 @@ object Form1: TForm1
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
   DesignerMasterStyle = 0
-  object PlotGrid1: TPlotGrid
-    Frequency = 5.000000000000000000
-    Marks = 25.000000000000000000
-    Position.X = 8.000000000000000000
-    Position.Y = 56.000000000000000000
-    Size.Width = 393.000000000000000000
-    Size.Height = 121.000000000000000000
-    Size.PlatformDefault = False
-  end
-  object MenuBar1: TMenuBar
+  object Panel1: TPanel
+    Align = Client
     Size.Width = 640.000000000000000000
-    Size.Height = 24.000000000000000000
+    Size.Height = 480.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 1
-    object MenuItem1: TMenuItem
-      Text = 'MenuItem1'
-      object MenuItem3: TMenuItem
+    TabOrder = 2
+  end
+  object mainMenu: TMainMenu
+    Left = 496
+    Top = 232
+    object opcionRuta: TMenuItem
+      Text = '&Ruta'
+      object opcionRutaVer: TMenuItem
         Locked = True
-        Text = 'MenuItem3'
+        Text = 'Ver'
+      end
+      object opcionRutaCrear: TMenuItem
+        Locked = True
+        Text = 'Crear'
       end
     end
-    object MenuItem2: TMenuItem
+    object opcionSalir: TMenuItem
       Text = '&Salir'
-      OnClick = MenuItem2Click
     end
-  end
-  object lblVibraciones: TLabel
-    Position.X = 8.000000000000000000
-    Position.Y = 32.000000000000000000
-    Size.Width = 145.000000000000000000
-    Size.Height = 17.000000000000000000
-    Size.PlatformDefault = False
-    StyleLookup = 'listboxheaderlabel'
-    Text = 'Oscilaciones'
-    TabOrder = 3
   end
 end
