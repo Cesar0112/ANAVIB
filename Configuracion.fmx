@@ -19,6 +19,7 @@ object formConfiguracion: TformConfiguracion
     Position.Y = 149.000000000000000000
     TabOrder = 1
     Text = 'Cancelar'
+    OnClick = btnCancelarClick
   end
   object Label1: TLabel
     Position.X = 24.000000000000000000
@@ -36,7 +37,7 @@ object formConfiguracion: TformConfiguracion
     DecimalDigits = 4
     Position.X = 168.000000000000000000
     Position.Y = 29.000000000000000000
-    Size.Width = 57.000000000000000000
+    Size.Width = 81.000000000000000000
     Size.Height = 17.000000000000000000
     Size.PlatformDefault = False
   end

@@ -3,7 +3,8 @@ unit Configuracion;
 interface
 
 uses
-  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  System.SysUtils, System.Types, System.UITypes, System.Classes,
+  System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   FMX.Controls.Presentation, FMX.StdCtrls, FMX.Edit, FMX.EditBox, FMX.SpinBox;
 
@@ -13,6 +14,7 @@ type
     btnCancelar: TButton;
     Label1: TLabel;
     SpinBox1: TSpinBox;
+    procedure btnCancelarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -25,5 +27,10 @@ var
 implementation
 
 {$R *.fmx}
+
+procedure TformConfiguracion.btnCancelarClick(Sender: TObject);
+begin
+  Close;
+end;
 
 end.

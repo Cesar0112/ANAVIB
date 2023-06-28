@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes,
-  System.Variants,Configuracion,
+  System.Variants, Configuracion,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Menus,
   FMX.ExtCtrls, FMX.Controls.Presentation, FMX.StdCtrls, FMXTee.Engine,
   FMXTee.Procs, FMXTee.Chart, FMX.Controls3D, FMXTee.Chart3D, FMXTee.Series;
@@ -111,4 +111,40 @@ begin
   Result := VRMS; // se retorna el valor
 end;
 
+{ funcion que devuelve el valor maximo de un arreglo de double
+  que es el pico maximo
+}
+function VPicoMax(const valoresSenial: array of Double): Double;
+var
+  i, N: Integer;
+  maximo: Double;
+
+begin
+  N := Length(valoresSenial);
+  maximo := valoresSenial[0];
+  // asigno el primer valor del arreglo para no compararlo despues por gusto
+  for i := 1 to N - 1 do
+  begin
+    if valoresSenial[i] > maximo then
+      maximo := valoresSenial[i];
+  end;
+  Result := maximo;
+end;
+//esta funcion devuelve el pico minimo
+function VPicoMin(const valoresSenial: array of Double): Double;
+var
+  i, N: Integer;
+  minimo: Double;
+
+begin
+  N := Length(valoresSenial);
+  minimo := valoresSenial[0];
+  // asigno el primer valor del arreglo para no compararlo despues por gusto
+  for i := 1 to N - 1 do
+  begin
+    if valoresSenial[i] < minimo then
+      minimo := valoresSenial[i];
+  end;
+  Result := minimo;
+end;
 end.
