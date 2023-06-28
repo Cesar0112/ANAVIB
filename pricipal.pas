@@ -1,4 +1,4 @@
-unit Unit1;
+unit pricipal;
 
 interface
 
@@ -47,6 +47,7 @@ type
 
     procedure opcionSalirClick(Sender: TObject);
     procedure btnMostrarClick(Sender: TObject);
+    procedure opcFrecuenciaMuestreoClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -64,6 +65,8 @@ implementation
 
 {$R *.fmx}
 
+uses Configuracion;
+
 procedure TForm1.btnMostrarClick(Sender: TObject);
 var
   i: Integer;
@@ -79,6 +82,12 @@ begin
 
     graficoSenial.Series[0].AddXY(x, y); // Agrega los puntos al gráfico
   end;
+end;
+
+procedure TForm1.opcFrecuenciaMuestreoClick(Sender: TObject);
+begin
+  TForm1 := TForm2.Create(Self);
+  Form2.Show;
 end;
 
 procedure TForm1.opcionSalirClick(Sender: TObject);

@@ -1,10 +1,10 @@
-unit Unit1;
+unit principal;
 
 interface
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes,
-  System.Variants,
+  System.Variants,Configuracion,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Menus,
   FMX.ExtCtrls, FMX.Controls.Presentation, FMX.StdCtrls, FMXTee.Engine,
   FMXTee.Procs, FMXTee.Chart, FMX.Controls3D, FMXTee.Chart3D, FMXTee.Series;
@@ -47,6 +47,7 @@ type
 
     procedure opcionSalirClick(Sender: TObject);
     procedure btnMostrarClick(Sender: TObject);
+    procedure opcFrecuenciaMuestreoClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -59,6 +60,7 @@ function CalcularVRMS(const valoresSenial: array of Double): Double;
 
 var
   Form1: TForm1;
+  ventanaConfiguracion: TForm2;
 
 implementation
 
@@ -79,6 +81,12 @@ begin
 
     graficoSenial.Series[0].AddXY(x, y); // Agrega los puntos al gráfico
   end;
+end;
+
+procedure TForm1.opcFrecuenciaMuestreoClick(Sender: TObject);
+begin
+  ventanaConfiguracion := TForm2.Create(Self);
+  ventanaConfiguracion.Show;
 end;
 
 procedure TForm1.opcionSalirClick(Sender: TObject);

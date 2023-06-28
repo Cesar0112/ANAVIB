@@ -1,0 +1,43 @@
+object formConfiguracion: TformConfiguracion
+  Left = 0
+  Top = 0
+  Caption = 'Configuraci'#243'n'
+  ClientHeight = 205
+  ClientWidth = 274
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object btnSalvar: TButton
+    Position.X = 24.000000000000000000
+    Position.Y = 149.000000000000000000
+    TabOrder = 0
+    Text = 'Salvar'
+  end
+  object btnCancelar: TButton
+    Position.X = 160.000000000000000000
+    Position.Y = 149.000000000000000000
+    TabOrder = 1
+    Text = 'Cancelar'
+  end
+  object Label1: TLabel
+    Position.X = 24.000000000000000000
+    Position.Y = 24.000000000000000000
+    Size.Width = 121.000000000000000000
+    Size.Height = 25.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Frecuencia de muestro'
+    TabOrder = 2
+  end
+  object SpinBox1: TSpinBox
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 3
+    Cursor = crIBeam
+    DecimalDigits = 4
+    Position.X = 168.000000000000000000
+    Position.Y = 29.000000000000000000
+    Size.Width = 57.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+  end
+end
