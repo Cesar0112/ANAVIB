@@ -51,6 +51,8 @@ type
     { Public declarations }
   end;
 
+function CalcularVRMS(const valoresSenial: array of Double): Double;
+
 var
   Form1: TForm1;
 
@@ -61,6 +63,23 @@ implementation
 procedure TForm1.opcionSalirClick(Sender: TObject);
 begin
   close;
+end;
+
+function CalcularVRMS(const valoresSenial: array of Double): Double;
+var
+  i, N: Integer; // N tamanio del arreglo
+  sumatoria, VRMS: Double;
+begin
+  { Funcion que devuelve el valor RMS con paramtros
+    una lista de valores double
+    mediante la formula: Vrms = sqrt((1/N) * sum(x^2)) }
+  N := Length(valoresSenial); // obtengo el tamanio del arreglo
+  sumatoria := 0;
+  // calcula la sumatoria de cada valor del arreglo al cuadrado
+  for i := 0 to N - 1 do
+    sumatoria := sumatoria + valoresSenial[i] * valoresSenial[i];
+  VRMS := sqrt((1 / N) * sumatoria);//se aplica la formula
+  Result := VRMS;//se retorna el valor
 end;
 
 end.

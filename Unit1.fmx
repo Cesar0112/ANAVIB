@@ -3,7 +3,7 @@
   Top = 0
   Caption = 'ANAVIB'
   ClientHeight = 468
-  ClientWidth = 1172
+  ClientWidth = 1528
   WindowState = wsMaximized
   FormFactor.Width = 320
   FormFactor.Height = 480
@@ -60,7 +60,7 @@
   end
   object panelPrincipal: TPanel
     Align = Client
-    Size.Width = 1172.000000000000000000
+    Size.Width = 1528.000000000000000000
     Size.Height = 468.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 1
@@ -149,6 +149,8 @@
       SubFoot.Font.StyleExt = {00040000000200000004000000}
       Title.Text.Strings = (
         'Se'#241'al')
+      BottomAxis.Title.Caption = 'tiempo'
+      LeftAxis.Title.Caption = 'amplitud'
       Pages.AutoScale = True
       View3D = False
       View3DWalls = False
