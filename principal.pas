@@ -60,7 +60,7 @@ function CalcularVRMS(const valoresSenial: array of Double): Double;
 
 var
   Form1: TForm1;
-  ventanaConfiguracion: TForm2;
+  ventanaConfiguracion: TformConfiguracion;
 
 implementation
 
@@ -85,7 +85,7 @@ end;
 
 procedure TForm1.opcFrecuenciaMuestreoClick(Sender: TObject);
 begin
-  ventanaConfiguracion := TForm2.Create(Self);
+  ventanaConfiguracion := TformConfiguracion.Create(Self);
   ventanaConfiguracion.Show;
 end;
 
@@ -130,7 +130,8 @@ begin
   end;
   Result := maximo;
 end;
-//esta funcion devuelve el pico minimo
+
+// esta funcion devuelve el pico minimo
 function VPicoMin(const valoresSenial: array of Double): Double;
 var
   i, N: Integer;
@@ -147,4 +148,5 @@ begin
   end;
   Result := minimo;
 end;
+
 end.
