@@ -4,11 +4,12 @@
   Caption = 'ANAVIB'
   ClientHeight = 468
   ClientWidth = 1528
-  Visible = True
+  Position = DesktopCenter
   WindowState = wsMaximized
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
   DesignerMasterStyle = 0
   object mainMenu: TMainMenu
     Left = 496

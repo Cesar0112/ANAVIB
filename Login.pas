@@ -16,6 +16,7 @@ type
     btnIngresar: TButton;
     ComboEditUser: TComboEdit;
     procedure btnIngresarClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
 
   private
     { Private declarations }
@@ -26,7 +27,6 @@ type
 
 var
   formLogin: TformLogin;
-
 
 implementation
 
@@ -49,10 +49,16 @@ begin
     isValido := True;
   if isValido then
   begin
-    ShowMessage('Usuario ' + usuario + 'autenticado correctamente');
+    ShowMessage('Usuario ' + usuario + ' autenticado correctamente');
     Self.Close;
   end;
 
+end;
+
+procedure TformLogin.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  if not isValido then
+    Close;
 end;
 
 end.

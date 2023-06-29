@@ -5,10 +5,10 @@ object formLogin: TformLogin
   ClientHeight = 155
   ClientWidth = 212
   Position = DesktopCenter
-  Visible = True
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  OnClose = FormClose
   DesignerMasterStyle = 0
   object Label1: TLabel
     Position.X = 26.000000000000000000
@@ -34,6 +34,7 @@ object formLogin: TformLogin
     Password = True
     Position.X = 89.000000000000000000
     Position.Y = 63.000000000000000000
+    OnEnter = btnIngresarClick
   end
   object btnIngresar: TButton
     Position.X = 72.000000000000000000

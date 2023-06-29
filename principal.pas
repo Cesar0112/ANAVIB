@@ -58,10 +58,12 @@ type
 
   { A esta funcion se le pasa un arreglo de amplitudes que son de tipo Double }
 function CalcularVRMS(const valoresSenial: array of Double): Double;
+function MostrarLogin(): Boolean;
 
 var
   formPrincipal: TformPrincipal;
   ventanaConfiguracion: TformConfiguracion;
+  ventanaLogin: TformLogin;
 
 implementation
 
@@ -84,24 +86,29 @@ begin
   end;
 end;
 
-procedure MostrarLogin();
-var
-  ventanaLogin: TformLogin;
+function MostrarLogin(): Boolean;
 begin
-  ventanaLogin := TformLogin.Create(Nil);
-  ventanaLogin.Show;
-  // mientras no se halla autenticado correctamente no hagas mas nada
-  while (not ventanaLogin.isValido) do
+  ventanaLogin := TformLogin.Create(Application);
+  ventanaLogin.Visible := True;
+  ventanaLogin.Active := True;
+  ventanaLogin.ShowModal;
+  ventanaLogin.ComboEditUser.SetFocus;
+  Result := False;
+  while not ventanaLogin.isValido do
   begin
 
   end;
-  // mientras no sea valido quedate en este bucle
-  ventanaLogin.Free; // libera memoria
+
+  if ventanaLogin.isValido then
+    Result := True;
 end;
 
 procedure TformPrincipal.FormCreate(Sender: TObject);
 begin
-  MostrarLogin;
+  Visible := False;
+
+  if MostrarLogin then
+    Visible := True;
 end;
 
 procedure TformPrincipal.opcFrecuenciaMuestreoClick(Sender: TObject);
