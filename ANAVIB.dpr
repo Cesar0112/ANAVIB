@@ -3,16 +3,16 @@ program ANAVIB;
 uses
   System.StartUpCopy,
   FMX.Forms,
-  principal in 'principal.pas' {Form1},
+  principal in 'principal.pas' {formPrincipal},
   Configuracion in 'Configuracion.pas' {formConfiguracion},
-  Login in 'Login.pas' {Form2};
+  Login in 'Login.pas' {formLogin};
 
 {$R *.res}
 
 begin
   Application.Initialize;
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TformPrincipal, formPrincipal);
   Application.CreateForm(TformConfiguracion, formConfiguracion);
-  Application.CreateForm(TForm2, Form2);
+  Application.CreateForm(TformLogin, formLogin);
   Application.Run;
 end.

@@ -282,14 +282,14 @@
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <DCCReference Include="principal.pas">
-            <Form>Form1</Form>
+            <Form>formPrincipal</Form>
         </DCCReference>
         <DCCReference Include="Configuracion.pas">
             <Form>formConfiguracion</Form>
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="Login.pas">
-            <Form>Form2</Form>
+            <Form>formLogin</Form>
             <FormType>fmx</FormType>
         </DCCReference>
         <BuildConfiguration Include="Base">

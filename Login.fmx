@@ -1,9 +1,11 @@
-object Form2: TForm2
+object formLogin: TformLogin
   Left = 0
   Top = 0
-  Caption = 'Form2'
+  Caption = 'Login'
   ClientHeight = 155
   ClientWidth = 212
+  Position = DesktopCenter
+  Visible = True
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
@@ -34,15 +36,15 @@ object Form2: TForm2
     Position.Y = 63.000000000000000000
   end
   object btnIngresar: TButton
-    Enabled = False
     Position.X = 72.000000000000000000
     Position.Y = 109.000000000000000000
     TabOrder = 3
-    Text = 'Ingresar'
+    Text = 'Autenticarse'
+    OnClick = btnIngresarClick
   end
-  object ComboEdit1: TComboEdit
+  object ComboEditUser: TComboEdit
     Touch.InteractiveGestures = [LongTap, DoubleTap]
-    TabOrder = 5
+    TabOrder = 4
     ItemHeight = 19.000000000000000000
     ItemIndex = -1
     Position.X = 89.000000000000000000

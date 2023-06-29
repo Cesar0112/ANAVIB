@@ -4,14 +4,14 @@ interface
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes,
-  System.Variants, Configuracion,
+  System.Variants, Configuracion, Login,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Menus,
   FMX.ExtCtrls, FMX.Controls.Presentation, FMX.StdCtrls, FMXTee.Engine,
   FMXTee.Procs, FMXTee.Chart, FMX.Controls3D, FMXTee.Chart3D, FMXTee.Series;
 
 type
 
-  TForm1 = class(TForm)
+  TformPrincipal = class(TForm)
     mainMenu: TMainMenu;
     opcionRuta: TMenuItem;
     opcionSalir: TMenuItem;
@@ -48,6 +48,7 @@ type
     procedure opcionSalirClick(Sender: TObject);
     procedure btnMostrarClick(Sender: TObject);
     procedure opcFrecuenciaMuestreoClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
 
   private
     { Private declarations }
@@ -59,14 +60,14 @@ type
 function CalcularVRMS(const valoresSenial: array of Double): Double;
 
 var
-  Form1: TForm1;
+  formPrincipal: TformPrincipal;
   ventanaConfiguracion: TformConfiguracion;
 
 implementation
 
 {$R *.fmx}
 
-procedure TForm1.btnMostrarClick(Sender: TObject);
+procedure TformPrincipal.btnMostrarClick(Sender: TObject);
 var
   i: Integer;
   x, y: Double;
@@ -83,13 +84,34 @@ begin
   end;
 end;
 
-procedure TForm1.opcFrecuenciaMuestreoClick(Sender: TObject);
+procedure MostrarLogin();
+var
+  ventanaLogin: TformLogin;
+begin
+  ventanaLogin := TformLogin.Create(Nil);
+  ventanaLogin.Show;
+  // mientras no se halla autenticado correctamente no hagas mas nada
+  while (not ventanaLogin.isValido) do
+  begin
+
+  end;
+  // mientras no sea valido quedate en este bucle
+  ventanaLogin.Free; // libera memoria
+end;
+
+procedure TformPrincipal.FormCreate(Sender: TObject);
+begin
+  MostrarLogin;
+end;
+
+procedure TformPrincipal.opcFrecuenciaMuestreoClick(Sender: TObject);
 begin
   ventanaConfiguracion := TformConfiguracion.Create(Self);
   ventanaConfiguracion.Show;
+
 end;
 
-procedure TForm1.opcionSalirClick(Sender: TObject);
+procedure TformPrincipal.opcionSalirClick(Sender: TObject);
 begin
   close;
 end;
