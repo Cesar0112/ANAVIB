@@ -7,7 +7,8 @@ uses
   System.Variants, Configuracion, Login,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Menus,
   FMX.ExtCtrls, FMX.Controls.Presentation, FMX.StdCtrls, FMXTee.Engine,
-  FMXTee.Procs, FMXTee.Chart, FMX.Controls3D, FMXTee.Chart3D, FMXTee.Series;
+  FMXTee.Procs, FMXTee.Chart, FMX.Controls3D, FMXTee.Chart3D, FMXTee.Series,
+  Data.DB, Data.SqlExpr, Data.DbxSqlite;
 
 type
 
@@ -25,7 +26,7 @@ type
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
     MenuItem7: TMenuItem;
-    btnMostrar: TButton;
+    btnPlayPausa: TButton;
     btnCongelar: TButton;
     graficoSenial: TChart;
     Series1: TFastLineSeries;
@@ -43,12 +44,14 @@ type
     graficoEspectro: TChart;
     FastLineSeries1: TFastLineSeries;
     panelPrincipal: TPanel;
-    opcFrecuenciaMuestreo: TMenuItem;
+    Timer1: TTimer;
 
     procedure opcionSalirClick(Sender: TObject);
-    procedure btnMostrarClick(Sender: TObject);
+    procedure btnPlayPausaClick(Sender: TObject);
     procedure opcFrecuenciaMuestreoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+    procedure FormShow(Sender: TObject);
 
   private
     { Private declarations }
@@ -59,31 +62,38 @@ type
   { A esta funcion se le pasa un arreglo de amplitudes que son de tipo Double }
 function CalcularVRMS(const valoresSenial: array of Double): Double;
 function MostrarLogin(): Boolean;
+function generarValorALeatorio(): Double;
 
 var
   formPrincipal: TformPrincipal;
   ventanaConfiguracion: TformConfiguracion;
   ventanaLogin: TformLogin;
+  FrecMuestreo: Integer; // en milisegundos
+  isPlay: Boolean;
+  xAnt: Integer;
 
 implementation
 
 {$R *.fmx}
 
-procedure TformPrincipal.btnMostrarClick(Sender: TObject);
+procedure TformPrincipal.btnPlayPausaClick(Sender: TObject);
 var
   i: Integer;
   x, y: Double;
+  Pausa: String;
+  Play: String;
 begin
-  graficoSenial.Series[0].Clear; // Limpia los datos previos del gráfico
 
-  for i := 0 to 1000 do // Genera los datos de la función de señal
-  begin
-    x := i / 100; // Valores de x
-    // Calcula el valor de y para la función de señal (en este caso, seno)
-    y := Sin(x);
+  // establesco el intervalo de cambio de reloj con la configuracion
+  Timer1.Interval := FrecMuestreo;
+  Pausa:='Pausa';
+  Play:='Play';
+  if btnPlayPausa.Text = Pausa then
+    btnPlayPausa.Text:= Play
+  else
+    btnPlayPausa.Text := Pausa;
 
-    graficoSenial.Series[0].AddXY(x, y); // Agrega los puntos al gráfico
-  end;
+  Timer1.Enabled := not Timer1.Enabled; // cambia el estado del reloj
 end;
 
 function MostrarLogin(): Boolean;
@@ -105,10 +115,26 @@ end;
 
 procedure TformPrincipal.FormCreate(Sender: TObject);
 begin
+  FrecMuestreo := 10; // milisegundos
+  graficoSenial.Series[0].Clear; // Limpia los datos previos del gráfico
   Visible := False;
+  xAnt := 0; // inicializa en 0 pq el tiempo empieza en 0
+  {
+    isPlay inicializa en false ya que inicia la aplicacion y no se ha corrido
+    nunca el mostrar grafico
+
+  }
+  isPlay := False;
 
   if MostrarLogin then
     Visible := True;
+end;
+
+procedure TformPrincipal.FormShow(Sender: TObject);
+begin
+  Timer1.Interval := FrecMuestreo;
+  Timer1.Enabled := True;
+
 end;
 
 procedure TformPrincipal.opcFrecuenciaMuestreoClick(Sender: TObject);
@@ -121,6 +147,19 @@ end;
 procedure TformPrincipal.opcionSalirClick(Sender: TObject);
 begin
   close;
+end;
+
+procedure TformPrincipal.Timer1Timer(Sender: TObject);
+var
+  x: Double;
+begin
+  {
+    Cada vez que marque un intervalo refresca el grafico
+  }
+
+  x := (xAnt + FrecMuestreo) / 1000;
+  xAnt := xAnt + FrecMuestreo;
+  graficoSenial.Series[0].AddXY(x, generarValorALeatorio());
 end;
 
 function CalcularVRMS(const valoresSenial: array of Double): Double;
@@ -176,6 +215,24 @@ begin
       minimo := valoresSenial[i];
   end;
   Result := minimo;
+end;
+
+function generarValorALeatorio(): Double;
+var
+  i: Integer;
+  yTmp1, yTmp2, SbFreq1, y: Double;
+
+begin
+  Randomize; // inicializo el motor de aleatoridad
+
+  SbFreq1 := Random(100) + 1;
+  yTmp1 := 100 - SbFreq1;
+  SbFreq1 := Random(100) + 1;
+  yTmp2 := 100 - SbFreq1;
+  y := 100 * (Sin(0.01 * i * (yTmp1)) + 0.05 * (Random(Trunc(yTmp2)) - 0.05 *
+    (yTmp2)));
+  Result := y;
+
 end;
 
 end.
