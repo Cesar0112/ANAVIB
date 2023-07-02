@@ -5,7 +5,7 @@
         <FrameworkType>FMX</FrameworkType>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
-        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <Platform Condition="'$(Platform)'==''">Android64</Platform>
         <TargetedPlatforms>693395</TargetedPlatforms>
         <AppType>Application</AppType>
         <MainSource>ANAVIB.dpr</MainSource>
@@ -290,6 +290,10 @@
         </DCCReference>
         <DCCReference Include="Login.pas">
             <Form>formLogin</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="Analisis.pas">
+            <Form>AnalisisTendenciario</Form>
             <FormType>fmx</FormType>
         </DCCReference>
         <None Include="ModelSupport_ANAVIB\default.txaPackage"/>
