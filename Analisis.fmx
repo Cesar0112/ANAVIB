@@ -9,6 +9,7 @@ object AnalisisTendenciario: TAnalisisTendenciario
   FormFactor.Devices = [Desktop]
   DesignerMasterStyle = 0
   object Chart1: TChart
+    Position.Y = 24.000000000000000000
     Foot.Font.StyleExt = {00040000000200000004000000}
     Legend.Title.Font.StyleExt = {00070000000000000004000000}
     SubFoot.Font.StyleExt = {00040000000200000004000000}
@@ -32,24 +33,26 @@ object AnalisisTendenciario: TAnalisisTendenciario
       YValues.Order = loNone
     end
   end
-  object MainMenu1: TMainMenu
-    Left = 600
-    Top = 160
-    object MenuItem1: TMenuItem
+  object MenuBar1: TMenuBar
+    Size.Width = 657.000000000000000000
+    Size.Height = 24.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    object opciones: TMenuItem
       Text = 'Opciones'
-      object MenuItem2: TMenuItem
+      object Diario: TMenuItem
         Locked = True
         Text = 'Diario'
       end
-      object MenuItem3: TMenuItem
+      object Semanal: TMenuItem
         Locked = True
         Text = 'Semanal'
       end
-      object MenuItem4: TMenuItem
+      object Mensual: TMenuItem
         Locked = True
         Text = 'Mensual'
       end
-      object MenuItem5: TMenuItem
+      object Anual: TMenuItem
         Locked = True
         Text = 'Anual'
       end

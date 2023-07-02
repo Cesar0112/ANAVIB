@@ -23,7 +23,7 @@
         android:persistent="False"
         android:restoreAnyVersion="False"
         android:label="ANAVIB"
-        android:debuggable="true"
+        android:debuggable="false"
         android:largeHeap="False"
         android:icon="@drawable/ic_launcher"
         android:theme="@style/AppTheme"

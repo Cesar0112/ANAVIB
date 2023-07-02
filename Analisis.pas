@@ -10,13 +10,13 @@ uses
 type
   TAnalisisTendenciario = class(TForm)
     Chart1: TChart;
-    MainMenu1: TMainMenu;
-    MenuItem1: TMenuItem;
-    MenuItem2: TMenuItem;
-    MenuItem3: TMenuItem;
-    MenuItem4: TMenuItem;
-    MenuItem5: TMenuItem;
     Series1: TFastLineSeries;
+    MenuBar1: TMenuBar;
+    opciones: TMenuItem;
+    Diario: TMenuItem;
+    Semanal: TMenuItem;
+    Mensual: TMenuItem;
+    Anual: TMenuItem;
   private
     { Private declarations }
   public

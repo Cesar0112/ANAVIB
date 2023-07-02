@@ -32,26 +32,7 @@
     end
     object opcionAnalisisTendencia: TMenuItem
       Text = 'An'#225'lisis de tendencia'
-      object MenuItem1: TMenuItem
-        Locked = True
-        Text = 'RMS'
-      end
-      object MenuItem2: TMenuItem
-        Locked = True
-        Text = 'Picos'
-        object MenuItem3: TMenuItem
-          Locked = True
-          Text = 'M'#225'ximo'
-        end
-        object MenuItem4: TMenuItem
-          Locked = True
-          Text = 'M'#237'nimo'
-        end
-      end
-      object MenuItem5: TMenuItem
-        Locked = True
-        Text = 'Valor de Pico a Pico'
-      end
+      OnClick = opcionAnalisisTendenciaClick
     end
     object Configuración: TMenuItem
       Text = 'Configuraci'#243'n'

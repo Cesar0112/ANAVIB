@@ -4,15 +4,14 @@ interface
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes,
-  System.Variants, Configuracion, Login,
+  System.Variants, Configuracion, Login, Analisis,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Menus,
   FMX.ExtCtrls, FMX.Controls.Presentation, FMX.StdCtrls, FMXTee.Engine,
   FMXTee.Procs, FMXTee.Chart, FMX.Controls3D, FMXTee.Chart3D, FMXTee.Series,
   Data.DB, Data.SqlExpr, Data.DbxSqlite;
 
 type
-  ArrayOfDouble= array of Double;
-
+  ArrayOfDouble = array of Double;
 
   TformPrincipal = class(TForm)
     mainMenu: TMainMenu;
@@ -21,11 +20,6 @@ type
     opcionRutaVer: TMenuItem;
     Configuración: TMenuItem;
     opcionAnalisisTendencia: TMenuItem;
-    MenuItem1: TMenuItem;
-    MenuItem2: TMenuItem;
-    MenuItem3: TMenuItem;
-    MenuItem4: TMenuItem;
-    MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
     MenuItem7: TMenuItem;
     btnPlayPausa: TButton;
@@ -53,6 +47,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure opcionAnalisisTendenciaClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -70,6 +65,7 @@ function ValueListToArrayOfDouble(ValueList: TChartValueList): ArrayOfDouble;
 var
   formPrincipal: TformPrincipal;
   ventanaConfiguracion: TformConfiguracion;
+  ventanaAnalisis:TAnalisisTendenciario;
   ventanaLogin: TformLogin;
   FrecMuestreo: Integer; // en milisegundos
   isPlay: Boolean;
@@ -147,6 +143,12 @@ begin
 
 end;
 
+procedure TformPrincipal.opcionAnalisisTendenciaClick(Sender: TObject);
+begin
+  ventanaAnalisis := TAnalisisTendenciario.Create(Self);
+  ventanaAnalisis.Show;
+end;
+
 procedure TformPrincipal.opcionSalirClick(Sender: TObject);
 begin
   close;
@@ -174,11 +176,12 @@ begin
   picoMax := graficoSenial.Series[0].MaxYValue;
   picoMin := graficoSenial.Series[0].MinYValue;
   difPicos := picoMax - picoMin;
-  RMS := CalcularVRMS(ValueListToArrayOfDouble(graficoSenial.Series[0].YValues));
+  RMS := CalcularVRMS(ValueListToArrayOfDouble(graficoSenial.Series[0]
+    .YValues));
   lblMuestraValorPicoMaximo.Text := floatToStr(picoMax);
   lblMuestraValorPicoMinimo.Text := floatToStr(picoMin);
   lblMuestraValorDePicoPico.Text := floatToStr(difPicos);
-  lblMuestraValorRMS.Text:= floatToStr(RMS);
+  lblMuestraValorRMS.Text := floatToStr(RMS);
 end;
 
 function CalcularVRMS(const valoresSenial: ArrayOfDouble): Double;
@@ -257,15 +260,15 @@ end;
 {
   Funcion que convierte un TChartValueList a TDoubleDynArray
 }
-function ValueListToArrayOfDouble(ValueList: TChartValueList): ArrayOfDouble ;
+function ValueListToArrayOfDouble(ValueList: TChartValueList): ArrayOfDouble;
 var
   ValueArrayOfDouble: ArrayOfDouble;
   i: Integer;
 begin
-  SetLength(ValueArrayOfDouble,ValueList.Count);
+  SetLength(ValueArrayOfDouble, ValueList.Count);
   for i := 0 to ValueList.Count - 1 do
   begin
-    ValueArrayOfDouble[i]:=ValueList[i];
+    ValueArrayOfDouble[i] := ValueList[i];
   end;
 
   Result := ValueArrayOfDouble;
