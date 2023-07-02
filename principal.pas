@@ -11,6 +11,8 @@ uses
   Data.DB, Data.SqlExpr, Data.DbxSqlite;
 
 type
+  ArrayOfDouble= array of Double;
+
 
   TformPrincipal = class(TForm)
     mainMenu: TMainMenu;
@@ -27,7 +29,6 @@ type
     MenuItem6: TMenuItem;
     MenuItem7: TMenuItem;
     btnPlayPausa: TButton;
-    btnCongelar: TButton;
     graficoSenial: TChart;
     Series1: TFastLineSeries;
     lblPicoMax: TLabel;
@@ -57,12 +58,14 @@ type
     { Private declarations }
   public
     { Public declarations }
+    x: Double;
   end;
 
   { A esta funcion se le pasa un arreglo de amplitudes que son de tipo Double }
-function CalcularVRMS(const valoresSenial: array of Double): Double;
+function CalcularVRMS(const valoresSenial: ArrayOfDouble): Double;
 function MostrarLogin(): Boolean;
 function generarValorALeatorio(): Double;
+function ValueListToArrayOfDouble(ValueList: TChartValueList): ArrayOfDouble;
 
 var
   formPrincipal: TformPrincipal;
@@ -79,17 +82,16 @@ implementation
 procedure TformPrincipal.btnPlayPausaClick(Sender: TObject);
 var
   i: Integer;
-  x, y: Double;
   Pausa: String;
   Play: String;
 begin
 
   // establesco el intervalo de cambio de reloj con la configuracion
   Timer1.Interval := FrecMuestreo;
-  Pausa:='Pausa';
-  Play:='Play';
+  Pausa := 'Pausa';
+  Play := 'Play';
   if btnPlayPausa.Text = Pausa then
-    btnPlayPausa.Text:= Play
+    btnPlayPausa.Text := Play
   else
     btnPlayPausa.Text := Pausa;
 
@@ -119,6 +121,7 @@ begin
   graficoSenial.Series[0].Clear; // Limpia los datos previos del gráfico
   Visible := False;
   xAnt := 0; // inicializa en 0 pq el tiempo empieza en 0
+  x := 0; // inicializa en 0 pq el tiempo empieza en 0
   {
     isPlay inicializa en false ya que inicia la aplicacion y no se ha corrido
     nunca el mostrar grafico
@@ -151,18 +154,34 @@ end;
 
 procedure TformPrincipal.Timer1Timer(Sender: TObject);
 var
-  x: Double;
+  y, picoMax, picoMin, difPicos, RMS: Double;
+
 begin
   {
-    Cada vez que marque un intervalo refresca el grafico
+    Cada vez que marque un intervalo refresca el grafico agrgando un valor
+    aleatorio de señal
+    Ademas de:
+    1- Calcular el valor del pico maximo
+    2- Calcular el valor del pico mínimo
   }
 
+  // generacion del grafico de señal
+  y := generarValorALeatorio();
+  graficoSenial.Series[0].AddXY(x, y);
   x := (xAnt + FrecMuestreo) / 1000;
   xAnt := xAnt + FrecMuestreo;
-  graficoSenial.Series[0].AddXY(x, generarValorALeatorio());
+  /// /////////////////////////////
+  picoMax := graficoSenial.Series[0].MaxYValue;
+  picoMin := graficoSenial.Series[0].MinYValue;
+  difPicos := picoMax - picoMin;
+  RMS := CalcularVRMS(ValueListToArrayOfDouble(graficoSenial.Series[0].YValues));
+  lblMuestraValorPicoMaximo.Text := floatToStr(picoMax);
+  lblMuestraValorPicoMinimo.Text := floatToStr(picoMin);
+  lblMuestraValorDePicoPico.Text := floatToStr(difPicos);
+  lblMuestraValorRMS.Text:= floatToStr(RMS);
 end;
 
-function CalcularVRMS(const valoresSenial: array of Double): Double;
+function CalcularVRMS(const valoresSenial: ArrayOfDouble): Double;
 var
   i, N: Integer; // N tamanio del arreglo
   sumatoria, VRMS: Double;
@@ -233,6 +252,23 @@ begin
     (yTmp2)));
   Result := y;
 
+end;
+
+{
+  Funcion que convierte un TChartValueList a TDoubleDynArray
+}
+function ValueListToArrayOfDouble(ValueList: TChartValueList): ArrayOfDouble ;
+var
+  ValueArrayOfDouble: ArrayOfDouble;
+  i: Integer;
+begin
+  SetLength(ValueArrayOfDouble,ValueList.Count);
+  for i := 0 to ValueList.Count - 1 do
+  begin
+    ValueArrayOfDouble[i]:=ValueList[i];
+  end;
+
+  Result := ValueArrayOfDouble;
 end;
 
 end.

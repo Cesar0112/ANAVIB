@@ -111,18 +111,12 @@
     end
     object comandosGrafico: TGroupBox
       Position.X = 576.000000000000000000
-      Position.Y = 209.000000000000000000
+      Position.Y = 201.000000000000000000
       Size.Width = 137.000000000000000000
-      Size.Height = 176.000000000000000000
+      Size.Height = 88.000000000000000000
       Size.PlatformDefault = False
       Text = 'Comandos'
       TabOrder = 4
-      object btnCongelar: TButton
-        Position.X = 24.000000000000000000
-        Position.Y = 52.000000000000000000
-        TabOrder = 7
-        Text = 'Congelar'
-      end
       object btnPlayPausa: TButton
         Position.X = 24.000000000000000000
         Position.Y = 22.000000000000000000
@@ -132,8 +126,8 @@
       end
       object btnRegistrar: TButton
         Position.X = 24.000000000000000000
-        Position.Y = 82.000000000000000000
-        TabOrder = 38
+        Position.Y = 52.000000000000000000
+        TabOrder = 36
         Text = 'Registrar'
       end
     end
@@ -185,7 +179,7 @@
       Position.X = 576.000000000000000000
       Position.Y = 20.000000000000000000
       Size.Width = 177.000000000000000000
-      Size.Height = 181.000000000000000000
+      Size.Height = 157.000000000000000000
       Size.PlatformDefault = False
       Text = 'Valores globales'
       TabOrder = 2
@@ -246,7 +240,7 @@
       object lblMuestraValorPicoMinimo: TLabel
         Position.X = 135.000000000000000000
         Position.Y = 98.000000000000000000
-        Size.Width = 57.000000000000000000
+        Size.Width = 34.000000000000000000
         Size.Height = 17.000000000000000000
         Size.PlatformDefault = False
         Text = '*****'
@@ -255,7 +249,7 @@
       object lblMuestraValorDePicoPico: TLabel
         Position.X = 135.000000000000000000
         Position.Y = 122.000000000000000000
-        Size.Width = 57.000000000000000000
+        Size.Width = 34.000000000000000000
         Size.Height = 16.000000000000000000
         Size.PlatformDefault = False
         Text = '*****'
@@ -264,6 +258,7 @@
     end
   end
   object Timer1: TTimer
+    Enabled = False
     OnTimer = Timer1Timer
     Left = 592
     Top = 385
