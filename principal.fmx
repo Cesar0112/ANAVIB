@@ -12,43 +12,34 @@
   OnCreate = FormCreate
   OnShow = FormShow
   DesignerMasterStyle = 0
-  object mainMenu: TMainMenu
-    Left = 496
-    Top = 232
-    object opcionRuta: TMenuItem
-      Text = '&Ruta'
-      object opcionRutaVer: TMenuItem
-        Locked = True
-        Text = 'Manipular'
-      end
-      object MenuItem6: TMenuItem
-        Locked = True
-        Text = 'Importar'
-      end
-      object MenuItem7: TMenuItem
-        Locked = True
-        Text = 'Exportar'
-      end
-    end
-    object opcionAnalisisTendencia: TMenuItem
-      Text = 'An'#225'lisis de tendencia'
-      OnClick = opcionAnalisisTendenciaClick
-    end
-    object Configuración: TMenuItem
-      Text = 'Configuraci'#243'n'
-      OnClick = ConfiguraciónClick
-    end
-    object opcionSalir: TMenuItem
-      Text = '&Salir'
-      OnClick = opcionSalirClick
-    end
-  end
   object panelPrincipal: TPanel
     Align = Client
     Size.Width = 1528.000000000000000000
     Size.Height = 468.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 1
+    object comandosGrafico: TGroupBox
+      Position.X = 576.000000000000000000
+      Position.Y = 201.000000000000000000
+      Size.Width = 137.000000000000000000
+      Size.Height = 88.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Comandos'
+      TabOrder = 3
+      object btnPlayPausa: TButton
+        Position.X = 24.000000000000000000
+        Position.Y = 22.000000000000000000
+        TabOrder = 6
+        Text = 'Pausa'
+        OnClick = btnPlayPausaClick
+      end
+      object btnRegistrar: TButton
+        Position.X = 24.000000000000000000
+        Position.Y = 52.000000000000000000
+        TabOrder = 36
+        Text = 'Registrar'
+      end
+    end
     object graficoEspectro: TChart
       Position.X = 776.000000000000000000
       Position.Y = 8.000000000000000000
@@ -89,28 +80,6 @@
         XValues.Order = loAscending
         YValues.Name = 'Y'
         YValues.Order = loNone
-      end
-    end
-    object comandosGrafico: TGroupBox
-      Position.X = 576.000000000000000000
-      Position.Y = 201.000000000000000000
-      Size.Width = 137.000000000000000000
-      Size.Height = 88.000000000000000000
-      Size.PlatformDefault = False
-      Text = 'Comandos'
-      TabOrder = 4
-      object btnPlayPausa: TButton
-        Position.X = 24.000000000000000000
-        Position.Y = 22.000000000000000000
-        TabOrder = 6
-        Text = 'Pausa'
-        OnClick = btnPlayPausaClick
-      end
-      object btnRegistrar: TButton
-        Position.X = 24.000000000000000000
-        Position.Y = 52.000000000000000000
-        TabOrder = 36
-        Text = 'Registrar'
       end
     end
     object graficoSenial: TChart
@@ -208,7 +177,7 @@
         Size.Height = 17.000000000000000000
         Size.PlatformDefault = False
         Text = '*****        '
-        TabOrder = 36
+        TabOrder = 35
       end
       object lblMuestraValorPicoMaximo: TLabel
         Position.X = 135.000000000000000000
@@ -235,14 +204,45 @@
         Size.Height = 16.000000000000000000
         Size.PlatformDefault = False
         Text = '*****'
-        TabOrder = 42
+        TabOrder = 43
       end
     end
-  end
-  object Timer1: TTimer
-    Enabled = False
-    OnTimer = Timer1Timer
-    Left = 592
-    Top = 385
+    object Timer1: TTimer
+      Enabled = False
+      OnTimer = Timer1Timer
+      Left = 592
+      Top = 385
+    end
+    object mainMenu: TMainMenu
+      Left = 496
+      Top = 232
+      object opcionRuta: TMenuItem
+        Text = '&Ruta'
+        object opcionRutaVer: TMenuItem
+          Locked = True
+          Text = 'Manipular'
+        end
+        object MenuItem6: TMenuItem
+          Locked = True
+          Text = 'Importar'
+        end
+        object MenuItem7: TMenuItem
+          Locked = True
+          Text = 'Exportar'
+        end
+      end
+      object opcionAnalisisTendencia: TMenuItem
+        Text = 'An'#225'lisis de tendencia'
+        OnClick = opcionAnalisisTendenciaClick
+      end
+      object Configuración: TMenuItem
+        Text = 'Configuraci'#243'n'
+        OnClick = ConfiguraciónClick
+      end
+      object opcionSalir: TMenuItem
+        Text = '&Salir'
+        OnClick = opcionSalirClick
+      end
+    end
   end
 end

@@ -8,7 +8,7 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Menus,
   FMX.ExtCtrls, FMX.Controls.Presentation, FMX.StdCtrls, FMXTee.Engine,
   FMXTee.Procs, FMXTee.Chart, FMX.Controls3D, FMXTee.Chart3D, FMXTee.Series,
-  Data.DB, Data.SqlExpr, Data.DbxSqlite;
+  Data.DB, Data.SqlExpr, Data.DbxSqlite, FMX.Layouts;
 
 type
   ArrayOfDouble = array of Double;
@@ -114,7 +114,8 @@ end;
 
 procedure TformPrincipal.ConfiguraciónClick(Sender: TObject);
 begin
-     ventanaConfiguracion:
+     ventanaConfiguracion:= TformConfiguracion.Create(Nil);
+     ventanaConfiguracion.Show;
 end;
 
 procedure TformPrincipal.FormCreate(Sender: TObject);
@@ -133,6 +134,8 @@ begin
 
   if MostrarLogin then
     Visible := True;
+
+
 end;
 
 procedure TformPrincipal.FormShow(Sender: TObject);
