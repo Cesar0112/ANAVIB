@@ -48,6 +48,7 @@ type
     procedure Timer1Timer(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure opcionAnalisisTendenciaClick(Sender: TObject);
+    procedure ConfiguraciónClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -109,6 +110,11 @@ begin
 
   if ventanaLogin.isValido then
     Result := True;
+end;
+
+procedure TformPrincipal.ConfiguraciónClick(Sender: TObject);
+begin
+     ventanaConfiguracion:
 end;
 
 procedure TformPrincipal.FormCreate(Sender: TObject);

@@ -36,6 +36,7 @@
     end
     object Configuración: TMenuItem
       Text = 'Configuraci'#243'n'
+      OnClick = ConfiguraciónClick
     end
     object opcionSalir: TMenuItem
       Text = '&Salir'

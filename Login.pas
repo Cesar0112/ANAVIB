@@ -58,7 +58,7 @@ end;
 procedure TformLogin.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   if not isValido then
-    Close;
+    Halt;//cierra la aplicación
 end;
 
 end.
