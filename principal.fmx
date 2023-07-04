@@ -245,4 +245,19 @@
       end
     end
   end
+  object ZConnection1: TZConnection
+    ControlsCodePage = cCP_UTF16
+    Catalog = ''
+    Properties.Strings = (
+      'controls_cp=CP_UTF16')
+    HostName = ''
+    Port = 0
+    Database = 'C:\Users\C'#233'sar\Documents\GitHub\ANAVIB\mydatabase.db'
+    User = ''
+    Password = ''
+    Protocol = ''
+    LibraryLocation = 'C:\Users\C'#233'sar\Documents\GitHub\ANAVIB\sqlite3.dll'
+    Left = 688
+    Top = 336
+  end
 end

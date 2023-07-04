@@ -8,7 +8,8 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Menus,
   FMX.ExtCtrls, FMX.Controls.Presentation, FMX.StdCtrls, FMXTee.Engine,
   FMXTee.Procs, FMXTee.Chart, FMX.Controls3D, FMXTee.Chart3D, FMXTee.Series,
-  Data.DB, Data.SqlExpr, Data.DbxSqlite, FMX.Layouts;
+  Data.DB, Data.SqlExpr, Data.DbxSqlite, FMX.Layouts, ZAbstractConnection,
+  ZConnection;
 
 type
   ArrayOfDouble = array of Double;
@@ -40,6 +41,7 @@ type
     FastLineSeries1: TFastLineSeries;
     panelPrincipal: TPanel;
     Timer1: TTimer;
+    ZConnection1: TZConnection;
 
     procedure opcionSalirClick(Sender: TObject);
     procedure btnPlayPausaClick(Sender: TObject);
