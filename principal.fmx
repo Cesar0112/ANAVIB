@@ -255,7 +255,7 @@
     Database = 'C:\Users\C'#233'sar\Documents\GitHub\ANAVIB\mydatabase.db'
     User = ''
     Password = ''
-    Protocol = ''
+    Protocol = 'sqlite-3'
     LibraryLocation = 'C:\Users\C'#233'sar\Documents\GitHub\ANAVIB\sqlite3.dll'
     Left = 688
     Top = 336

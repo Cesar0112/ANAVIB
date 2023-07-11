@@ -68,7 +68,7 @@ function ValueListToArrayOfDouble(ValueList: TChartValueList): ArrayOfDouble;
 var
   formPrincipal: TformPrincipal;
   ventanaConfiguracion: TformConfiguracion;
-  ventanaAnalisis:TAnalisisTendenciario;
+  ventanaAnalisis: TAnalisisTendenciario;
   ventanaLogin: TformLogin;
   FrecMuestreo: Integer; // en milisegundos
   isPlay: Boolean;
@@ -116,8 +116,8 @@ end;
 
 procedure TformPrincipal.ConfiguraciónClick(Sender: TObject);
 begin
-     ventanaConfiguracion:= TformConfiguracion.Create(Nil);
-     ventanaConfiguracion.Show;
+  ventanaConfiguracion := TformConfiguracion.Create(Nil);
+  ventanaConfiguracion.Show;
 end;
 
 procedure TformPrincipal.FormCreate(Sender: TObject);
@@ -137,14 +137,19 @@ begin
   if MostrarLogin then
     Visible := True;
 
-
 end;
 
 procedure TformPrincipal.FormShow(Sender: TObject);
 begin
   Timer1.Interval := FrecMuestreo;
   Timer1.Enabled := True;
+  ZConnection1 := TZConnection.Create(nil); // creada la conexion
+  ZConnection1.Connect; // conectarse a la base de datos
 
+  if ZConnection1.Connected then
+    ShowMessage('Conexion exitosa')
+    else
+    ShowMessage('Conexion no exitosa');
 end;
 
 procedure TformPrincipal.opcFrecuenciaMuestreoClick(Sender: TObject);
