@@ -83,8 +83,8 @@
       end
     end
     object graficoSenial: TChart
-      Position.X = 8.000000000000000000
-      Position.Y = 8.000000000000000000
+      Position.X = 6.000000000000000000
+      Position.Y = 5.000000000000000000
       Foot.Font.StyleExt = {00040000000200000004000000}
       Legend.Alignment = laBottom
       Legend.CheckBoxes = True
