@@ -56,14 +56,14 @@ object formUsuarios: TformUsuarios
     Size.Width = 100.000000000000000000
     Size.Height = 22.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 6
+    TabOrder = 7
     Text = 'Crear'
     OnClick = btnCrearUsuarioClick
   end
   object ComboBoxUsuarios: TComboBox
     Position.X = 356.000000000000000000
     Position.Y = 14.000000000000000000
-    TabOrder = 7
+    TabOrder = 8
   end
   object Label3: TLabel
     Position.X = 295.000000000000000000
@@ -74,10 +74,47 @@ object formUsuarios: TformUsuarios
     Text = 'Usuarios'
     TabOrder = 0
   end
+  object btnEliminar: TButton
+    Position.X = 249.000000000000000000
+    Position.Y = 88.000000000000000000
+    Size.Width = 80.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 6
+    Text = 'Eliminar'
+    OnClick = btnEliminarClick
+  end
+  object btnEditar: TButton
+    Position.X = 359.000000000000000000
+    Position.Y = 88.000000000000000000
+    Size.Width = 97.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 9
+    Text = 'Editar'
+    OnClick = btnEditarClick
+  end
+  object btnCancelarEdicion: TButton
+    Position.X = 359.000000000000000000
+    Position.Y = 58.000000000000000000
+    Size.Width = 97.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 10
+    Text = 'Cancelar Edici'#243'n'
+    Visible = False
+    OnClick = btnCancelarEdicionClick
+  end
   object ZReadOnlyQuery1: TZReadOnlyQuery
     Connection = formPrincipal.ZConnection1
     Params = <>
     Left = 376
+    Top = 80
+  end
+  object ZQuery1: TZQuery
+    Connection = formPrincipal.ZConnection1
+    Params = <>
+    Left = 280
     Top = 80
   end
 end

@@ -8,7 +8,8 @@ uses
   Configuracion in 'Configuracion.pas' {formConfiguracion},
   Analisis in 'Analisis.pas' {AnalisisTendenciario},
   Rutas in 'Rutas.pas' {ventanaRutas},
-  Usuarios in 'Usuarios.pas' {formUsuarios};
+  Usuarios in 'Usuarios.pas' {formUsuarios},
+  Seguridad in 'Seguridad.pas';
 
 //ConexionDB in 'ConexionDB.pas' {DM: TDataModule};
 

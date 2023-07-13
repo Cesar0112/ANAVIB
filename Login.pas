@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes,
-  System.Variants, principal, UASUtilesDB,
+  System.Variants, principal, UASUtilesDB,Seguridad,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Edit,
   FMX.ListBox, FMX.Controls.Presentation, FMX.StdCtrls, FMX.ComboEdit, Data.DB,
   ZAbstractRODataset, ZDataset, ZAbstractConnection, ZConnection,
@@ -50,7 +50,7 @@ implementation
 
 procedure TformLogin.btnIngresarClick(Sender: TObject);
 var
-  usuario: String;
+  
   contrasenia: String;
 begin
   // comprobacion para ver si es correcta la contraseña

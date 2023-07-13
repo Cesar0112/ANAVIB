@@ -217,21 +217,30 @@
     end
     object mainMenu: TMainMenu
       Left = 496
-      Top = 232
-      object opcionRuta: TMenuItem
-        Text = '&Ruta'
-        object opcionRutaVer: TMenuItem
+      Top = 216
+      object opcGestion: TMenuItem
+        Text = 'Gesti'#243'n'
+        object opcionRuta: TMenuItem
           Locked = True
-          Text = 'Manipular'
-          OnClick = opcionRutaVerClick
+          Text = '&Rutas'
+          object opcionRutaVer: TMenuItem
+            Locked = True
+            Text = 'Manipular'
+            OnClick = opcionRutaVerClick
+          end
+          object MenuItem6: TMenuItem
+            Locked = True
+            Text = 'Importar'
+          end
+          object MenuItem7: TMenuItem
+            Locked = True
+            Text = 'Exportar'
+          end
         end
-        object MenuItem6: TMenuItem
+        object opcUsuarios: TMenuItem
           Locked = True
-          Text = 'Importar'
-        end
-        object MenuItem7: TMenuItem
-          Locked = True
-          Text = 'Exportar'
+          Text = 'Usuarios'
+          OnClick = opcUsuariosClick
         end
       end
       object opcionAnalisisTendencia: TMenuItem
@@ -241,9 +250,6 @@
       object Configuración: TMenuItem
         Text = 'Configuraci'#243'n'
         OnClick = ConfiguraciónClick
-      end
-      object Usuarios: TMenuItem
-        Text = 'Usuarios'
       end
       object opcionSalir: TMenuItem
         Text = '&Salir'

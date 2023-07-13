@@ -313,6 +313,7 @@
             <Form>formUsuarios</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="Seguridad.pas"/>
         <None Include="ModelSupport_ANAVIB\default.txaPackage"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>

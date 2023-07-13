@@ -4,8 +4,8 @@ interface
 
 uses
   System.SysUtils, Hash, System.Types,
-  System.UITypes, System.Classes, DateUtils,
-  System.Variants, Configuracion, Analisis, Rutas, UASUtilesDB,
+  System.UITypes, System.Classes, DateUtils, Seguridad,
+  System.Variants, Configuracion, Analisis, Rutas, UASUtilesDB, Usuarios,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Menus,
   FMX.ExtCtrls, FMX.Controls.Presentation, FMX.StdCtrls, FMXTee.Engine,
   FMXTee.Procs, FMXTee.Chart, FMX.Controls3D, FMXTee.Chart3D, FMXTee.Series,
@@ -44,7 +44,8 @@ type
     Timer1: TTimer;
     ZQuery1: TZQuery;
     ZConnection1: TZConnection;
-    Usuarios: TMenuItem;
+    opcUsuarios: TMenuItem;
+    opcGestion: TMenuItem;
 
     procedure opcionSalirClick(Sender: TObject);
     procedure btnPlayPausaClick(Sender: TObject);
@@ -57,6 +58,7 @@ type
     procedure opcionRutaVerClick(Sender: TObject);
     procedure btnRegistrarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure opcUsuariosClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -72,9 +74,8 @@ function generarValorALeatorio(): Double;
 function ValueListToArrayOfDouble(ValueList: TChartValueList): ArrayOfDouble;
 
 function getUUIDs: String;
-function encriptarSHA256(const pass: String): String;
-procedure insertarSenial(senial: array of Double);
 
+procedure insertarSenial(senial: array of Double);
 
 var
   formPrincipal: TformPrincipal;
@@ -109,7 +110,6 @@ begin
 
 end;
 
-
 procedure TformPrincipal.btnRegistrarClick(Sender: TObject);
 begin
   // va a registrar todos los datos de la señal en la base de datos
@@ -120,9 +120,6 @@ begin
   // le paso a la base de datos el arreglo
 end;
 
-
-
-
 procedure TformPrincipal.ConfiguraciónClick(Sender: TObject);
 begin
   ventanaConfiguracion := TformConfiguracion.Create(Nil);
@@ -131,7 +128,7 @@ end;
 
 procedure TformPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-Halt;
+  Halt;
 end;
 
 procedure TformPrincipal.FormCreate(Sender: TObject);
@@ -154,6 +151,9 @@ procedure TformPrincipal.FormShow(Sender: TObject);
 begin
   Timer1.Interval := FrecMuestreo;
   Timer1.Enabled := True;
+
+  if usuario <> 'admin' then
+    opcUsuarios.Visible := False;
 
 end;
 
@@ -211,6 +211,14 @@ begin
   lblMuestraValorPicoMinimo.Text := floatToStr(picoMin);
   lblMuestraValorDePicoPico.Text := floatToStr(difPicos);
   lblMuestraValorRMS.Text := floatToStr(RMS);
+end;
+
+procedure TformPrincipal.opcUsuariosClick(Sender: TObject);
+var
+  ventanaUsuarios: TformUsuarios;
+begin
+  ventanaUsuarios := TformUsuarios.Create(Self);
+  ventanaUsuarios.Visible := True;
 end;
 
 function CalcularVRMS(const valoresSenial: ArrayOfDouble): Double;
@@ -303,7 +311,6 @@ begin
   Result := ValueArrayOfDouble;
 end;
 
-
 { Funcion generadora de UUIDs para los ids de las tablas }
 function getUUIDs: String;
 Var
@@ -311,23 +318,6 @@ Var
 begin
   CreateGUID(uuids); // crea el uuids
   Result := GUIDToString(uuids); // lo convierto a string y listo para usar
-end;
-
-{ Funcion que devuelve una contraseña encriptada con SHA256 }
-function encriptarSHA256(const pass: string): String;
-var
-  hashSHA: THashSHA2;
-begin
-
-  try
-    hashSHA := THashSHA2.Create;
-    Result := LowerCase(hashSHA.GetHashString(pass,
-      THashSHA2.TSHA2Version.SHA256));
-
-  except
-    on E: Exception do
-      ShowMessage(E.Message);
-  end;
 end;
 
 procedure insertarSenial(senial: array of Double);
@@ -381,7 +371,5 @@ begin
   end;
 
 end;
-
-
 
 end.
