@@ -2,20 +2,21 @@
   Left = 0
   Top = 0
   Caption = 'ANAVIB'
-  ClientHeight = 468
-  ClientWidth = 1528
+  ClientHeight = 519
+  ClientWidth = 953
   Position = DesktopCenter
   WindowState = wsMaximized
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
   OnCreate = FormCreate
+  OnClose = FormClose
   OnShow = FormShow
   DesignerMasterStyle = 0
   object panelPrincipal: TPanel
     Align = Client
-    Size.Width = 1528.000000000000000000
-    Size.Height = 468.000000000000000000
+    Size.Width = 953.000000000000000000
+    Size.Height = 519.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 1
     object comandosGrafico: TGroupBox
@@ -246,36 +247,30 @@
         OnClick = opcionSalirClick
       end
     end
-  end
-  object ZConnection1: TZConnection
-    ControlsCodePage = cCP_UTF16
-    Catalog = ''
-    Properties.Strings = (
-      'controls_cp=CP_UTF16')
-    HostName = ''
-    Port = 0
-    Database = 'C:\Users\C'#233'sar\Documents\GitHub\ANAVIB\mydatabase.db'
-    User = ''
-    Password = ''
-    Protocol = 'sqlite-3'
-    LibraryLocation = 'C:\Users\C'#233'sar\Documents\GitHub\ANAVIB\sqlite3.dll'
-    Left = 704
-    Top = 312
+    object Button1: TButton
+      Position.X = 328.000000000000000000
+      Position.Y = 416.000000000000000000
+      TabOrder = 4
+      Text = 'Button1'
+      OnClick = Button1Click
+    end
   end
   object ZQuery1: TZQuery
     Connection = ZConnection1
     Params = <>
-    Left = 640
-    Top = 312
+    Left = 648
+    Top = 392
   end
-  object ZReadOnlyQuery1: TZReadOnlyQuery
-    Connection = ZConnection1
-    Params = <>
-    Left = 584
-    Top = 304
-  end
-  object DataSource1: TDataSource
-    Left = 704
-    Top = 408
+  object ZConnection1: TZConnection
+    ControlsCodePage = cCP_UTF16
+    Catalog = ''
+    HostName = ''
+    Port = 0
+    Database = ''
+    User = ''
+    Password = ''
+    Protocol = ''
+    Left = 488
+    Top = 424
   end
 end

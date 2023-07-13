@@ -68,7 +68,7 @@ var
 begin
   consulta := 'SELECT Etiqueta FROM maquinas';
 
-  if not formPrincipal.ZConnection1.Connected then
+  if not formPrincipal.ZQuery1.Connection.Connected then
     ShowMessage('Error de carga de base de datos.')
   else // si se conecto
   begin

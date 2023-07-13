@@ -3,9 +3,9 @@ unit principal;
 interface
 
 uses
-  System.SysUtils, IdHashSHA, System.Types,
+  System.SysUtils, Hash, System.Types,
   System.UITypes, System.Classes, DateUtils,
-  System.Variants, Configuracion, Login, Analisis, Rutas, UASUtilesDB,
+  System.Variants, Configuracion, Analisis, Rutas, UASUtilesDB,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Menus,
   FMX.ExtCtrls, FMX.Controls.Presentation, FMX.StdCtrls, FMXTee.Engine,
   FMXTee.Procs, FMXTee.Chart, FMX.Controls3D, FMXTee.Chart3D, FMXTee.Series,
@@ -42,10 +42,9 @@ type
     FastLineSeries1: TFastLineSeries;
     panelPrincipal: TPanel;
     Timer1: TTimer;
-    ZConnection1: TZConnection;
+    Button1: TButton;
     ZQuery1: TZQuery;
-    ZReadOnlyQuery1: TZReadOnlyQuery;
-    DataSource1: TDataSource;
+    ZConnection1: TZConnection;
 
     procedure opcionSalirClick(Sender: TObject);
     procedure btnPlayPausaClick(Sender: TObject);
@@ -57,6 +56,8 @@ type
     procedure ConfiguraciónClick(Sender: TObject);
     procedure opcionRutaVerClick(Sender: TObject);
     procedure btnRegistrarClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
 
   private
     { Private declarations }
@@ -68,26 +69,23 @@ type
 
   { A esta funcion se le pasa un arreglo de amplitudes que son de tipo Double }
 function CalcularVRMS(const valoresSenial: ArrayOfDouble): Double;
-function MostrarLogin(): Boolean;
 function generarValorALeatorio(): Double;
 function ValueListToArrayOfDouble(ValueList: TChartValueList): ArrayOfDouble;
-procedure cargarConfiguracion();
+
 function getUUIDs: String;
 function encriptarSHA256(const pass: String): String;
 procedure insertarSenial(senial: array of Double);
+function VerificarPass(const passEncriptada, pass2: String): Boolean;
+
 
 var
   formPrincipal: TformPrincipal;
   ventanaConfiguracion: TformConfiguracion;
   ventanaAnalisis: TAnalisisTendenciario;
-  ventanaLogin: TformLogin;
 
   FrecMuestreo: Integer; // en milisegundos
   isPlay: Boolean;
   xAnt: Integer;
-  Database: String;
-  Protocol: String;
-  LibraryLocation: String;
 
 implementation
 
@@ -113,22 +111,6 @@ begin
 
 end;
 
-function MostrarLogin(): Boolean;
-begin
-  ventanaLogin := TformLogin.Create(Application);
-  ventanaLogin.Visible := True;
-  ventanaLogin.Active := True;
-  ventanaLogin.ShowModal;
-  ventanaLogin.ComboEditUser.SetFocus;
-  Result := False;
-  while not ventanaLogin.isValido do
-  begin
-
-  end;
-
-  if ventanaLogin.isValido then
-    Result := True;
-end;
 
 procedure TformPrincipal.btnRegistrarClick(Sender: TObject);
 begin
@@ -140,10 +122,28 @@ begin
   // le paso a la base de datos el arreglo
 end;
 
+procedure TformPrincipal.Button1Click(Sender: TObject);
+var
+  contrasenia: String;
+begin
+  contrasenia := encriptarSHA256('admin');
+  if insertarSQL(ZQuery1,
+    'INSERT INTO usuarios (Nombre,Contraseña) VALUES ("admin",' + '"' +
+    contrasenia + '"' + ')') then
+    ShowMessage('Bien')
+  else
+    ShowMessage('Mal');
+end;
+
 procedure TformPrincipal.ConfiguraciónClick(Sender: TObject);
 begin
   ventanaConfiguracion := TformConfiguracion.Create(Nil);
   ventanaConfiguracion.Show;
+end;
+
+procedure TformPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+Halt;
 end;
 
 procedure TformPrincipal.FormCreate(Sender: TObject);
@@ -151,7 +151,6 @@ begin
   FrecMuestreo := 10;
   // configuracion inicial aunque despues va a cambiar por el archivo Config.cfg
   graficoSenial.Series[0].Clear; // Limpia los datos previos del gráfico
-  Visible := False;
   xAnt := 0; // inicializa en 0 pq el tiempo empieza en 0
   x := 0; // inicializa en 0 pq el tiempo empieza en 0
   {
@@ -161,25 +160,13 @@ begin
   }
   isPlay := False;
 
-  if MostrarLogin then
-    Visible := True;
-
 end;
 
 procedure TformPrincipal.FormShow(Sender: TObject);
 begin
   Timer1.Interval := FrecMuestreo;
   Timer1.Enabled := True;
-  // cargar todas las configuraciones de la base de datos
-  cargarConfiguracion();
-  ZConnection1.Database := Database;
-  ZConnection1.Protocol := Protocol;
-  ZConnection1.LibraryLocation := LibraryLocation;
-  ZConnection1.Connect; // conectarse a la base de datos
 
-  if not ZConnection1.Connected then
-    ShowMessage
-      ('Conexión a la base de datos interrumpida por favor configure los parámetros de configuración.');
 end;
 
 procedure TformPrincipal.opcFrecuenciaMuestreoClick(Sender: TObject);
@@ -205,7 +192,7 @@ end;
 
 procedure TformPrincipal.opcionSalirClick(Sender: TObject);
 begin
-  close;
+  Halt;
 end;
 
 procedure TformPrincipal.Timer1Timer(Sender: TObject);
@@ -328,54 +315,6 @@ begin
   Result := ValueArrayOfDouble;
 end;
 
-procedure cargarConfiguracion();
-var
-  archivo: TextFile;
-  linea, clave, valor: string;
-
-begin
-  try
-    AssignFile(archivo, 'Config.cfg');
-
-    // Leer datos del archivo .cfg
-    Reset(archivo);
-    while not Eof(archivo) do // lee hasta el final del archivo
-    begin
-      Readln(archivo, linea);
-
-      // Separar la clave y el valor en cada línea
-      // asumiendo que están separados por el caracter '='
-      clave := Copy(linea, 1, Pos('=', linea) - 1);
-      valor := Copy(linea, Pos('=', linea) + 1, Length(linea));
-
-      // Utilizar las claves y valores para configurar la aplicación
-      if clave = 'Database' then
-      begin;
-        Database := valor;
-      end
-      else if clave = 'LibraryLocation' then
-      begin
-        // Valor correspondiente a 'LibraryLocation'
-        LibraryLocation := valor;
-      end
-      else if clave = 'Protocol' then
-      begin
-        // Valor correspondiente a 'Protocol'
-        Protocol := valor;
-      end
-      else if clave = 'Frecuencia de muestreo' then
-      begin
-        FrecMuestreo := StrToInt(valor);
-      end;
-    end;
-
-    // Cerrar el archivo después de leer
-    CloseFile(archivo);
-  except
-    on E: Exception do
-      Writeln('Error: ' + E.Message);
-  end;
-end;
 
 { Funcion generadora de UUIDs para los ids de las tablas }
 function getUUIDs: String;
@@ -389,13 +328,17 @@ end;
 { Funcion que devuelve una contraseña encriptada con SHA256 }
 function encriptarSHA256(const pass: string): String;
 var
-  hashSHA: TIdHashSHA256;
+  hashSHA: THashSHA2;
 begin
-  hashSHA := TIdHashSHA256.Create;
+
   try
-    Result := LowerCase(hashSHA.HashStringAsHex(pass));
-  finally
-    hashSHA.Free;
+    hashSHA := THashSHA2.Create;
+    Result := LowerCase(hashSHA.GetHashString(pass,
+      THashSHA2.TSHA2Version.SHA256));
+
+  except
+    on E: Exception do
+      ShowMessage(E.Message);
   end;
 end;
 
@@ -450,5 +393,15 @@ begin
   end;
 
 end;
+
+function VerificarPass(const passEncriptada, pass2: String): Boolean;
+var
+  consulta: String;
+begin
+  Result := False;
+  if passEncriptada = encriptarSHA256(pass2) then
+    Result := True;
+end;
+
 
 end.
