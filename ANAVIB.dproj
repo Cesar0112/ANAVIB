@@ -305,6 +305,10 @@
             <Form>AnalisisTendenciario</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="Rutas.pas">
+            <Form>ventanaRutas</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <None Include="ModelSupport_ANAVIB\default.txaPackage"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>

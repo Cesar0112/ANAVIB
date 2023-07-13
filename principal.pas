@@ -3,13 +3,14 @@ unit principal;
 interface
 
 uses
-  System.SysUtils, System.Types, System.UITypes, System.Classes,
-  System.Variants, Configuracion, Login, Analisis,
+  System.SysUtils, IdHashSHA, System.Types,
+  System.UITypes, System.Classes, DateUtils,
+  System.Variants, Configuracion, Login, Analisis, Rutas, UASUtilesDB,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Menus,
   FMX.ExtCtrls, FMX.Controls.Presentation, FMX.StdCtrls, FMXTee.Engine,
   FMXTee.Procs, FMXTee.Chart, FMX.Controls3D, FMXTee.Chart3D, FMXTee.Series,
   Data.DB, Data.SqlExpr, Data.DbxSqlite, FMX.Layouts, ZAbstractConnection,
-  ZConnection;
+  ZConnection, ZAbstractRODataset, ZAbstractDataset, ZDataset;
 
 type
   ArrayOfDouble = array of Double;
@@ -42,6 +43,9 @@ type
     panelPrincipal: TPanel;
     Timer1: TTimer;
     ZConnection1: TZConnection;
+    ZQuery1: TZQuery;
+    ZReadOnlyQuery1: TZReadOnlyQuery;
+    DataSource1: TDataSource;
 
     procedure opcionSalirClick(Sender: TObject);
     procedure btnPlayPausaClick(Sender: TObject);
@@ -51,12 +55,15 @@ type
     procedure FormShow(Sender: TObject);
     procedure opcionAnalisisTendenciaClick(Sender: TObject);
     procedure ConfiguraciónClick(Sender: TObject);
+    procedure opcionRutaVerClick(Sender: TObject);
+    procedure btnRegistrarClick(Sender: TObject);
 
   private
     { Private declarations }
   public
     { Public declarations }
     x: Double;
+
   end;
 
   { A esta funcion se le pasa un arreglo de amplitudes que son de tipo Double }
@@ -64,15 +71,23 @@ function CalcularVRMS(const valoresSenial: ArrayOfDouble): Double;
 function MostrarLogin(): Boolean;
 function generarValorALeatorio(): Double;
 function ValueListToArrayOfDouble(ValueList: TChartValueList): ArrayOfDouble;
+procedure cargarConfiguracion();
+function getUUIDs: String;
+function encriptarSHA256(const pass: String): String;
+procedure insertarSenial(senial: array of Double);
 
 var
   formPrincipal: TformPrincipal;
   ventanaConfiguracion: TformConfiguracion;
   ventanaAnalisis: TAnalisisTendenciario;
   ventanaLogin: TformLogin;
+
   FrecMuestreo: Integer; // en milisegundos
   isPlay: Boolean;
   xAnt: Integer;
+  Database: String;
+  Protocol: String;
+  LibraryLocation: String;
 
 implementation
 
@@ -95,6 +110,7 @@ begin
     btnPlayPausa.Text := Pausa;
 
   Timer1.Enabled := not Timer1.Enabled; // cambia el estado del reloj
+
 end;
 
 function MostrarLogin(): Boolean;
@@ -114,6 +130,16 @@ begin
     Result := True;
 end;
 
+procedure TformPrincipal.btnRegistrarClick(Sender: TObject);
+begin
+  // va a registrar todos los datos de la señal en la base de datos
+  if Timer1.Enabled then
+    btnPlayPausaClick(Sender);
+
+  insertarSenial(ValueListToArrayOfDouble(graficoSenial.Series[0].YValues));
+  // le paso a la base de datos el arreglo
+end;
+
 procedure TformPrincipal.ConfiguraciónClick(Sender: TObject);
 begin
   ventanaConfiguracion := TformConfiguracion.Create(Nil);
@@ -122,7 +148,8 @@ end;
 
 procedure TformPrincipal.FormCreate(Sender: TObject);
 begin
-  FrecMuestreo := 10; // milisegundos
+  FrecMuestreo := 10;
+  // configuracion inicial aunque despues va a cambiar por el archivo Config.cfg
   graficoSenial.Series[0].Clear; // Limpia los datos previos del gráfico
   Visible := False;
   xAnt := 0; // inicializa en 0 pq el tiempo empieza en 0
@@ -143,13 +170,16 @@ procedure TformPrincipal.FormShow(Sender: TObject);
 begin
   Timer1.Interval := FrecMuestreo;
   Timer1.Enabled := True;
-  ZConnection1 := TZConnection.Create(nil); // creada la conexion
+  // cargar todas las configuraciones de la base de datos
+  cargarConfiguracion();
+  ZConnection1.Database := Database;
+  ZConnection1.Protocol := Protocol;
+  ZConnection1.LibraryLocation := LibraryLocation;
   ZConnection1.Connect; // conectarse a la base de datos
 
-  if ZConnection1.Connected then
-    ShowMessage('Conexion exitosa')
-    else
-    ShowMessage('Conexion no exitosa');
+  if not ZConnection1.Connected then
+    ShowMessage
+      ('Conexión a la base de datos interrumpida por favor configure los parámetros de configuración.');
 end;
 
 procedure TformPrincipal.opcFrecuenciaMuestreoClick(Sender: TObject);
@@ -163,6 +193,14 @@ procedure TformPrincipal.opcionAnalisisTendenciaClick(Sender: TObject);
 begin
   ventanaAnalisis := TAnalisisTendenciario.Create(Self);
   ventanaAnalisis.Show;
+end;
+
+procedure TformPrincipal.opcionRutaVerClick(Sender: TObject);
+var
+  ventanaRutas: TventanaRutas;
+begin
+  ventanaRutas := TventanaRutas.Create(Self);
+  ventanaRutas.Show;
 end;
 
 procedure TformPrincipal.opcionSalirClick(Sender: TObject);
@@ -288,6 +326,129 @@ begin
   end;
 
   Result := ValueArrayOfDouble;
+end;
+
+procedure cargarConfiguracion();
+var
+  archivo: TextFile;
+  linea, clave, valor: string;
+
+begin
+  try
+    AssignFile(archivo, 'Config.cfg');
+
+    // Leer datos del archivo .cfg
+    Reset(archivo);
+    while not Eof(archivo) do // lee hasta el final del archivo
+    begin
+      Readln(archivo, linea);
+
+      // Separar la clave y el valor en cada línea
+      // asumiendo que están separados por el caracter '='
+      clave := Copy(linea, 1, Pos('=', linea) - 1);
+      valor := Copy(linea, Pos('=', linea) + 1, Length(linea));
+
+      // Utilizar las claves y valores para configurar la aplicación
+      if clave = 'Database' then
+      begin;
+        Database := valor;
+      end
+      else if clave = 'LibraryLocation' then
+      begin
+        // Valor correspondiente a 'LibraryLocation'
+        LibraryLocation := valor;
+      end
+      else if clave = 'Protocol' then
+      begin
+        // Valor correspondiente a 'Protocol'
+        Protocol := valor;
+      end
+      else if clave = 'Frecuencia de muestreo' then
+      begin
+        FrecMuestreo := StrToInt(valor);
+      end;
+    end;
+
+    // Cerrar el archivo después de leer
+    CloseFile(archivo);
+  except
+    on E: Exception do
+      Writeln('Error: ' + E.Message);
+  end;
+end;
+
+{ Funcion generadora de UUIDs para los ids de las tablas }
+function getUUIDs: String;
+Var
+  uuids: TGUID;
+begin
+  CreateGUID(uuids); // crea el uuids
+  Result := GUIDToString(uuids); // lo convierto a string y listo para usar
+end;
+
+{ Funcion que devuelve una contraseña encriptada con SHA256 }
+function encriptarSHA256(const pass: string): String;
+var
+  hashSHA: TIdHashSHA256;
+begin
+  hashSHA := TIdHashSHA256.Create;
+  try
+    Result := LowerCase(hashSHA.HashStringAsHex(pass));
+  finally
+    hashSHA.Free;
+  end;
+end;
+
+procedure insertarSenial(senial: array of Double);
+var
+  streamSenial: TMemoryStream; // en bytes esto es lo que va a la BD
+  consulta: String;
+  i: Integer;
+begin
+  streamSenial := TMemoryStream.Create;
+  consulta :=
+    'INSERT INTO señales (ID_Señal,Dia,Mes,Año,Frecuencia,RMS,PICO_Max,PICO_Min,Hora,Minuto,Segundo,Señal) VALUES (:id,:dia,:mes,:anio,:frecuencia,:rms,:picoMax,:picoMin,:hora,:minuto,:segundo,:senial);';
+
+  try
+    for i := 0 to Length(senial) - 1 do
+    begin
+      streamSenial.Write(senial[i], SizeOf(Double));
+    end;
+
+    { Posicion inicial en 0 para q lea el stream desde el principio }
+    streamSenial.Position := 0;
+
+    if formPrincipal.ZQuery1.Active then
+      formPrincipal.ZQuery1.close;
+    formPrincipal.ZQuery1.SQL.Clear;
+    formPrincipal.ZQuery1.SQL.Add(consulta);
+    // establece en la consulta a los parametros los valores q le corresponden
+    { :id,:dia,:mes,:anio,:frecuencia,:rms,:picoMax,:picoMin,:hora,:minuto,:segundo,:senial }
+    formPrincipal.ZQuery1.Params.ParamByName('id').AsString := getUUIDs;
+    formPrincipal.ZQuery1.Params.ParamByName('dia').AsInteger := DayOf(Now);
+    formPrincipal.ZQuery1.Params.ParamByName('mes').AsInteger := MonthOf(Now);
+    formPrincipal.ZQuery1.Params.ParamByName('anio').AsInteger := YearOf(Now);
+    formPrincipal.ZQuery1.Params.ParamByName('frecuencia').AsInteger :=
+      FrecMuestreo;
+    formPrincipal.ZQuery1.Params.ParamByName('rms').AsFloat :=
+      StrToFloat(formPrincipal.lblMuestraValorRMS.Text);
+    formPrincipal.ZQuery1.Params.ParamByName('picoMax').AsFloat :=
+      StrToFloat(formPrincipal.lblMuestraValorPicoMaximo.Text);
+    formPrincipal.ZQuery1.Params.ParamByName('picoMin').AsFloat :=
+      StrToFloat(formPrincipal.lblMuestraValorPicoMinimo.Text);
+    formPrincipal.ZQuery1.Params.ParamByName('hora').AsInteger := HourOf(Now);
+    formPrincipal.ZQuery1.Params.ParamByName('minuto').AsInteger :=
+      MinuteOf(Now);
+    formPrincipal.ZQuery1.Params.ParamByName('segundo').AsInteger :=
+      SecondOf(Now);
+    formPrincipal.ZQuery1.Params.ParamByName('senial')
+      .LoadFromStream(streamSenial, ftBlob);
+    formPrincipal.ZQuery1.ExecSQL;
+
+  finally
+    streamSenial.Free;
+  end;
+
 end;
 
 end.

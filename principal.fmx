@@ -38,11 +38,12 @@
         Position.Y = 52.000000000000000000
         TabOrder = 36
         Text = 'Registrar'
+        OnClick = btnRegistrarClick
       end
     end
     object graficoEspectro: TChart
       Position.X = 776.000000000000000000
-      Position.Y = 8.000000000000000000
+      Position.Y = 5.000000000000000000
       Foot.Font.StyleExt = {00040000000200000004000000}
       Legend.Alignment = laBottom
       Legend.CheckBoxes = True
@@ -221,6 +222,7 @@
         object opcionRutaVer: TMenuItem
           Locked = True
           Text = 'Manipular'
+          OnClick = opcionRutaVerClick
         end
         object MenuItem6: TMenuItem
           Locked = True
@@ -257,7 +259,23 @@
     Password = ''
     Protocol = 'sqlite-3'
     LibraryLocation = 'C:\Users\C'#233'sar\Documents\GitHub\ANAVIB\sqlite3.dll'
-    Left = 688
-    Top = 336
+    Left = 704
+    Top = 312
+  end
+  object ZQuery1: TZQuery
+    Connection = ZConnection1
+    Params = <>
+    Left = 640
+    Top = 312
+  end
+  object ZReadOnlyQuery1: TZReadOnlyQuery
+    Connection = ZConnection1
+    Params = <>
+    Left = 584
+    Top = 304
+  end
+  object DataSource1: TDataSource
+    Left = 704
+    Top = 408
   end
 end
