@@ -61,9 +61,13 @@ begin
   // verificar usuario
   if existeUsuario(usuario) then
   begin
+    lblErrorUsuario.Visible := False;
     // si la contraseña es valida y es la del usuario
     if compruebaContrasenia(contrasenia, usuario) then
-      isValido := true
+    begin
+      lblErrorContrasenia.Visible := False;
+      isValido := true;
+    end
     else
     begin
       lblErrorContrasenia.Visible := true;
@@ -72,11 +76,10 @@ begin
   end
   else
   begin
-    lblErrorUsuario.Visible := true;
+    lblErrorUsuario.Visible := true
   end;
 
-
-  //si todo esta correcto
+  // si todo esta correcto
   if isValido then
   begin
     ShowMessage('Usuario ' + usuario + ' autenticado correctamente');

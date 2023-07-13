@@ -42,7 +42,6 @@ type
     FastLineSeries1: TFastLineSeries;
     panelPrincipal: TPanel;
     Timer1: TTimer;
-    Button1: TButton;
     ZQuery1: TZQuery;
     ZConnection1: TZConnection;
 
@@ -56,7 +55,6 @@ type
     procedure ConfiguraciónClick(Sender: TObject);
     procedure opcionRutaVerClick(Sender: TObject);
     procedure btnRegistrarClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
 
   private
@@ -121,18 +119,8 @@ begin
   // le paso a la base de datos el arreglo
 end;
 
-procedure TformPrincipal.Button1Click(Sender: TObject);
-var
-  contrasenia: String;
-begin
-  contrasenia := encriptarSHA256('admin');
-  if insertarSQL(ZQuery1,
-    'INSERT INTO usuarios (Nombre,Contraseña) VALUES ("admin",' + '"' +
-    contrasenia + '"' + ')') then
-    ShowMessage('Bien')
-  else
-    ShowMessage('Mal');
-end;
+
+
 
 procedure TformPrincipal.ConfiguraciónClick(Sender: TObject);
 begin

@@ -188,7 +188,7 @@
         Size.Height = 17.000000000000000000
         Size.PlatformDefault = False
         Text = '*****'
-        TabOrder = 37
+        TabOrder = 38
       end
       object lblMuestraValorPicoMinimo: TLabel
         Position.X = 135.000000000000000000
@@ -197,7 +197,7 @@
         Size.Height = 17.000000000000000000
         Size.PlatformDefault = False
         Text = '*****'
-        TabOrder = 39
+        TabOrder = 40
       end
       object lblMuestraValorDePicoPico: TLabel
         Position.X = 135.000000000000000000
@@ -206,7 +206,7 @@
         Size.Height = 16.000000000000000000
         Size.PlatformDefault = False
         Text = '*****'
-        TabOrder = 42
+        TabOrder = 43
       end
     end
     object Timer1: TTimer
@@ -246,13 +246,6 @@
         Text = '&Salir'
         OnClick = opcionSalirClick
       end
-    end
-    object Button1: TButton
-      Position.X = 328.000000000000000000
-      Position.Y = 416.000000000000000000
-      TabOrder = 4
-      Text = 'Button1'
-      OnClick = Button1Click
     end
   end
   object ZQuery1: TZQuery
