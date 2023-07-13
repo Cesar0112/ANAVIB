@@ -19,12 +19,14 @@ type
     ComboEditUser: TComboEdit;
     lblErrorContrasenia: TLabel;
     lblErrorUsuario: TLabel;
+    ZReadOnlyQuery1: TZReadOnlyQuery;
     procedure btnIngresarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure EditPasswordKeyDown(Sender: TObject; var Key: Word;
       var KeyChar: Char; Shift: TShiftState);
     procedure ComboEditUserKeyDown(Sender: TObject; var Key: Word;
       var KeyChar: Char; Shift: TShiftState);
+    procedure FormShow(Sender: TObject);
 
   private
     { Private declarations }
@@ -34,6 +36,7 @@ type
   end;
 
 function existeUsuario(const usuario: String): Boolean;
+function compruebaContrasenia(passIngresada, usuario: String): Boolean;
 
 procedure cargarConfiguracion();
 
@@ -56,25 +59,33 @@ begin
   { TODO 1 -oCesar -cSecurity : Hacer la encriptacion de la contraseña }
   // comprobacion para ver si es correcta la contraseña
   usuario := ComboEditUser.Text; // obtengo el usuario
-  contrasenia := EditPassword.Text; // la contrasenia
+  contrasenia := encriptarSHA256(EditPassword.Text);
+  // la contrasenia encriptada
   isValido := False;
-  if (usuario = 'admin') and (contrasenia = 'admin') then
-    isValido := True;
-  if isValido then
+  // verificar usuario
+  if existeUsuario(usuario) then
   begin
-    ShowMessage('Usuario ' + usuario + ' autenticado correctamente');
-    cargarConfiguracion;
-    formPrincipal.ZConnection1.Database := Database;
-    formPrincipal.ZConnection1.Protocol := Protocol;
-    formPrincipal.ZConnection1.LibraryLocation := LibraryLocation;
-    formPrincipal.ZConnection1.Connect; // conectarse a la base de datos
+    // si la contraseña es valida y es la del usuario
+    if compruebaContrasenia(contrasenia, usuario) then
+      isValido := true
+    else
+    begin
+      lblErrorContrasenia.Visible := true;
+    end;
 
-    formPrincipal.Visible := True;
-    Visible := False;
   end
   else
   begin
+    lblErrorUsuario.Visible := true;
+  end;
 
+
+  //si todo esta correcto
+  if isValido then
+  begin
+    ShowMessage('Usuario ' + usuario + ' autenticado correctamente');
+    formPrincipal.Visible := true;
+    Visible := False;
   end;
 
 end;
@@ -106,14 +117,27 @@ begin
     Halt; // cierra la aplicación
 end;
 
+procedure TformLogin.FormShow(Sender: TObject);
+begin
+  cargarConfiguracion;
+
+end;
+
 function existeUsuario(const usuario: String): Boolean;
 var
   consulta: String;
 begin
-  cargarConfiguracion();
-
-  consulta := 'SELECT COUNT(*) FROM usuarios WHERE nombre="' + usuario + '"';
-
+  result := False;
+  consulta := 'SELECT COUNT(*) as cantdUsuarios FROM usuarios WHERE nombre="' +
+    usuario + '"';
+  ConsultaSQL(formLogin.ZReadOnlyQuery1, consulta);
+  // verificar que devuelva resultados
+  if not formLogin.ZReadOnlyQuery1.IsEmpty then
+  begin
+    // si hay un solo usuario con ese nombre de usuario
+    if formLogin.ZReadOnlyQuery1.FieldByName('cantdUsuarios').AsInteger = 1 then
+      result := true;
+  end;
 end;
 
 procedure cargarConfiguracion();
@@ -162,6 +186,30 @@ begin
   except
     on E: Exception do
       Writeln('Error: ' + E.Message);
+  end;
+  formPrincipal.ZConnection1.Database := Database;
+  formPrincipal.ZConnection1.LibraryLocation := LibraryLocation;
+  formPrincipal.ZConnection1.Protocol := Protocol;
+  formPrincipal.ZConnection1.Connect;
+
+end;
+
+function compruebaContrasenia(passIngresada, usuario: String): Boolean;
+var
+  consulta: String;
+  passBDEncriptada: String;
+begin
+  result := False;
+  consulta := 'SELECT Contraseña FROM usuarios WHERE nombre="' + usuario + '"';
+  ConsultaSQL(formLogin.ZReadOnlyQuery1, consulta);
+  // verificar que devuelva resultados
+  if not formLogin.ZReadOnlyQuery1.IsEmpty then
+  begin
+    passBDEncriptada := formLogin.ZReadOnlyQuery1.FieldByName
+      ('Contraseña').AsString;
+    // si las contraseñas son iguales
+    if passBDEncriptada = passIngresada then
+      result := true;
   end;
 end;
 

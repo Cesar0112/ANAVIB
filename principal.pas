@@ -75,7 +75,6 @@ function ValueListToArrayOfDouble(ValueList: TChartValueList): ArrayOfDouble;
 function getUUIDs: String;
 function encriptarSHA256(const pass: String): String;
 procedure insertarSenial(senial: array of Double);
-function VerificarPass(const passEncriptada, pass2: String): Boolean;
 
 
 var
@@ -394,14 +393,6 @@ begin
 
 end;
 
-function VerificarPass(const passEncriptada, pass2: String): Boolean;
-var
-  consulta: String;
-begin
-  Result := False;
-  if passEncriptada = encriptarSHA256(pass2) then
-    Result := True;
-end;
 
 
 end.

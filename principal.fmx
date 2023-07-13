@@ -188,7 +188,7 @@
         Size.Height = 17.000000000000000000
         Size.PlatformDefault = False
         Text = '*****'
-        TabOrder = 38
+        TabOrder = 37
       end
       object lblMuestraValorPicoMinimo: TLabel
         Position.X = 135.000000000000000000
@@ -197,7 +197,7 @@
         Size.Height = 17.000000000000000000
         Size.PlatformDefault = False
         Text = '*****'
-        TabOrder = 40
+        TabOrder = 39
       end
       object lblMuestraValorDePicoPico: TLabel
         Position.X = 135.000000000000000000
@@ -206,7 +206,7 @@
         Size.Height = 16.000000000000000000
         Size.PlatformDefault = False
         Text = '*****'
-        TabOrder = 43
+        TabOrder = 42
       end
     end
     object Timer1: TTimer

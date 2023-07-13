@@ -9,6 +9,7 @@ object formLogin: TformLogin
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
   OnClose = FormClose
+  OnShow = FormShow
   DesignerMasterStyle = 0
   object Label1: TLabel
     Position.X = 26.000000000000000000
@@ -81,5 +82,11 @@ object formLogin: TformLogin
     Text = 'X'
     Visible = False
     TabOrder = 5
+  end
+  object ZReadOnlyQuery1: TZReadOnlyQuery
+    Connection = formPrincipal.ZConnection1
+    Params = <>
+    Left = 176
+    Top = 104
   end
 end
