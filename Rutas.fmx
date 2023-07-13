@@ -43,13 +43,13 @@ object ventanaRutas: TventanaRutas
     object btn_agregar_vertical: TButton
       Position.X = 313.000000000000000000
       Position.Y = 87.000000000000000000
-      TabOrder = 38
+      TabOrder = 37
       Text = 'Vertical'
     end
     object btn_agregar_axial: TButton
       Position.X = 313.000000000000000000
       Position.Y = 117.000000000000000000
-      TabOrder = 39
+      TabOrder = 38
       Text = 'Axial'
     end
     object Label2: TLabel
@@ -59,7 +59,7 @@ object ventanaRutas: TventanaRutas
       Size.Height = 17.000000000000000000
       Size.PlatformDefault = False
       Text = 'Ruta'
-      TabOrder = 40
+      TabOrder = 39
     end
     object ListBox_ruta: TListBox
       Position.X = 417.000000000000000000
@@ -67,7 +67,7 @@ object ventanaRutas: TventanaRutas
       Size.Width = 100.000000000000000000
       Size.Height = 153.000000000000000000
       Size.PlatformDefault = False
-      TabOrder = 41
+      TabOrder = 40
       DisableFocusEffect = True
       DefaultItemStyles.ItemStyle = ''
       DefaultItemStyles.GroupHeaderStyle = ''
@@ -82,7 +82,7 @@ object ventanaRutas: TventanaRutas
       Size.Height = 17.000000000000000000
       Size.PlatformDefault = False
       Text = 'Agregar'
-      TabOrder = 42
+      TabOrder = 41
     end
     object Label4: TLabel
       Position.X = 224.000000000000000000
@@ -91,18 +91,18 @@ object ventanaRutas: TventanaRutas
       Size.Height = 17.000000000000000000
       Size.PlatformDefault = False
       Text = 'Eliminar'
-      TabOrder = 43
+      TabOrder = 42
     end
     object btn_eliminar_todo: TButton
       Position.X = 201.000000000000000000
       Position.Y = 57.000000000000000000
-      TabOrder = 44
+      TabOrder = 43
       Text = 'Todo'
     end
     object btn_eliminar_seleccionado: TButton
       Position.X = 201.000000000000000000
       Position.Y = 87.000000000000000000
-      TabOrder = 45
+      TabOrder = 44
       Text = 'Seleccionado'
     end
     object Label5: TLabel
@@ -112,13 +112,13 @@ object ventanaRutas: TventanaRutas
       Size.Height = 17.000000000000000000
       Size.PlatformDefault = False
       Text = 'M'#225'quina'
-      TabOrder = 46
+      TabOrder = 45
     end
     object combobox_maquina: TComboBox
       ItemIndex = 0
       Position.X = 64.000000000000000000
       Position.Y = 57.000000000000000000
-      TabOrder = 47
+      TabOrder = 46
     end
   end
   object btn_guardar: TButton

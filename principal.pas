@@ -44,6 +44,7 @@ type
     Timer1: TTimer;
     ZQuery1: TZQuery;
     ZConnection1: TZConnection;
+    Usuarios: TMenuItem;
 
     procedure opcionSalirClick(Sender: TObject);
     procedure btnPlayPausaClick(Sender: TObject);

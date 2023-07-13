@@ -290,15 +290,15 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
+        <DCCReference Include="Login.pas">
+            <Form>formLogin</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <DCCReference Include="principal.pas">
             <Form>formPrincipal</Form>
         </DCCReference>
         <DCCReference Include="Configuracion.pas">
             <Form>formConfiguracion</Form>
-            <FormType>fmx</FormType>
-        </DCCReference>
-        <DCCReference Include="Login.pas">
-            <Form>formLogin</Form>
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="Analisis.pas">
@@ -307,6 +307,10 @@
         </DCCReference>
         <DCCReference Include="Rutas.pas">
             <Form>ventanaRutas</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="Usuarios.pas">
+            <Form>formUsuarios</Form>
             <FormType>fmx</FormType>
         </DCCReference>
         <None Include="ModelSupport_ANAVIB\default.txaPackage"/>

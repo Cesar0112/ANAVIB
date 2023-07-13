@@ -242,6 +242,9 @@
         Text = 'Configuraci'#243'n'
         OnClick = ConfiguraciónClick
       end
+      object Usuarios: TMenuItem
+        Text = 'Usuarios'
+      end
       object opcionSalir: TMenuItem
         Text = '&Salir'
         OnClick = opcionSalirClick

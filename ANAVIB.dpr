@@ -7,7 +7,8 @@ uses
   principal in 'principal.pas' {formPrincipal},
   Configuracion in 'Configuracion.pas' {formConfiguracion},
   Analisis in 'Analisis.pas' {AnalisisTendenciario},
-  Rutas in 'Rutas.pas' {ventanaRutas};
+  Rutas in 'Rutas.pas' {ventanaRutas},
+  Usuarios in 'Usuarios.pas' {formUsuarios};
 
 //ConexionDB in 'ConexionDB.pas' {DM: TDataModule};
 
@@ -20,6 +21,7 @@ begin
   Application.CreateForm(TformConfiguracion, formConfiguracion);
   Application.CreateForm(TAnalisisTendenciario, AnalisisTendenciario);
   Application.CreateForm(TventanaRutas, ventanaRutas);
+  Application.CreateForm(TformUsuarios, formUsuarios);
   //Application.CreateForm(TDM, DM);
   Application.Run;
 end.
