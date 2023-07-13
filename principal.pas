@@ -19,7 +19,7 @@ type
     mainMenu: TMainMenu;
     opcionRuta: TMenuItem;
     opcionSalir: TMenuItem;
-    opcionRutaVer: TMenuItem;
+    opcionRutaManipular: TMenuItem;
     Configuración: TMenuItem;
     opcionAnalisisTendencia: TMenuItem;
     MenuItem6: TMenuItem;
@@ -55,7 +55,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure opcionAnalisisTendenciaClick(Sender: TObject);
     procedure ConfiguraciónClick(Sender: TObject);
-    procedure opcionRutaVerClick(Sender: TObject);
+    procedure opcionRutaManipularClick(Sender: TObject);
     procedure btnRegistrarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure opcUsuariosClick(Sender: TObject);
@@ -152,8 +152,13 @@ begin
   Timer1.Interval := FrecMuestreo;
   Timer1.Enabled := True;
 
+  //restricciones de privilegios
   if usuario <> 'admin' then
+    begin
     opcUsuarios.Visible := False;
+    opcionRutaManipular.Visible:=False;
+    end;
+
 
 end;
 
@@ -170,7 +175,7 @@ begin
   ventanaAnalisis.Show;
 end;
 
-procedure TformPrincipal.opcionRutaVerClick(Sender: TObject);
+procedure TformPrincipal.opcionRutaManipularClick(Sender: TObject);
 var
   ventanaRutas: TventanaRutas;
 begin

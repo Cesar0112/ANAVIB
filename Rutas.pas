@@ -30,6 +30,8 @@ type
     btn_guardar: TButton;
     ZReadOnlyQuery1: TZReadOnlyQuery;
     procedure FormShow(Sender: TObject);
+    procedure ComboEdit_etiquetaKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
 
   private
     { Private declarations }
@@ -52,14 +54,30 @@ implementation
 
 uses principal;
 
+procedure TventanaRutas.ComboEdit_etiquetaKeyDown(Sender: TObject;
+  var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+  begin
+    if ComboEdit_etiqueta.Text <> '' then
+    begin
+      // si el elemento no esta en la lista
+      if ComboEdit_etiqueta.Items.IndexOf(ComboEdit_etiqueta.Text) = -1 then
+      begin
+
+      end;
+    end;
+  end;
+end;
+
 procedure TventanaRutas.FormShow(Sender: TObject);
 begin
   llenarcomboMaquinas;
   combobox_maquina.Items.Assign(maquinas);
-  combobox_maquina.ItemIndex:=0;
+  combobox_maquina.ItemIndex := 0;
   llenarcomboeditRutas;
   ComboEdit_etiqueta.Items.Assign(listado_rutas);
-  ComboEdit_etiqueta.ItemIndex:=0;
+  ComboEdit_etiqueta.ItemIndex := 0;
 end;
 
 procedure llenarcomboMaquinas();

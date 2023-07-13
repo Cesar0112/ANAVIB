@@ -92,7 +92,7 @@ end;
 procedure TformLogin.ComboEditUserKeyDown(Sender: TObject; var Key: Word;
   var KeyChar: Char; Shift: TShiftState);
 begin
-  if KeyChar = #13 then
+  if Key = vkReturn then
   begin
     btnIngresarClick(Sender);
 
@@ -103,7 +103,7 @@ end;
 procedure TformLogin.EditPasswordKeyDown(Sender: TObject; var Key: Word;
   var KeyChar: Char; Shift: TShiftState);
 begin
-  if KeyChar = #13 then
+  if Key = vkReturn then
   begin
     btnIngresarClick(Sender);
 
