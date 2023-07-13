@@ -53,10 +53,6 @@ var
   usuario: String;
   contrasenia: String;
 begin
-  {
-    Por ahora no hay encriptacion pq no esta terminado
-  }
-  { TODO 1 -oCesar -cSecurity : Hacer la encriptacion de la contraseña }
   // comprobacion para ver si es correcta la contraseña
   usuario := ComboEditUser.Text; // obtengo el usuario
   contrasenia := encriptarSHA256(EditPassword.Text);
