@@ -20,6 +20,7 @@ type
     TeeFunction1: TAverageTeeFunction;
     Series1: TFastLineSeries;
     TeeFunction2: TAverageTeeFunction;
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -32,5 +33,12 @@ var
 implementation
 
 {$R *.fmx}
+
+procedure TAnalisisTendenciario.FormShow(Sender: TObject);
+var
+consulta:String;
+begin
+  consulta:='SELECT Dia,Mes,Año,RMS,PICO_Max,PICO_Min,';
+end;
 
 end.
