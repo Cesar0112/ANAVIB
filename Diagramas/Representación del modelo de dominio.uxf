@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>9</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>333</x>
+      <y>513</y>
+      <w>117</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>Equipo
+--
+-Sistema operativo
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>333</x>
+      <y>198</y>
+      <w>117</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Receptor del Equipo
+--
+-Modelo
+-Marca
+-No Serie
+-Año
+bg=blue
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>351</x>
+      <y>369</y>
+      <w>90</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>Driver
+--
+-Nombre
+-Operaciones
+bg=blue
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>99</x>
+      <y>198</y>
+      <w>90</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>Señal digital
+--
+-RMS
+-Pico Máximo
+-Pico Mínimo
+-Distancia 
+entre picos
+
+bg=blue
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>603</x>
+      <y>45</y>
+      <w>99</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>Señal analógica
+--
+-Frecuencia
+-Tensión
+-Potencia
+-Amplitud
+-Período
+bg=blue
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>99</x>
+      <y>414</y>
+      <w>90</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Gráfico
+--
+-TipoGrafico
+-Fondo
+-Líneas
+-Coordenadas
+bg=blue
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>630</x>
+      <y>378</y>
+      <w>72</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>Ruta
+--
+-Etiqueta
+-Camino
+bg=blue
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>630</x>
+      <y>234</y>
+      <w>63</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>Máquina
+--
+-Etiqueta
+bg=blue
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>423</x>
+      <y>72</y>
+      <w>198</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>Captura
+lt=&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>200.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>126</x>
+      <y>288</y>
+      <w>90</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>representa
+lt=&lt;-
+m1=1..q
+m2=1</panel_attributes>
+    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>180</x>
+      <y>225</y>
+      <w>171</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>genera
+lt=&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;20.0;170.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>378</x>
+      <y>414</y>
+      <w>54</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>tiene
+lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>378</x>
+      <y>279</y>
+      <w>81</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>comunica
+lt=&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>639</x>
+      <y>135</y>
+      <w>72</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>produce
+lt=&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>351</x>
+      <y>63</y>
+      <w>81</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>Sensor
+--
+-TipoSensor
+bg=blue
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>378</x>
+      <y>99</y>
+      <w>54</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>tiene
+lt=&lt;-
+m1=1..n
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>441</x>
+      <y>279</y>
+      <w>207</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>recorre
+lt=&lt;-
+m1=1..p
+m2=1</panel_attributes>
+    <additional_attributes>210.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>648</x>
+      <y>270</y>
+      <w>54</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>tiene
+lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1..m
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+</diagram>
