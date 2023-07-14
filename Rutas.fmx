@@ -25,6 +25,7 @@ object ventanaRutas: TventanaRutas
     ItemIndex = -1
     Position.X = 72.000000000000000000
     Position.Y = 24.000000000000000000
+    OnChange = ComboEdit_etiquetaChange
     OnKeyDown = ComboEdit_etiquetaKeyDown
   end
   object GroupBox1: TGroupBox
@@ -40,40 +41,43 @@ object ventanaRutas: TventanaRutas
       Position.Y = 57.000000000000000000
       TabOrder = 36
       Text = 'Horizontal'
+      OnClick = btn_agregar_horizontalClick
     end
     object btn_agregar_vertical: TButton
       Position.X = 313.000000000000000000
       Position.Y = 87.000000000000000000
-      TabOrder = 37
+      TabOrder = 38
       Text = 'Vertical'
+      OnClick = btn_agregar_verticalClick
     end
     object btn_agregar_axial: TButton
       Position.X = 313.000000000000000000
       Position.Y = 117.000000000000000000
-      TabOrder = 38
+      TabOrder = 39
       Text = 'Axial'
+      OnClick = btn_agregar_axialClick
     end
     object Label2: TLabel
-      Position.X = 439.000000000000000000
+      Position.X = 447.000000000000000000
       Position.Y = 32.000000000000000000
       Size.Width = 41.000000000000000000
       Size.Height = 17.000000000000000000
       Size.PlatformDefault = False
-      Text = 'Ruta'
-      TabOrder = 39
+      Text = 'Camino'
+      TabOrder = 40
     end
     object ListBox_ruta: TListBox
-      Position.X = 417.000000000000000000
+      Position.X = 434.000000000000000000
       Position.Y = 57.000000000000000000
-      Size.Width = 100.000000000000000000
+      Size.Width = 71.000000000000000000
       Size.Height = 153.000000000000000000
       Size.PlatformDefault = False
-      TabOrder = 40
+      TabOrder = 41
       DisableFocusEffect = True
       DefaultItemStyles.ItemStyle = ''
       DefaultItemStyles.GroupHeaderStyle = ''
       DefaultItemStyles.GroupFooterStyle = ''
-      Viewport.Width = 96.000000000000000000
+      Viewport.Width = 67.000000000000000000
       Viewport.Height = 149.000000000000000000
     end
     object Label3: TLabel
@@ -83,7 +87,7 @@ object ventanaRutas: TventanaRutas
       Size.Height = 17.000000000000000000
       Size.PlatformDefault = False
       Text = 'Agregar'
-      TabOrder = 41
+      TabOrder = 42
     end
     object Label4: TLabel
       Position.X = 224.000000000000000000
@@ -92,19 +96,21 @@ object ventanaRutas: TventanaRutas
       Size.Height = 17.000000000000000000
       Size.PlatformDefault = False
       Text = 'Eliminar'
-      TabOrder = 42
+      TabOrder = 43
     end
     object btn_eliminar_todo: TButton
       Position.X = 201.000000000000000000
       Position.Y = 57.000000000000000000
-      TabOrder = 43
+      TabOrder = 44
       Text = 'Todo'
+      OnClick = btn_eliminar_todoClick
     end
     object btn_eliminar_seleccionado: TButton
       Position.X = 201.000000000000000000
       Position.Y = 87.000000000000000000
-      TabOrder = 44
+      TabOrder = 45
       Text = 'Seleccionado'
+      OnClick = btn_eliminar_seleccionadoClick
     end
     object Label5: TLabel
       Position.X = 91.000000000000000000
@@ -113,18 +119,21 @@ object ventanaRutas: TventanaRutas
       Size.Height = 17.000000000000000000
       Size.PlatformDefault = False
       Text = 'M'#225'quina'
-      TabOrder = 45
+      TabOrder = 46
     end
     object combobox_maquina: TComboBox
       ItemIndex = 0
       Position.X = 64.000000000000000000
       Position.Y = 57.000000000000000000
-      TabOrder = 46
+      TabOrder = 47
     end
   end
   object btn_guardar: TButton
-    Position.X = 471.000000000000000000
+    Position.X = 466.000000000000000000
     Position.Y = 313.000000000000000000
+    Size.Width = 71.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
     TabOrder = 36
     Text = 'Guardar'
   end
@@ -133,5 +142,11 @@ object ventanaRutas: TventanaRutas
     Params = <>
     Left = 272
     Top = 312
+  end
+  object ZQuery1: TZQuery
+    Connection = formPrincipal.ZConnection1
+    Params = <>
+    Left = 168
+    Top = 288
   end
 end
