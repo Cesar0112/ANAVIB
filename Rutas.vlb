@@ -1,7 +1,4 @@
-﻿[btn_guardar]
-Coordinates=10,232,84,58
-
-[btn_agregar_axial]
+﻿[btn_agregar_axial]
 Coordinates=493,300,118,58
 
 [ListBox_ruta]
@@ -12,9 +9,6 @@ Coordinates=10,368,121,58
 
 [Label4]
 Coordinates=10,300,53,58
-
-[combobox_maquina]
-Coordinates=159,10,130,146
 
 [Label3]
 Coordinates=104,232,53,58
@@ -51,5 +45,5 @@ Coordinates=167,232,144,58
 Coordinates=498,232,147,58
 
 []
-Coordinates=595,1,91,36
+Coordinates=159,10,130,146
 

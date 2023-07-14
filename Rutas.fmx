@@ -121,21 +121,33 @@ object ventanaRutas: TventanaRutas
       Text = 'M'#225'quina'
       TabOrder = 46
     end
-    object combobox_maquina: TComboBox
-      ItemIndex = 0
+    object btnEliminarMaquina: TButton
+      Position.X = 64.000000000000000000
+      Position.Y = 87.000000000000000000
+      Size.Width = 100.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 47
+      Text = 'Eliminar'
+      OnClick = btnEliminarMaquinaClick
+    end
+    object ComboEditMaquina: TComboEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 0
+      ItemHeight = 19.000000000000000000
+      ItemIndex = -1
       Position.X = 64.000000000000000000
       Position.Y = 57.000000000000000000
-      TabOrder = 47
+      OnChange = ComboEdit_etiquetaChange
+      OnKeyDown = ComboEditMaquinaKeyDown
     end
   end
-  object btn_guardar: TButton
-    Position.X = 466.000000000000000000
-    Position.Y = 313.000000000000000000
-    Size.Width = 71.000000000000000000
-    Size.Height = 22.000000000000000000
-    Size.PlatformDefault = False
-    TabOrder = 36
-    Text = 'Guardar'
+  object btnEliminarRuta: TButton
+    Position.X = 200.000000000000000000
+    Position.Y = 24.000000000000000000
+    TabOrder = 38
+    Text = 'Eliminar'
+    OnClick = btnEliminarRutaClick
   end
   object ZReadOnlyQuery1: TZReadOnlyQuery
     Connection = formPrincipal.ZConnection1

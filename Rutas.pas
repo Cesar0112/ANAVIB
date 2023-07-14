@@ -26,10 +26,11 @@ type
     btn_eliminar_todo: TButton;
     btn_eliminar_seleccionado: TButton;
     Label5: TLabel;
-    combobox_maquina: TComboBox;
-    btn_guardar: TButton;
     ZReadOnlyQuery1: TZReadOnlyQuery;
     ZQuery1: TZQuery;
+    btnEliminarRuta: TButton;
+    btnEliminarMaquina: TButton;
+    ComboEditMaquina: TComboEdit;
     procedure FormShow(Sender: TObject);
     procedure ComboEdit_etiquetaKeyDown(Sender: TObject; var Key: Word;
       var KeyChar: Char; Shift: TShiftState);
@@ -39,6 +40,10 @@ type
     procedure btn_agregar_axialClick(Sender: TObject);
     procedure btn_eliminar_todoClick(Sender: TObject);
     procedure btn_eliminar_seleccionadoClick(Sender: TObject);
+    procedure btnEliminarRutaClick(Sender: TObject);
+    procedure ComboEditMaquinaKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure btnEliminarMaquinaClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -63,13 +68,39 @@ implementation
 
 uses principal;
 
+procedure TventanaRutas.btnEliminarMaquinaClick(Sender: TObject);
+var
+  consulta: String;
+begin
+  consulta := 'DELETE FROM maquinas WHERE Etiqueta="' +
+    ComboEditMaquina.Text + '"';
+  EliminarSQL(ZQuery1, consulta);
+  llenarcomboMaquinas;
+  ComboEditMaquina.Items.Assign(maquinas);
+  ComboEditMaquina.ItemIndex := 0;
+
+end;
+
+procedure TventanaRutas.btnEliminarRutaClick(Sender: TObject);
+var
+  consulta: String;
+begin
+  consulta := 'DELETE FROM rutas WHERE Etiqueta="' +
+    ComboEdit_etiqueta.Text + '"';
+  EliminarSQL(ZQuery1, consulta);
+  llenarcomboeditRutas;
+  ComboEdit_etiqueta.Items.Assign(listado_rutas);
+  ComboEdit_etiqueta.ItemIndex := 0;
+
+end;
+
 procedure TventanaRutas.btn_agregar_axialClick(Sender: TObject);
 var
   consulta: String;
   elementoA: String;
 begin
   elementoA := StringReplace(listado_camino.Text, #13#10, ',', [rfReplaceAll]) +
-    combobox_maquina.Items[combobox_maquina.ItemIndex] + 'A';
+    ComboEditMaquina.Items[ComboEditMaquina.ItemIndex] + 'A';
   consulta := 'UPDATE rutas SET Camino="' + elementoA + '" WHERE Etiqueta="' +
     ComboEdit_etiqueta.Text + '"';
   ActualizarSQL(ZQuery1, consulta);
@@ -91,7 +122,7 @@ var
   elementoH: String;
 begin
   elementoH := StringReplace(listado_camino.Text, #13#10, ',', [rfReplaceAll]) +
-    combobox_maquina.Items[combobox_maquina.ItemIndex] + 'H';
+    ComboEditMaquina.Items[ComboEditMaquina.ItemIndex] + 'H';
   consulta := 'UPDATE rutas SET Camino="' + elementoH + '" WHERE Etiqueta="' +
     ComboEdit_etiqueta.Text + '"';
   ActualizarSQL(ZQuery1, consulta);
@@ -115,7 +146,7 @@ var
 begin
   // obtengo todos los elementos en forma de string asi M1H,M2v....
   elementoV := StringReplace(listado_camino.Text, #13#10, ',', [rfReplaceAll]) +
-    combobox_maquina.Items[combobox_maquina.ItemIndex] + 'V';
+    ComboEditMaquina.Items[ComboEditMaquina.ItemIndex] + 'V';
   consulta := 'UPDATE rutas SET Camino="' + elementoV + '" WHERE Etiqueta="' +
     ComboEdit_etiqueta.Text + '"';
   ActualizarSQL(ZQuery1, consulta);
@@ -188,6 +219,29 @@ begin
 
 end;
 
+procedure TventanaRutas.ComboEditMaquinaKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+var
+  consulta: String;
+begin
+  if Key = vkReturn then
+  begin
+    if ComboEditMaquina.Text <> '' then
+    begin
+      // si el elemento no esta en la lista
+      if ComboEditMaquina.Items.IndexOf(ComboEditMaquina.Text) = -1 then
+      begin
+        consulta := 'INSERT INTO maquinas (Etiqueta) VALUES ("' +
+          ComboEditMaquina.Text + '")';
+        insertarSQL(ZQuery1, consulta);
+        llenarcomboMaquinas;
+        ComboEditMaquina.Items.Assign(maquinas);
+        ComboEditMaquina.ItemIndex := 0;
+      end;
+    end;
+  end;
+end;
+
 procedure TventanaRutas.ComboEdit_etiquetaChange(Sender: TObject);
 begin
   ListBox_ruta.Clear;
@@ -204,6 +258,8 @@ end;
 
 procedure TventanaRutas.ComboEdit_etiquetaKeyDown(Sender: TObject;
   var Key: Word; var KeyChar: Char; Shift: TShiftState);
+var
+  consulta: String;
 begin
   if Key = vkReturn then
   begin
@@ -212,7 +268,12 @@ begin
       // si el elemento no esta en la lista
       if ComboEdit_etiqueta.Items.IndexOf(ComboEdit_etiqueta.Text) = -1 then
       begin
-
+        consulta := 'INSERT INTO rutas (Etiqueta,Camino) VALUES ("' +
+          ComboEdit_etiqueta.Text + '","")';
+        insertarSQL(ZQuery1, consulta);
+        llenarcomboeditRutas;
+        ComboEdit_etiqueta.Items.Assign(listado_rutas);
+        ComboEdit_etiqueta.ItemIndex := 0;
       end;
     end;
   end;
@@ -221,8 +282,8 @@ end;
 procedure TventanaRutas.FormShow(Sender: TObject);
 begin
   llenarcomboMaquinas;
-  combobox_maquina.Items.Assign(maquinas);
-  combobox_maquina.ItemIndex := 0;
+  ComboEditMaquina.Items.Assign(maquinas);
+  ComboEditMaquina.ItemIndex := 0;
 
   llenarcomboeditRutas;
   ComboEdit_etiqueta.Items.Assign(listado_rutas);
@@ -303,16 +364,20 @@ begin
     camino := trim(ventanaRutas.ZReadOnlyQuery1.FieldByName('Camino').AsString);
 
     // elimina las comas al principio y al final si las tiene
-    if camino[camino.Length] = ',' then
-      Delete(camino, camino.Length, 1);
-    if camino[1] = ',' then
-      Delete(camino, 1, 1);
 
-    arrayAux := SplitString(camino, ','); // array divido por comas;
-
-    for i in arrayAux do
+    if camino.Length > 1 then
     begin
-      listado_camino.Add(i);
+      if camino[camino.Length] = ',' then
+        Delete(camino, camino.Length, 1);
+      if camino[1] = ',' then
+        Delete(camino, 1, 1);
+
+      arrayAux := SplitString(camino, ','); // array divido por comas;
+
+      for i in arrayAux do
+      begin
+        listado_camino.Add(i);
+      end;
     end;
 
   end;
