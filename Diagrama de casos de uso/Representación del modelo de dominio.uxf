@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>20</x>
+      <y>20</y>
+      <w>130</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>Equipo
+--
+-Sistema operativo
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>170</x>
+      <y>20</y>
+      <w>130</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>Receptor del Equipo
+--
+Caracteristicas
+desconocidas
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
