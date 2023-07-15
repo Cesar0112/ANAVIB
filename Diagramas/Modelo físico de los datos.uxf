@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>230</x>
+      <y>170</y>
+      <w>160</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Route
+--
+-id_route:Integer &lt;pk&gt;
+-label_route:Text 
+-path:Text
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>430</x>
+      <y>170</y>
+      <w>140</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>User
+--
+-id_user:Integer &lt;pk&gt;
+-name:Text 
+-password:Text
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>430</x>
+      <y>280</y>
+      <w>140</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Machine
+--
+-id_maq:Integer &lt;pk&gt;
+-label_maq:Text 
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>230</x>
+      <y>280</y>
+      <w>150</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>Signal
+--
+-id_signal:String &lt;pk&gt;
+-day:Integer 
+-month:Integer
+-year:Integer
+-frequency:Integer
+-rms:Real
+-peak_max:Real
+-peak_min:Real
+-hour:Integer
+-minute:Integer
+-second:Integer
+-signal_data:Blob
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>120</x>
+      <y>160</y>
+      <w>120</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;model&gt;&gt;
+Route
+--
+-label_route:Text 
+-path:Text
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>120</x>
+      <y>270</y>
+      <w>130</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;model&gt;&gt;
+Signal
+--
+-day:Integer 
+-month:Integer
+-year:Integer
+-frequency:Integer
+-rms:Real
+-peak_max:Real
+-peak_min:Real
+-hour:Integer
+-minute:Integer
+-second:Integer
+-signal_data:Blob
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>280</x>
+      <y>160</y>
+      <w>130</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;model&gt;&gt;
+User
+--
+-name:Text 
+-password:Text
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>280</x>
+      <y>270</y>
+      <w>130</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;model&gt;&gt;
+Machine
+--
+-label_maq:Text 
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
