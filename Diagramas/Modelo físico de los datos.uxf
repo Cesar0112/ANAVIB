@@ -58,7 +58,7 @@ bg=blue</panel_attributes>
     </coordinates>
     <panel_attributes>Signal
 --
--id_signal:String &lt;pk&gt;
+-id_signal:Text &lt;pk&gt;
 -day:Integer 
 -month:Integer
 -year:Integer
