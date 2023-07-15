@@ -2,7 +2,7 @@ object formUsuarios: TformUsuarios
   Left = 0
   Top = 0
   Caption = 'Usuarios'
-  ClientHeight = 133
+  ClientHeight = 156
   ClientWidth = 464
   FormFactor.Width = 320
   FormFactor.Height = 480
@@ -16,7 +16,7 @@ object formUsuarios: TformUsuarios
     Size.Height = 17.000000000000000000
     Size.PlatformDefault = False
     Text = 'Contrase'#241'a'
-    TabOrder = 2
+    TabOrder = 3
   end
   object Label1: TLabel
     Position.X = 27.000000000000000000
@@ -29,13 +29,13 @@ object formUsuarios: TformUsuarios
   end
   object editUsuario: TEdit
     Touch.InteractiveGestures = [LongTap, DoubleTap]
-    TabOrder = 3
+    TabOrder = 4
     Position.X = 81.000000000000000000
     Position.Y = 14.000000000000000000
   end
   object editPass: TEdit
     Touch.InteractiveGestures = [LongTap, DoubleTap]
-    TabOrder = 4
+    TabOrder = 5
     Password = True
     Position.X = 81.000000000000000000
     Position.Y = 44.000000000000000000
@@ -46,24 +46,24 @@ object formUsuarios: TformUsuarios
     Size.Width = 44.000000000000000000
     Size.Height = 19.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 5
+    TabOrder = 6
     Text = 'Ver'
     OnChange = CheckBox1Change
   end
   object btnCrearUsuario: TButton
     Position.X = 81.000000000000000000
-    Position.Y = 88.000000000000000000
+    Position.Y = 112.000000000000000000
     Size.Width = 100.000000000000000000
     Size.Height = 22.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 7
+    TabOrder = 8
     Text = 'Crear'
     OnClick = btnCrearUsuarioClick
   end
   object ComboBoxUsuarios: TComboBox
     Position.X = 356.000000000000000000
     Position.Y = 14.000000000000000000
-    TabOrder = 8
+    TabOrder = 9
   end
   object Label3: TLabel
     Position.X = 295.000000000000000000
@@ -75,22 +75,22 @@ object formUsuarios: TformUsuarios
     TabOrder = 0
   end
   object btnEliminar: TButton
-    Position.X = 249.000000000000000000
-    Position.Y = 88.000000000000000000
-    Size.Width = 80.000000000000000000
+    Position.X = 359.000000000000000000
+    Position.Y = 82.000000000000000000
+    Size.Width = 97.000000000000000000
     Size.Height = 22.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 6
+    TabOrder = 7
     Text = 'Eliminar'
     OnClick = btnEliminarClick
   end
   object btnEditar: TButton
     Position.X = 359.000000000000000000
-    Position.Y = 88.000000000000000000
+    Position.Y = 112.000000000000000000
     Size.Width = 97.000000000000000000
     Size.Height = 22.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 9
+    TabOrder = 10
     Text = 'Editar'
     OnClick = btnEditarClick
   end
@@ -100,10 +100,24 @@ object formUsuarios: TformUsuarios
     Size.Width = 97.000000000000000000
     Size.Height = 22.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 10
+    TabOrder = 11
     Text = 'Cancelar Edici'#243'n'
     Visible = False
     OnClick = btnCancelarEdicionClick
+  end
+  object Label4: TLabel
+    Position.X = 17.000000000000000000
+    Position.Y = 78.000000000000000000
+    Size.Width = 53.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Privilegio'
+    TabOrder = 2
+  end
+  object ComboBox1: TComboBox
+    Position.X = 81.000000000000000000
+    Position.Y = 78.000000000000000000
+    TabOrder = 13
   end
   object ZReadOnlyQuery1: TZReadOnlyQuery
     Connection = formPrincipal.ZConnection1
