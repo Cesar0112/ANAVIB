@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>9</zoom_level>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>342</x>
+      <y>9</y>
+      <w>27</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;30.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLSpecialState</id>
+    <coordinates>
+      <x>342</x>
+      <y>0</y>
+      <w>18</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>type=initial</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>306</x>
+      <y>36</y>
+      <w>90</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>Cargar BD</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>342</x>
+      <y>63</y>
+      <w>27</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>10.0;30.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLSpecialState</id>
+    <coordinates>
+      <x>306</x>
+      <y>90</y>
+      <w>90</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>type=decision
+Carga
+correcta</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>342</x>
+      <y>135</y>
+      <w>36</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Sí
+</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLSpecialState</id>
+    <coordinates>
+      <x>288</x>
+      <y>180</y>
+      <w>126</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>type=decision
+Autenticación
+correcta</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>342</x>
+      <y>243</y>
+      <w>36</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Sí
+</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>405</x>
+      <y>198</y>
+      <w>315</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m2=No
+</panel_attributes>
+    <additional_attributes>330.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>387</x>
+      <y>99</y>
+      <w>324</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m2=No
+</panel_attributes>
+    <additional_attributes>340.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLSpecialState</id>
+    <coordinates>
+      <x>693</x>
+      <y>108</y>
+      <w>18</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>type=final</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSpecialState</id>
+    <coordinates>
+      <x>288</x>
+      <y>279</y>
+      <w>126</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>type=decision
+Desea
+gestionar
+usuarios</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>342</x>
+      <y>342</y>
+      <w>36</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Sí
+</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>405</x>
+      <y>297</y>
+      <w>315</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m2=No
+</panel_attributes>
+    <additional_attributes>330.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>288</x>
+      <y>378</y>
+      <w>126</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>Desplegar opción
+gestión</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>288</x>
+      <y>441</y>
+      <w>126</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>Seleccionar opción
+usuarios</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>342</x>
+      <y>405</y>
+      <w>27</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+
+</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLSpecialState</id>
+    <coordinates>
+      <x>108</x>
+      <y>612</y>
+      <w>126</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>type=decision
+Desea
+editar
+usuario</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>342</x>
+      <y>468</y>
+      <w>27</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+
+</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLSyncBarHorizontal</id>
+    <coordinates>
+      <x>117</x>
+      <y>513</y>
+      <w>486</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lw=5
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>162</x>
+      <y>513</y>
+      <w>27</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+
+</panel_attributes>
+    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>342</x>
+      <y>513</y>
+      <w>27</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+
+</panel_attributes>
+    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>540</x>
+      <y>513</y>
+      <w>27</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+
+</panel_attributes>
+    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLSpecialState</id>
+    <coordinates>
+      <x>288</x>
+      <y>612</y>
+      <w>126</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>type=decision
+Desea
+eliminar
+usuario</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSpecialState</id>
+    <coordinates>
+      <x>486</x>
+      <y>612</y>
+      <w>126</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>type=decision
+Desea
+crear
+usuario</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>486</x>
+      <y>711</y>
+      <w>126</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>Llenar campos
+necesarios</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>540</x>
+      <y>675</y>
+      <w>36</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Sí
+</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>603</x>
+      <y>630</y>
+      <w>117</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m2=No
+</panel_attributes>
+    <additional_attributes>110.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>342</x>
+      <y>675</y>
+      <w>36</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Sí
+</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>288</x>
+      <y>711</y>
+      <w>126</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>Seleccionar
+usuario</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSpecialState</id>
+    <coordinates>
+      <x>486</x>
+      <y>774</y>
+      <w>126</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>type=decision
+Confirma
+edición</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>540</x>
+      <y>738</y>
+      <w>27</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>342</x>
+      <y>837</y>
+      <w>225</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Sí
+</panel_attributes>
+    <additional_attributes>10.0;120.0;230.0;120.0;230.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>603</x>
+      <y>792</y>
+      <w>117</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m2=No
+</panel_attributes>
+    <additional_attributes>110.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLSpecialState</id>
+    <coordinates>
+      <x>288</x>
+      <y>774</y>
+      <w>126</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>type=decision
+Confirma
+eliminación</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>342</x>
+      <y>738</y>
+      <w>27</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>342</x>
+      <y>837</y>
+      <w>36</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Sí
+</panel_attributes>
+    <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>288</x>
+      <y>972</y>
+      <w>126</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>Confirmar
+acción</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>108</x>
+      <y>711</y>
+      <w>126</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>Seleccionar
+usuario</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>162</x>
+      <y>675</y>
+      <w>36</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Sí
+</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>108</x>
+      <y>774</y>
+      <w>126</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>Editar campos
+de usuario</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>162</x>
+      <y>738</y>
+      <w>27</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLSpecialState</id>
+    <coordinates>
+      <x>108</x>
+      <y>837</y>
+      <w>126</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>type=decision
+Confirma
+edición</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>162</x>
+      <y>801</y>
+      <w>27</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>162</x>
+      <y>900</y>
+      <w>207</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Sí
+</panel_attributes>
+    <additional_attributes>210.0;50.0;10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>342</x>
+      <y>513</y>
+      <w>378</w>
+      <h>540</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>400.0;10.0;400.0;580.0;10.0;580.0;10.0;550.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>36</x>
+      <y>558</y>
+      <w>684</w>
+      <h>342</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m2=No
+</panel_attributes>
+    <additional_attributes>740.0;20.0;10.0;20.0;10.0;350.0;80.0;350.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>252</x>
+      <y>567</y>
+      <w>54</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m2=No
+</panel_attributes>
+    <additional_attributes>20.0;10.0;20.0;270.0;40.0;270.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>405</x>
+      <y>567</y>
+      <w>63</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m2=No
+</panel_attributes>
+    <additional_attributes>50.0;10.0;50.0;90.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>225</x>
+      <y>630</y>
+      <w>63</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m2=No
+</panel_attributes>
+    <additional_attributes>50.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLSpecialState</id>
+    <coordinates>
+      <x>639</x>
+      <y>450</y>
+      <w>126</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>type=decision
+Desea
+continuar
+gestión</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>342</x>
+      <y>468</y>
+      <w>315</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m2=Sí
+</panel_attributes>
+    <additional_attributes>10.0;20.0;330.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>693</x>
+      <y>117</y>
+      <w>45</w>
+      <h>351</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m2=No
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;370.0</additional_attributes>
+  </element>
+</diagram>
