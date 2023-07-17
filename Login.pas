@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes,
-  System.Variants, principal, UASUtilesDB,Seguridad,
+  System.Variants, principal, UASUtilesDB, Seguridad,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Edit,
   FMX.ListBox, FMX.Controls.Presentation, FMX.StdCtrls, FMX.ComboEdit, Data.DB,
   ZAbstractRODataset, ZDataset, ZAbstractConnection, ZConnection,
@@ -16,10 +16,10 @@ type
     Label2: TLabel;
     EditPassword: TEdit;
     btnIngresar: TButton;
-    ComboEditUser: TComboEdit;
     lblErrorContrasenia: TLabel;
     lblErrorUsuario: TLabel;
     ZReadOnlyQuery1: TZReadOnlyQuery;
+    EditUser: TEdit;
     procedure btnIngresarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure EditPasswordKeyDown(Sender: TObject; var Key: Word;
@@ -50,11 +50,11 @@ implementation
 
 procedure TformLogin.btnIngresarClick(Sender: TObject);
 var
-  
+
   contrasenia: String;
 begin
   // comprobacion para ver si es correcta la contraseña
-  usuario := ComboEditUser.Text; // obtengo el usuario
+  usuario := EditUser.Text; // obtengo el usuario
   contrasenia := encriptarSHA256(EditPassword.Text);
   // la contrasenia encriptada
   isValido := False;
@@ -65,18 +65,21 @@ begin
     // si la contraseña es valida y es la del usuario
     if compruebaContrasenia(contrasenia, usuario) then
     begin
-      lblErrorContrasenia.Visible := False;
+      lblErrorUsuario.Visible := true;
+      lblErrorContrasenia.Visible := true;
       isValido := true;
     end
     else
     begin
+      lblErrorUsuario.Visible := true;
       lblErrorContrasenia.Visible := true;
     end;
 
   end
   else
   begin
-    lblErrorUsuario.Visible := true
+    lblErrorUsuario.Visible := true;
+    lblErrorContrasenia.Visible := true;
   end;
 
   // si todo esta correcto

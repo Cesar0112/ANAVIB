@@ -1,9 +1,9 @@
 object formLogin: TformLogin
   Left = 0
   Top = 0
-  Caption = 'Login'
-  ClientHeight = 155
-  ClientWidth = 214
+  Caption = 'Autenticar'
+  ClientHeight = 154
+  ClientWidth = 237
   Position = DesktopCenter
   FormFactor.Width = 320
   FormFactor.Height = 480
@@ -38,20 +38,11 @@ object formLogin: TformLogin
     OnKeyDown = EditPasswordKeyDown
   end
   object btnIngresar: TButton
-    Position.X = 72.000000000000000000
+    Position.X = 80.000000000000000000
     Position.Y = 109.000000000000000000
     TabOrder = 3
     Text = 'Autenticarse'
     OnClick = btnIngresarClick
-  end
-  object ComboEditUser: TComboEdit
-    Touch.InteractiveGestures = [LongTap, DoubleTap]
-    TabOrder = 4
-    ItemHeight = 19.000000000000000000
-    ItemIndex = -1
-    Position.X = 89.000000000000000000
-    Position.Y = 27.000000000000000000
-    OnKeyDown = ComboEditUserKeyDown
   end
   object lblErrorContrasenia: TLabel
     StyledSettings = []
@@ -66,7 +57,7 @@ object formLogin: TformLogin
     TextSettings.FontColor = claRed
     Text = 'X'
     Visible = False
-    TabOrder = 6
+    TabOrder = 5
   end
   object lblErrorUsuario: TLabel
     StyledSettings = []
@@ -81,7 +72,13 @@ object formLogin: TformLogin
     TextSettings.FontColor = claRed
     Text = 'X'
     Visible = False
-    TabOrder = 5
+    TabOrder = 4
+  end
+  object EditUser: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 6
+    Position.X = 89.000000000000000000
+    Position.Y = 29.000000000000000000
   end
   object ZReadOnlyQuery1: TZReadOnlyQuery
     Connection = formPrincipal.ZConnection1

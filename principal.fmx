@@ -3,7 +3,7 @@
   Top = 0
   Caption = 'ANAVIB'
   ClientHeight = 519
-  ClientWidth = 953
+  ClientWidth = 1226
   Position = DesktopCenter
   WindowState = wsMaximized
   FormFactor.Width = 320
@@ -15,7 +15,7 @@
   DesignerMasterStyle = 0
   object panelPrincipal: TPanel
     Align = Client
-    Size.Width = 953.000000000000000000
+    Size.Width = 1226.000000000000000000
     Size.Height = 519.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 1
@@ -58,6 +58,8 @@
       SubFoot.Font.StyleExt = {00040000000200000004000000}
       Title.Text.Strings = (
         'Espectro')
+      BottomAxis.Title.Caption = 'frecuencia'
+      LeftAxis.Title.Caption = 'amplitud'
       Pages.AutoScale = True
       View3D = False
       View3DWalls = False
@@ -85,8 +87,8 @@
       end
     end
     object graficoSenial: TChart
-      Position.X = 6.000000000000000000
-      Position.Y = 5.000000000000000000
+      Position.X = 8.000000000000000000
+      Position.Y = 8.000000000000000000
       Foot.Font.StyleExt = {00040000000200000004000000}
       Legend.Alignment = laBottom
       Legend.CheckBoxes = True
@@ -131,7 +133,7 @@
     object valoresGlobales: TGroupBox
       Position.X = 576.000000000000000000
       Position.Y = 20.000000000000000000
-      Size.Width = 177.000000000000000000
+      Size.Width = 192.000000000000000000
       Size.Height = 157.000000000000000000
       Size.PlatformDefault = False
       Text = 'Valores globales'
@@ -174,8 +176,8 @@
       end
       object lblMuestraValorRMS: TLabel
         Position.X = 135.000000000000000000
-        Position.Y = 48.000000000000000000
-        Size.Width = 34.000000000000000000
+        Position.Y = 47.000000000000000000
+        Size.Width = 49.000000000000000000
         Size.Height = 17.000000000000000000
         Size.PlatformDefault = False
         Text = '*****        '
@@ -184,29 +186,29 @@
       object lblMuestraValorPicoMaximo: TLabel
         Position.X = 135.000000000000000000
         Position.Y = 73.000000000000000000
-        Size.Width = 34.000000000000000000
+        Size.Width = 49.000000000000000000
         Size.Height = 17.000000000000000000
         Size.PlatformDefault = False
         Text = '*****'
-        TabOrder = 37
+        TabOrder = 38
       end
       object lblMuestraValorPicoMinimo: TLabel
         Position.X = 135.000000000000000000
         Position.Y = 98.000000000000000000
-        Size.Width = 34.000000000000000000
+        Size.Width = 49.000000000000000000
         Size.Height = 17.000000000000000000
         Size.PlatformDefault = False
         Text = '*****'
-        TabOrder = 39
+        TabOrder = 40
       end
       object lblMuestraValorDePicoPico: TLabel
         Position.X = 135.000000000000000000
         Position.Y = 122.000000000000000000
-        Size.Width = 34.000000000000000000
+        Size.Width = 49.000000000000000000
         Size.Height = 16.000000000000000000
         Size.PlatformDefault = False
         Text = '*****'
-        TabOrder = 42
+        TabOrder = 43
       end
     end
     object Timer1: TTimer

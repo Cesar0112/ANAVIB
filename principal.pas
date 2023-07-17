@@ -3,7 +3,7 @@ unit principal;
 interface
 
 uses
-  System.SysUtils, Hash, System.Types,
+  System.SysUtils, Hash, System.Types,System.Math,
   System.UITypes, System.Classes, DateUtils, Seguridad,
   System.Variants, Configuracion, Analisis, Rutas, UASUtilesDB, Usuarios,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Menus,
@@ -94,15 +94,15 @@ procedure TformPrincipal.btnPlayPausaClick(Sender: TObject);
 var
   i: Integer;
   Pausa: String;
-  Play: String;
+  Reproducir: String;
 begin
 
   // establesco el intervalo de cambio de reloj con la configuracion
   Timer1.Interval := FrecMuestreo;
   Pausa := 'Pausa';
-  Play := 'Play';
+  Reproducir := 'Reproducir';
   if btnPlayPausa.Text = Pausa then
-    btnPlayPausa.Text := Play
+    btnPlayPausa.Text := Reproducir
   else
     btnPlayPausa.Text := Pausa;
 
@@ -212,10 +212,10 @@ begin
   difPicos := picoMax - picoMin;
   RMS := CalcularVRMS(ValueListToArrayOfDouble(graficoSenial.Series[0]
     .YValues));
-  lblMuestraValorPicoMaximo.Text := floatToStr(picoMax);
-  lblMuestraValorPicoMinimo.Text := floatToStr(picoMin);
-  lblMuestraValorDePicoPico.Text := floatToStr(difPicos);
-  lblMuestraValorRMS.Text := floatToStr(RMS);
+  lblMuestraValorPicoMaximo.Text := floatToStr(RoundTo(picoMax,-2));
+  lblMuestraValorPicoMinimo.Text := floatToStr(RoundTo(picoMin,-2));
+  lblMuestraValorDePicoPico.Text := floatToStr(RoundTo(difPicos,-2));
+  lblMuestraValorRMS.Text := floatToStr(RoundTo(RMS,-2));
 end;
 
 procedure TformPrincipal.opcUsuariosClick(Sender: TObject);
