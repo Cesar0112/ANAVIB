@@ -3,14 +3,14 @@ unit principal;
 interface
 
 uses
-  System.SysUtils, Hash, System.Types,System.Math,
+  System.SysUtils, Hash, System.Types, System.Math,
   System.UITypes, System.Classes, DateUtils, Seguridad,
   System.Variants, Configuracion, Analisis, Rutas, UASUtilesDB, Usuarios,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Menus,
   FMX.ExtCtrls, FMX.Controls.Presentation, FMX.StdCtrls, FMXTee.Engine,
   FMXTee.Procs, FMXTee.Chart, FMX.Controls3D, FMXTee.Chart3D, FMXTee.Series,
   Data.DB, Data.SqlExpr, Data.DbxSqlite, FMX.Layouts, ZAbstractConnection,
-  ZConnection, ZAbstractRODataset, ZAbstractDataset, ZDataset;
+  ZConnection, ZAbstractRODataset, ZAbstractDataset, ZDataset, FMX.ListBox;
 
 type
   ArrayOfDouble = array of Double;
@@ -46,6 +46,19 @@ type
     ZConnection1: TZConnection;
     opcUsuarios: TMenuItem;
     opcGestion: TMenuItem;
+    Label1: TLabel;
+    Label3: TLabel;
+    ComboBox1: TComboBox;
+    lblMedicion: TLabel;
+    Button1: TButton;
+    Button2: TButton;
+    ZReadOnlyQuery1: TZReadOnlyQuery;
+    opcDriver: TMenuItem;
+    Label4: TLabel;
+    lblModo: TLabel;
+    opcModo: TMenuItem;
+    opcRuta: TMenuItem;
+    opcSimple: TMenuItem;
 
     procedure opcionSalirClick(Sender: TObject);
     procedure btnPlayPausaClick(Sender: TObject);
@@ -59,13 +72,19 @@ type
     procedure btnRegistrarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure opcUsuariosClick(Sender: TObject);
+    procedure opcDriverClick(Sender: TObject);
+    procedure opcRutaClick(Sender: TObject);
+    procedure opcSimpleClick(Sender: TObject);
 
   private
     { Private declarations }
   public
     { Public declarations }
     x: Double;
-    RoleActual:Integer;
+    id_RoleActual: Integer;
+    id_UsuarioActual: Integer;
+    RutaActual: String;
+    id_RutaActual: Integer;
   end;
 
   { A esta funcion se le pasa un arreglo de amplitudes que son de tipo Double }
@@ -76,6 +95,7 @@ function ValueListToArrayOfDouble(ValueList: TChartValueList): ArrayOfDouble;
 function getUUIDs: String;
 
 procedure insertarSenial(senial: array of Double);
+procedure llenarcomboMaquinas;
 
 var
   formPrincipal: TformPrincipal;
@@ -101,10 +121,13 @@ begin
   Timer1.Interval := FrecMuestreo;
   Pausa := 'Pausa';
   Reproducir := 'Reproducir';
-  if btnPlayPausa.Text = Pausa then
-    btnPlayPausa.Text := Reproducir
+  if btnPlayPausa.StyleLookup = 'playtoolbutton' then
+  begin
+    btnPlayPausa.StyleLookup := 'pausetoolbutton';
+  end
+
   else
-    btnPlayPausa.Text := Pausa;
+    btnPlayPausa.StyleLookup := 'playtoolbutton';
 
   Timer1.Enabled := not Timer1.Enabled; // cambia el estado del reloj
 
@@ -152,13 +175,30 @@ begin
   Timer1.Interval := FrecMuestreo;
   Timer1.Enabled := True;
 
-  //restricciones de privilegios
-  if usuario <> 'admin' then
-    begin
+  ConsultaSQL(ZReadOnlyQuery1,
+    'SELECT rutas.ID_ruta,rutas.Etiqueta FROM rutas LIMIT 1');
+  if not ZReadOnlyQuery1.IsEmpty then
+  begin
+    llenarcomboeditRutas;
+    ComboBox1.Items.Assign(listado_rutas);
+    ComboBox1.ItemIndex := 0;
+  end;
+  // restricciones de privilegios
+  // si no es administrador no se muestra la gestion->usuarios
+  if id_RoleActual <> 1 then
+  begin
     opcUsuarios.Visible := False;
-    opcionRutaManipular.Visible:=False;
-    end;
+    opcionRutaManipular.Visible := False;
+  end;
 
+end;
+
+procedure TformPrincipal.opcDriverClick(Sender: TObject);
+// var
+// ventanaSeleccion: TformSeleccion;
+begin
+  // ventanaSeleccion := TformSeleccion.Create(Self);
+  // ventanaSeleccion.ShowModal;
 
 end;
 
@@ -188,6 +228,24 @@ begin
   Halt;
 end;
 
+procedure TformPrincipal.opcRutaClick(Sender: TObject);
+begin
+lblModo.Text:='Ruta';
+Label1.Visible:=True;
+ComboBox1.Visible:=True;
+Label3.Visible:=True;
+lblMedicion.Visible:=True;
+end;
+
+procedure TformPrincipal.opcSimpleClick(Sender: TObject);
+begin
+lblModo.Text:='Simple';
+Label1.Visible:=False;
+ComboBox1.Visible:=False;
+Label3.Visible:=False;
+lblMedicion.Visible:=False;
+end;
+
 procedure TformPrincipal.Timer1Timer(Sender: TObject);
 var
   y, picoMax, picoMin, difPicos, RMS: Double;
@@ -212,10 +270,10 @@ begin
   difPicos := picoMax - picoMin;
   RMS := CalcularVRMS(ValueListToArrayOfDouble(graficoSenial.Series[0]
     .YValues));
-  lblMuestraValorPicoMaximo.Text := floatToStr(RoundTo(picoMax,-2));
-  lblMuestraValorPicoMinimo.Text := floatToStr(RoundTo(picoMin,-2));
-  lblMuestraValorDePicoPico.Text := floatToStr(RoundTo(difPicos,-2));
-  lblMuestraValorRMS.Text := floatToStr(RoundTo(RMS,-2));
+  lblMuestraValorPicoMaximo.Text := floatToStr(RoundTo(picoMax, -2));
+  lblMuestraValorPicoMinimo.Text := floatToStr(RoundTo(picoMin, -2));
+  lblMuestraValorDePicoPico.Text := floatToStr(RoundTo(difPicos, -2));
+  lblMuestraValorRMS.Text := floatToStr(RoundTo(RMS, -2));
 end;
 
 procedure TformPrincipal.opcUsuariosClick(Sender: TObject);
@@ -333,7 +391,7 @@ var
 begin
   streamSenial := TMemoryStream.Create;
   consulta :=
-    'INSERT INTO señales (ID_Señal,Dia,Mes,Año,Frecuencia,RMS,PICO_Max,PICO_Min,Hora,Minuto,Segundo,Señal) VALUES (:id,:dia,:mes,:anio,:frecuencia,:rms,:picoMax,:picoMin,:hora,:minuto,:segundo,:senial);';
+    'INSERT INTO señales (ID_Señal,Dia,Mes,Año,Frecuencia,RMS,PICO_Max,PICO_Min,Hora,Minuto,Segundo,Señal,fk_id_usuario,fk_id_ruta) VALUES (:id,:dia,:mes,:anio,:frecuencia,:rms,:picoMax,:picoMin,:hora,:minuto,:segundo,:senial);';
 
   try
     for i := 0 to Length(senial) - 1 do
@@ -369,12 +427,42 @@ begin
       SecondOf(Now);
     formPrincipal.ZQuery1.Params.ParamByName('senial')
       .LoadFromStream(streamSenial, ftBlob);
+    formPrincipal.ZQuery1.Params.ParamByName('fk_id_usuario').AsInteger :=
+      formPrincipal.id_UsuarioActual;
+    formPrincipal.ZQuery1.Params.ParamByName('fk_id_ruta').AsInteger :=
+      formPrincipal.id_RutaActual;
+
     formPrincipal.ZQuery1.ExecSQL;
 
   finally
     streamSenial.Free;
   end;
 
+end;
+
+procedure llenarcomboMaquinas;
+var
+  consulta: String;
+begin
+  consulta := 'SELECT Etiqueta FROM maquinas';
+
+  if not formPrincipal.ZQuery1.Connection.Connected then
+    ShowMessage('Error de carga de base de datos.')
+  else // si se conecto
+  begin
+    ConsultaSQL(ventanaRutas.ZReadOnlyQuery1, consulta);
+    maquinas := TStringList.Create;
+    ventanaRutas.ZReadOnlyQuery1.First; // muevete al primer elemento
+
+    while not ventanaRutas.ZReadOnlyQuery1.Eof do
+    begin
+      maquinas.Add(ventanaRutas.ZReadOnlyQuery1.FieldByName('Etiqueta')
+        .AsString);
+      // agrego el nombre de la maquina al combobox
+      ventanaRutas.ZReadOnlyQuery1.Next; // pasa al siguiente
+    end;
+
+  end;
 end;
 
 end.

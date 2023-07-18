@@ -62,19 +62,20 @@ begin
   // verificar usuario
   if existeUsuario(usuario) then
   begin
-     isValido:= compruebaContrasenia(contrasenia, usuario);
+    isValido := compruebaContrasenia(contrasenia, usuario);
     // si la contraseña es valida y es la del usuario
     if isValido then
     begin
       ConsultaSQL(ZReadOnlyQuery1,
-        'SELECT id_role FROM Role JOIN usuarios ON Role.id_role = usuarios.fk_id_role WHERE usuarios.Nombre="'
+        'SELECT id_role,id_usuario FROM Role JOIN usuarios ON Role.id_role = usuarios.fk_id_role WHERE usuarios.Nombre="'
         + usuario + '"');
       // obtengo el Role del usuario para saber sus privilegios
       if not ZReadOnlyQuery1.IsEmpty then
       begin
-        formPrincipal.RoleActual := ZReadOnlyQuery1.FieldByName('id_role')
+        formPrincipal.id_RoleActual := ZReadOnlyQuery1.FieldByName('id_role')
           .AsInteger;
-
+        formPrincipal.id_UsuarioActual := ZReadOnlyQuery1.FieldByName('id_usuario')
+          .AsInteger;
       end
       else
       begin

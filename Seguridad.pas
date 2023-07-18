@@ -20,8 +20,7 @@ begin
 
   try
     hashSHA := THashSHA2.Create;
-    Result := LowerCase(hashSHA.GetHashString(pass,
-      THashSHA2.TSHA2Version.SHA256));
+    Result := THashSHA2.GetHashString(pass,SHA256);
 
   except
     on E: Exception do

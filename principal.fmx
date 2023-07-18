@@ -21,30 +21,53 @@
     TabOrder = 1
     object comandosGrafico: TGroupBox
       Position.X = 576.000000000000000000
-      Position.Y = 201.000000000000000000
-      Size.Width = 137.000000000000000000
+      Position.Y = 294.000000000000000000
+      Size.Width = 192.000000000000000000
       Size.Height = 88.000000000000000000
       Size.PlatformDefault = False
       Text = 'Comandos'
       TabOrder = 3
       object btnPlayPausa: TButton
-        Position.X = 24.000000000000000000
+        StyleName = 'pause'
+        Position.X = 16.000000000000000000
         Position.Y = 22.000000000000000000
+        StyleLookup = 'pausetoolbutton'
         TabOrder = 6
         Text = 'Pausa'
         OnClick = btnPlayPausaClick
       end
       object btnRegistrar: TButton
-        Position.X = 24.000000000000000000
+        Position.X = 16.000000000000000000
         Position.Y = 52.000000000000000000
+        StyleLookup = 'additembutton'
         TabOrder = 36
         Text = 'Registrar'
         OnClick = btnRegistrarClick
       end
+      object Button1: TButton
+        Position.X = 107.000000000000000000
+        Position.Y = 22.000000000000000000
+        Size.Width = 77.000000000000000000
+        Size.Height = 22.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'forwardtoolbutton'
+        TabOrder = 38
+        Text = 'Button1'
+      end
+      object Button2: TButton
+        Position.X = 107.000000000000000000
+        Position.Y = 52.000000000000000000
+        Size.Width = 77.000000000000000000
+        Size.Height = 22.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'rewindtoolbuttonbordered'
+        TabOrder = 39
+        Text = 'Button2'
+      end
     end
     object graficoEspectro: TChart
       Position.X = 776.000000000000000000
-      Position.Y = 5.000000000000000000
+      Position.Y = 62.000000000000000000
       Foot.Font.StyleExt = {00040000000200000004000000}
       Legend.Alignment = laBottom
       Legend.CheckBoxes = True
@@ -88,7 +111,7 @@
     end
     object graficoSenial: TChart
       Position.X = 8.000000000000000000
-      Position.Y = 8.000000000000000000
+      Position.Y = 65.000000000000000000
       Foot.Font.StyleExt = {00040000000200000004000000}
       Legend.Alignment = laBottom
       Legend.CheckBoxes = True
@@ -132,7 +155,7 @@
     end
     object valoresGlobales: TGroupBox
       Position.X = 576.000000000000000000
-      Position.Y = 20.000000000000000000
+      Position.Y = 77.000000000000000000
       Size.Width = 192.000000000000000000
       Size.Height = 157.000000000000000000
       Size.PlatformDefault = False
@@ -244,10 +267,28 @@
           Text = 'Usuarios'
           OnClick = opcUsuariosClick
         end
+        object opcDriver: TMenuItem
+          Locked = True
+          Text = 'Driver'
+          OnClick = opcDriverClick
+        end
       end
       object opcionAnalisisTendencia: TMenuItem
         Text = 'An'#225'lisis de tendencia'
         OnClick = opcionAnalisisTendenciaClick
+      end
+      object opcModo: TMenuItem
+        Text = 'Modo'
+        object opcRuta: TMenuItem
+          Locked = True
+          Text = 'Ruta'
+          OnClick = opcRutaClick
+        end
+        object opcSimple: TMenuItem
+          Locked = True
+          Text = 'Simple'
+          OnClick = opcSimpleClick
+        end
       end
       object Configuración: TMenuItem
         Text = 'Configuraci'#243'n'
@@ -257,6 +298,61 @@
         Text = '&Salir'
         OnClick = opcionSalirClick
       end
+    end
+    object Label1: TLabel
+      Position.X = 584.000000000000000000
+      Position.Y = 241.000000000000000000
+      Size.Width = 64.000000000000000000
+      Size.Height = 17.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.HorzAlign = Trailing
+      Text = 'Ruta actual'
+      TabOrder = 4
+    end
+    object Label3: TLabel
+      Position.X = 584.000000000000000000
+      Position.Y = 269.000000000000000000
+      Size.Width = 64.000000000000000000
+      Size.Height = 17.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.HorzAlign = Trailing
+      Text = 'Medici'#243'n'
+      TabOrder = 5
+    end
+    object ComboBox1: TComboBox
+      Position.X = 660.000000000000000000
+      Position.Y = 236.000000000000000000
+      TabOrder = 6
+    end
+    object lblMedicion: TLabel
+      Position.X = 660.000000000000000000
+      Position.Y = 270.000000000000000000
+      Size.Width = 100.000000000000000000
+      Size.Height = 17.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 7
+    end
+    object Label4: TLabel
+      StyledSettings = [Family, Style, FontColor]
+      Position.X = 448.000000000000000000
+      Position.Y = 8.000000000000000000
+      Size.Width = 145.000000000000000000
+      Size.Height = 41.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 20.000000000000000000
+      TextSettings.HorzAlign = Trailing
+      Text = 'Modo'
+      TabOrder = 8
+    end
+    object lblModo: TLabel
+      StyledSettings = [Family, Style, FontColor]
+      Position.X = 608.000000000000000000
+      Position.Y = 8.000000000000000000
+      Size.Width = 120.000000000000000000
+      Size.Height = 41.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 20.000000000000000000
+      TabOrder = 9
     end
   end
   object ZQuery1: TZQuery
@@ -275,6 +371,12 @@
     Password = ''
     Protocol = ''
     Left = 488
+    Top = 424
+  end
+  object ZReadOnlyQuery1: TZReadOnlyQuery
+    Connection = ZConnection1
+    Params = <>
+    Left = 344
     Top = 424
   end
 end
