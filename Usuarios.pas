@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes,
-  System.Variants,
+  System.Variants, System.StrUtils,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   UASUtilesDB, Seguridad,
   FMX.Controls.Presentation, FMX.StdCtrls, FMX.Edit, FMX.ListBox, Data.DB,
@@ -45,7 +45,7 @@ procedure actualizarUsuarios;
 
 var
   formUsuarios: TformUsuarios;
-  listaUsuarios: TStringList;
+  listaRoles, listaUsuarios: TStringList;
   idUsuarioAEditar: Integer;
 
 implementation
@@ -62,22 +62,39 @@ end;
 procedure TformUsuarios.btnCrearUsuarioClick(Sender: TObject);
 var
   contrasenia: String;
+  id_role:Integer;
 begin
-
-  contrasenia := encriptarSHA256(editUsuario.Text);
-  if insertarSQL(ZQuery1, 'INSERT INTO usuarios (Nombre,Contraseña) VALUES ("' +
-    editUsuario.Text + '",' + '"' + contrasenia + '"' + ')') then
+  if not((editUsuario.Text = '') or ContainsText(editUsuario.Text, ' ')) then
   begin
-    ShowMessage('Usuario ' + editUsuario.Text + ' creado correctamente');
-    llenarUsuarios;
-    if SizeOf(listaUsuarios) > 0 then
+    contrasenia := encriptarSHA256(editUsuario.Text);
+    ConsultaSQL(ZReadOnlyQuery1,'SELECT id_role FROM Role WHERE role = "'+ComboBox1.Items[ComboBox1.ItemIndex]+'"');
+    id_role := ZReadOnlyQuery1.FieldByName('id_role').AsInteger;
+    if insertarSQL(ZQuery1, 'INSERT INTO usuarios (Nombre,Contraseña,fk_id_role) VALUES ("'
+      + editUsuario.Text + '",' + '"' + contrasenia + '",' + '"' + IntToStr(id_role) + '")') then
     begin
-      ComboBoxUsuarios.Items.Assign(listaUsuarios);
-    end;
-  end
+      MessageDlg('Usuario ' + editUsuario.Text + ' creado correctamente',
+        TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
+      llenarUsuarios;
+      if SizeOf(listaUsuarios) > 0 then
+      begin
+        ComboBoxUsuarios.Items.Assign(listaUsuarios);
+        ComboBoxUsuarios.ItemIndex:=0;
+      end;
+    end
 
-  else
-    ShowMessage('Usuario ' + editUsuario.Text + ' no fue creado');
+    else
+      MessageDlg('Usuario ' + editUsuario.Text + ' no fue creado',
+        TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
+  end;
+
+  if ContainsText(editUsuario.Text, ' ') then
+    MessageDlg('ERROR: El campo usuario no puede tener espacios en blanco.',
+      TMsgDlgType.mtError, [TMsgDlgBtn.mbOK], 0);
+
+  if editUsuario.Text = '' then
+    MessageDlg('ERROR:El campo usuario no puede estar vacío.',
+      TMsgDlgType.mtError, [TMsgDlgBtn.mbOK], 0);
+
 end;
 
 procedure llenarUsuarios();
@@ -100,6 +117,30 @@ begin
       nombre := formUsuarios.ZReadOnlyQuery1.FieldByName('Nombre').AsString;
       listaUsuarios.Add(nombre);
       // agrego el nombre de la maquina al combobox
+      formUsuarios.ZReadOnlyQuery1.Next; // pasa al siguiente
+    end;
+
+  end;
+end;
+
+procedure llenarPrivilegios();
+var
+  role: String;
+begin
+  if not formUsuarios.ZQuery1.Connection.Connected then
+    ShowMessage('Error de carga de base de datos.')
+  else // si se conecto
+  begin
+    // obtengo los roles q puede tener un usuario
+    ConsultaSQL(formUsuarios.ZReadOnlyQuery1, 'SELECT role FROM Role');
+    listaRoles := TStringList.Create;
+    formUsuarios.ZReadOnlyQuery1.First; // muevete al primer elemento
+
+    while not formUsuarios.ZReadOnlyQuery1.Eof do
+    begin
+      role := formUsuarios.ZReadOnlyQuery1.FieldByName('role').AsString;
+      listaRoles.Add(role);
+      // agrego el role al combobox
       formUsuarios.ZReadOnlyQuery1.Next; // pasa al siguiente
     end;
 
@@ -177,20 +218,35 @@ begin
   if indiceSeleccionado <> -1 then
   begin
     usuarioSeleccionado := ComboBoxUsuarios.Items[indiceSeleccionado];
-    ConsultaSQL(ZReadOnlyQuery1,
-      'SELECT ID_usuario FROM usuarios WHERE Nombre="' +
-      usuarioSeleccionado + '"');
-    if not ZReadOnlyQuery1.IsEmpty then
-      idUsuario := ZReadOnlyQuery1.FieldByName('ID_usuario').AsInteger;
 
-    EliminarSQL(ZQuery1, 'DELETE FROM usuarios WHERE ID_usuario=' +
-      IntToStr(idUsuario));
-
-    llenarUsuarios;
-    if SizeOf(listaUsuarios) > 0 then
+    if MessageDlg('¿Está seguro que desea eliminar al usuario: ' +
+      usuarioSeleccionado + '?', TMsgDlgType.mtConfirmation,
+      [TMsgDlgBtn.mbYes, TMsgDlgBtn.mbNo], 0) = mrYes then
     begin
-      ComboBoxUsuarios.Items.Assign(listaUsuarios);
+      ConsultaSQL(ZReadOnlyQuery1,
+        'SELECT ID_usuario FROM usuarios WHERE Nombre="' +
+        usuarioSeleccionado + '"');
+      if not ZReadOnlyQuery1.IsEmpty then
+        idUsuario := ZReadOnlyQuery1.FieldByName('ID_usuario').AsInteger;
+
+      EliminarSQL(ZQuery1, 'DELETE FROM usuarios WHERE ID_usuario=' +
+        IntToStr(idUsuario));
+
+      llenarUsuarios;
+      if SizeOf(listaUsuarios) > 0 then
+      begin
+        ComboBoxUsuarios.Items.Assign(listaUsuarios);
+        ComboBoxUsuarios.ItemIndex := 0;
+      end;
+      MessageDlg('Usuario eliminado', TMsgDlgType.mtInformation,
+        [TMsgDlgBtn.mbOK], 0);
+    end
+    else
+    begin
+      MessageDlg('Usuario no eliminado', TMsgDlgType.mtInformation,
+        [TMsgDlgBtn.mbOK], 0);
     end;
+
   end;
 
 end;
@@ -206,8 +262,15 @@ begin
   if SizeOf(listaUsuarios) > 0 then
   begin
     ComboBoxUsuarios.Items.Assign(listaUsuarios);
+    ComboBoxUsuarios.ItemIndex := 0;
   end;
-
+  llenarPrivilegios;
+  if SizeOf(listaRoles) > 0 then
+  begin
+    ComboBox1.Items.Assign(listaRoles);
+    ComboBox1.ItemIndex := 0;
+  end;
+  editUsuario.SetFocus;
 end;
 
 // no me funciona no se pq

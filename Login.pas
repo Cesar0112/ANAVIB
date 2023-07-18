@@ -62,9 +62,9 @@ begin
   // verificar usuario
   if existeUsuario(usuario) then
   begin
-
+     isValido:= compruebaContrasenia(contrasenia, usuario);
     // si la contraseña es valida y es la del usuario
-    if compruebaContrasenia(contrasenia, usuario) then
+    if isValido then
     begin
       ConsultaSQL(ZReadOnlyQuery1,
         'SELECT id_role FROM Role JOIN usuarios ON Role.id_role = usuarios.fk_id_role WHERE usuarios.Nombre="'
@@ -75,11 +75,12 @@ begin
         formPrincipal.RoleActual := ZReadOnlyQuery1.FieldByName('id_role')
           .AsInteger;
 
-      end else
+      end
+      else
       begin
-        ShowMessage('Hubo un error en la consulta a la base de datos en el intento de obtener el Role del usuario');
+        ShowMessage
+          ('Hubo un error en la consulta a la base de datos en el intento de obtener el Role del usuario');
       end;
-      isValido := true;
     end;
 
   end;

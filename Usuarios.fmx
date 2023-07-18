@@ -32,6 +32,9 @@ object formUsuarios: TformUsuarios
     TabOrder = 4
     Position.X = 81.000000000000000000
     Position.Y = 14.000000000000000000
+    Size.Width = 127.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
   end
   object editPass: TEdit
     Touch.InteractiveGestures = [LongTap, DoubleTap]
@@ -39,9 +42,12 @@ object formUsuarios: TformUsuarios
     Password = True
     Position.X = 81.000000000000000000
     Position.Y = 44.000000000000000000
+    Size.Width = 127.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
   end
   object CheckBox1: TCheckBox
-    Position.X = 189.000000000000000000
+    Position.X = 214.000000000000000000
     Position.Y = 47.000000000000000000
     Size.Width = 44.000000000000000000
     Size.Height = 19.000000000000000000
@@ -76,7 +82,7 @@ object formUsuarios: TformUsuarios
   end
   object btnEliminar: TButton
     Position.X = 359.000000000000000000
-    Position.Y = 82.000000000000000000
+    Position.Y = 79.000000000000000000
     Size.Width = 97.000000000000000000
     Size.Height = 22.000000000000000000
     Size.PlatformDefault = False
@@ -96,7 +102,7 @@ object formUsuarios: TformUsuarios
   end
   object btnCancelarEdicion: TButton
     Position.X = 359.000000000000000000
-    Position.Y = 58.000000000000000000
+    Position.Y = 49.000000000000000000
     Size.Width = 97.000000000000000000
     Size.Height = 22.000000000000000000
     Size.PlatformDefault = False
@@ -117,6 +123,9 @@ object formUsuarios: TformUsuarios
   object ComboBox1: TComboBox
     Position.X = 81.000000000000000000
     Position.Y = 78.000000000000000000
+    Size.Width = 127.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
     TabOrder = 13
   end
   object ZReadOnlyQuery1: TZReadOnlyQuery
