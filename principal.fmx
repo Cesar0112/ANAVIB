@@ -53,6 +53,7 @@
         StyleLookup = 'forwardtoolbutton'
         TabOrder = 38
         Text = 'Button1'
+        OnClick = Button1Click
       end
       object Button2: TButton
         Position.X = 107.000000000000000000
@@ -273,10 +274,6 @@
           OnClick = opcDriverClick
         end
       end
-      object opcionAnalisisTendencia: TMenuItem
-        Text = 'An'#225'lisis de tendencia'
-        OnClick = opcionAnalisisTendenciaClick
-      end
       object opcModo: TMenuItem
         Text = 'Modo'
         object opcRuta: TMenuItem
@@ -289,6 +286,10 @@
           Text = 'Simple'
           OnClick = opcSimpleClick
         end
+      end
+      object opcionAnalisisTendencia: TMenuItem
+        Text = 'An'#225'lisis de tendencia'
+        OnClick = opcionAnalisisTendenciaClick
       end
       object Configuración: TMenuItem
         Text = 'Configuraci'#243'n'
@@ -352,6 +353,7 @@
       Size.Height = 41.000000000000000000
       Size.PlatformDefault = False
       TextSettings.Font.Size = 20.000000000000000000
+      Text = 'Ruta'
       TabOrder = 9
     end
   end

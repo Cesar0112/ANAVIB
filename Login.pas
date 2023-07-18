@@ -92,7 +92,7 @@ begin
     lblErrorUsuarioContraseña.Visible := False;
     ShowMessage('Usuario ' + usuario + ' autenticado correctamente');
     formPrincipal.Visible := true;
-    Visible := False;
+    formLogin.Visible := False;
   end
   else
   begin

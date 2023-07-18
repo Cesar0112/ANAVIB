@@ -3,8 +3,8 @@ unit principal;
 interface
 
 uses
-  System.SysUtils, Hash, System.Types, System.Math,
-  System.UITypes, System.Classes, DateUtils, Seguridad,
+  System.SysUtils, System.StrUtils, Hash, System.Types, System.Math,
+  System.UITypes, System.Classes, DateUtils, Seguridad, Seleccion,
   System.Variants, Configuracion, Analisis, Rutas, UASUtilesDB, Usuarios,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Menus,
   FMX.ExtCtrls, FMX.Controls.Presentation, FMX.StdCtrls, FMXTee.Engine,
@@ -75,6 +75,7 @@ type
     procedure opcDriverClick(Sender: TObject);
     procedure opcRutaClick(Sender: TObject);
     procedure opcSimpleClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -85,13 +86,16 @@ type
     id_UsuarioActual: Integer;
     RutaActual: String;
     id_RutaActual: Integer;
+    listado_mediciones: TStringList;
+    indice_medicion_actual: Integer;
+    tamanio_list_mediciones: Integer;
   end;
 
   { A esta funcion se le pasa un arreglo de amplitudes que son de tipo Double }
 function CalcularVRMS(const valoresSenial: ArrayOfDouble): Double;
 function generarValorALeatorio(): Double;
 function ValueListToArrayOfDouble(ValueList: TChartValueList): ArrayOfDouble;
-
+function getMediciones(ruta_etiqueta: String): TStringList;
 function getUUIDs: String;
 
 procedure insertarSenial(senial: array of Double);
@@ -143,10 +147,28 @@ begin
   // le paso a la base de datos el arreglo
 end;
 
+procedure TformPrincipal.Button1Click(Sender: TObject);
+begin
+
+  if tamanio_list_mediciones > 0 then
+  begin
+    lblMedicion.Text := listado_mediciones[indice_medicion_actual];
+    indice_medicion_actual := indice_medicion_actual + 1;
+    tamanio_list_mediciones := tamanio_list_mediciones - 1;
+  end
+  else
+    begin
+        lblMedicion.Text := '';
+        MessageDlg('Final de las mediciones',TMsgDlgType.mtInformation,[TMsgDlgBtn.mbOK],0);
+    end;
+
+
+end;
+
 procedure TformPrincipal.ConfiguraciónClick(Sender: TObject);
 begin
   ventanaConfiguracion := TformConfiguracion.Create(Nil);
-  ventanaConfiguracion.Show;
+  ventanaConfiguracion.ShowModal;
 end;
 
 procedure TformPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -171,13 +193,14 @@ begin
 end;
 
 procedure TformPrincipal.FormShow(Sender: TObject);
+var
+list_aux:TStringList;
+elemento:String;
 begin
   Timer1.Interval := FrecMuestreo;
   Timer1.Enabled := True;
 
-  ConsultaSQL(ZReadOnlyQuery1,
-    'SELECT rutas.ID_ruta,rutas.Etiqueta FROM rutas LIMIT 1');
-  if not ZReadOnlyQuery1.IsEmpty then
+  if ZConnection1.Connected then
   begin
     llenarcomboeditRutas;
     ComboBox1.Items.Assign(listado_rutas);
@@ -191,15 +214,58 @@ begin
     opcionRutaManipular.Visible := False;
   end;
 
+  { llenar mediciones }
+  listado_mediciones := TStringList.Create;
+  list_aux:= TStringList.Create;
+  list_aux:=getMediciones(ComboBox1.Items[ComboBox1.ItemIndex]);
+
+  for elemento in list_aux do
+  begin
+      listado_mediciones.Add(elemento);
+      tamanio_list_mediciones:=tamanio_list_mediciones+1;
+  end;
+
+
+  indice_medicion_actual := 0;
+  // si tiene al menos un elemento
+  if tamanio_list_mediciones > 0 then
+  begin
+    lblMedicion.Text := listado_mediciones[indice_medicion_actual];
+    indice_medicion_actual := indice_medicion_actual + 1;
+    tamanio_list_mediciones := tamanio_list_mediciones - 1;
+  end;
+
+end;
+
+function getMediciones(ruta_etiqueta: String): TStringList;
+var
+  mediciones: TArray<String>;
+  camino: String;
+  medicion: String;
+  listado: TStringList;
+begin
+  ConsultaSQL(formPrincipal.ZReadOnlyQuery1,
+    'SELECT camino FROM rutas WHERE rutas.etiqueta ="' + ruta_etiqueta + '"');
+  if not formPrincipal.ZReadOnlyQuery1.IsEmpty then
+  begin
+    camino := formPrincipal.ZReadOnlyQuery1.FieldByName('camino').AsString;
+    mediciones := SplitString(camino, ',');
+    listado := TStringList.Create;
+    for medicion in mediciones do
+    begin
+      listado.Add(medicion);
+    end;
+    Result := listado;
+  end;
+
 end;
 
 procedure TformPrincipal.opcDriverClick(Sender: TObject);
-// var
-// ventanaSeleccion: TformSeleccion;
+var
+  ventanaSeleccion: TventanaSeleccion;
 begin
-  // ventanaSeleccion := TformSeleccion.Create(Self);
-  // ventanaSeleccion.ShowModal;
-
+  ventanaSeleccion := TventanaSeleccion.Create(Self);
+  ventanaSeleccion.ShowModal;
 end;
 
 procedure TformPrincipal.opcFrecuenciaMuestreoClick(Sender: TObject);
@@ -230,20 +296,20 @@ end;
 
 procedure TformPrincipal.opcRutaClick(Sender: TObject);
 begin
-lblModo.Text:='Ruta';
-Label1.Visible:=True;
-ComboBox1.Visible:=True;
-Label3.Visible:=True;
-lblMedicion.Visible:=True;
+  lblModo.Text := 'Ruta';
+  Label1.Visible := True;
+  ComboBox1.Visible := True;
+  Label3.Visible := True;
+  lblMedicion.Visible := True;
 end;
 
 procedure TformPrincipal.opcSimpleClick(Sender: TObject);
 begin
-lblModo.Text:='Simple';
-Label1.Visible:=False;
-ComboBox1.Visible:=False;
-Label3.Visible:=False;
-lblMedicion.Visible:=False;
+  lblModo.Text := 'Simple';
+  Label1.Visible := False;
+  ComboBox1.Visible := False;
+  Label3.Visible := False;
+  lblMedicion.Visible := False;
 end;
 
 procedure TformPrincipal.Timer1Timer(Sender: TObject);

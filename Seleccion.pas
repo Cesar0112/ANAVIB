@@ -1,10 +1,12 @@
 unit Seleccion;
 
 interface
+
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.ListBox, FMX.StdCtrls,
-  Winapi.Windows, System.IOUtils;
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.StdCtrls,
+  FMX.Controls.Presentation, FMX.Layouts, FMX.ListBox, Winapi.Windows,System.IOUtils;
+
 type
   TDriverLoader = class
   private
@@ -15,22 +17,26 @@ type
     procedure LoadDrivers(DriverListBox: TListBox);
     procedure LoadDriver(const DriverName: string);
   end;
-  TformSeleccion = class(TForm)
+
+  TventanaSeleccion = class(TForm)
     DriverListBox: TListBox;
     LoadDriverButton: TButton;
+    Label1: TLabel;
     procedure LoadDriverButtonClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
-    procedure FormDestroy(Sender: TObject);
+
   private
-    FDriverLoader: TDriverLoader;
-    procedure InitializeComponents;
+     FDriverLoader: TDriverLoader;
   public
     { Public declarations }
   end;
+
 var
-  ventanaSeleccion: TformSeleccion;
+  ventanaSeleccion: TventanaSeleccion;
+
 implementation
+
 {$R *.fmx}
+
 constructor TDriverLoader.Create;
 begin
   inherited Create;
@@ -59,28 +65,9 @@ begin
   else
     ShowMessage('Failed to load driver.');
 end;
-procedure TformSeleccion.FormCreate(Sender: TObject);
-begin
-  InitializeComponents;
-  FDriverLoader := TDriverLoader.Create;
-  FDriverLoader.LoadDrivers(DriverListBox);
-end;
-procedure TformSeleccion.FormDestroy(Sender: TObject);
-begin
-  FDriverLoader.Free;
-end;
-procedure TformSeleccion.InitializeComponents;
-begin
-  DriverListBox := TListBox.Create(Self);
-  DriverListBox.Parent := Self;
-  DriverListBox.Align := TAlignLayout.Client;
-  LoadDriverButton := TButton.Create(Self);
-  LoadDriverButton.Parent := Self;
-  LoadDriverButton.Align := TAlignLayout.Bottom;
-  LoadDriverButton.Text := 'Load Driver';
-  LoadDriverButton.OnClick := LoadDriverButtonClick;
-end;
-procedure TformSeleccion.LoadDriverButtonClick(Sender: TObject);
+
+
+procedure TventanaSeleccion.LoadDriverButtonClick(Sender: TObject);
 var
   SelectedDriver: string;
 begin
@@ -89,3 +76,59 @@ begin
 end;
 end.
 
+procedure TventanaSeleccion.CancelClick(Sender: TObject);
+begin
+
+end;
+end;
+
+
+
+procedure TventanaSeleccion.FormCreate(Sender: TObject);
+begin
+  LoadDrivers;
+end;
+
+procedure TventanaSeleccion.FormDestroy(Sender: TObject);
+begin
+  if FDriverHandle <> 0 then
+    FreeLibrary(FDriverHandle);
+end;
+
+procedure TventanaSeleccion.LoadDrivers;
+var
+  SearchRec: TSearchRec;
+  DriverPath: string;
+begin
+  if FindFirst('D:\Universidad\3ro\Prácticas Profesionales 1\Proyecto\ANAVIB\DriverCapturaDatosFichero\*.dll', faAnyFile, SearchRec) = 0 then
+  begin
+    repeat
+      DriverListBox.Items.Add(SearchRec.Name);
+    until FindNext(SearchRec) <> 0;
+    FindClose(SearchRec);
+  end;
+end;
+
+procedure TventanaSeleccion.LoadDriverButtonClick(Sender: TObject);
+var
+  SelectedDriver: string;
+begin
+  SelectedDriver := DriverListBox.Selected.Text;
+  FDriverHandle := LoadLibrary(PChar('PathToDrivers\' + SelectedDriver));
+  if FDriverHandle <> 0 then
+    ShowMessage('Driver loaded successfully.')
+  else
+    ShowMessage('Failed to load driver.');
+end;
+
+procedure TventanaSeleccion.CancelClick(Sender: TObject);
+begin
+
+end;
+
+procedure TventanaSeleccion.Label1Click(Sender: TObject);
+begin
+
+end;
+
+end.
