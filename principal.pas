@@ -65,7 +65,7 @@ type
   public
     { Public declarations }
     x: Double;
-
+    RoleActual:Integer;
   end;
 
   { A esta funcion se le pasa un arreglo de amplitudes que son de tipo Double }

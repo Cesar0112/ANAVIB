@@ -16,10 +16,9 @@ type
     Label2: TLabel;
     EditPassword: TEdit;
     btnIngresar: TButton;
-    lblErrorContrasenia: TLabel;
     ZReadOnlyQuery1: TZReadOnlyQuery;
     EditUser: TEdit;
-    lblErrorUsuario: TLabel;
+    lblErrorUsuarioContraseña: TLabel;
     procedure btnIngresarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure EditPasswordKeyDown(Sender: TObject; var Key: Word;
@@ -27,6 +26,8 @@ type
     procedure ComboEditUserKeyDown(Sender: TObject; var Key: Word;
       var KeyChar: Char; Shift: TShiftState);
     procedure FormShow(Sender: TObject);
+    procedure EditUserKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+      Shift: TShiftState);
 
   private
     { Private declarations }
@@ -61,33 +62,39 @@ begin
   // verificar usuario
   if existeUsuario(usuario) then
   begin
-    lblErrorUsuario.Visible := False;
+
     // si la contraseña es valida y es la del usuario
     if compruebaContrasenia(contrasenia, usuario) then
     begin
-      lblErrorUsuario.Visible := true;
-      lblErrorContrasenia.Visible := true;
+      ConsultaSQL(ZReadOnlyQuery1,
+        'SELECT id_role FROM Role JOIN usuarios ON Role.id_role = usuarios.fk_id_role WHERE usuarios.Nombre="'
+        + usuario + '"');
+      // obtengo el Role del usuario para saber sus privilegios
+      if not ZReadOnlyQuery1.IsEmpty then
+      begin
+        formPrincipal.RoleActual := ZReadOnlyQuery1.FieldByName('id_role')
+          .AsInteger;
+
+      end else
+      begin
+        ShowMessage('Hubo un error en la consulta a la base de datos en el intento de obtener el Role del usuario');
+      end;
       isValido := true;
-    end
-    else
-    begin
-      lblErrorUsuario.Visible := true;
-      lblErrorContrasenia.Visible := true;
     end;
 
-  end
-  else
-  begin
-    lblErrorUsuario.Visible := true;
-    lblErrorContrasenia.Visible := true;
   end;
 
   // si todo esta correcto
   if isValido then
   begin
+    lblErrorUsuarioContraseña.Visible := False;
     ShowMessage('Usuario ' + usuario + ' autenticado correctamente');
     formPrincipal.Visible := true;
     Visible := False;
+  end
+  else
+  begin
+    lblErrorUsuarioContraseña.Visible := true;
   end;
 
 end;
@@ -113,6 +120,13 @@ begin
   end;
 end;
 
+procedure TformLogin.EditUserKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    btnIngresarClick(Sender);
+end;
+
 procedure TformLogin.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   if not isValido then
@@ -122,7 +136,7 @@ end;
 procedure TformLogin.FormShow(Sender: TObject);
 begin
   cargarConfiguracion;
-
+  EditUser.SetFocus;
 end;
 
 function existeUsuario(const usuario: String): Boolean;

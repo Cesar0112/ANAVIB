@@ -1,4 +1,4 @@
-object formLogin: TformLogin
+﻿object formLogin: TformLogin
   Left = 0
   Top = 0
   Caption = 'Autenticar'
@@ -44,41 +44,24 @@ object formLogin: TformLogin
     Text = 'Autenticarse'
     OnClick = btnIngresarClick
   end
-  object lblErrorContrasenia: TLabel
-    StyledSettings = []
-    Position.X = 197.000000000000000000
-    Position.Y = 64.000000000000000000
-    Size.Width = 17.000000000000000000
-    Size.Height = 17.000000000000000000
-    Size.PlatformDefault = False
-    TextSettings.Font.Family = 'Arial'
-    TextSettings.Font.Size = 20.000000000000000000
-    TextSettings.Font.StyleExt = {00090000000000000004000000}
-    TextSettings.FontColor = claRed
-    Text = 'X'
-    Visible = False
-    TabOrder = 5
-  end
   object EditUser: TEdit
     Touch.InteractiveGestures = [LongTap, DoubleTap]
-    TabOrder = 6
+    TabOrder = 4
     Position.X = 89.000000000000000000
     Position.Y = 29.000000000000000000
+    OnKeyDown = EditUserKeyDown
   end
-  object lblErrorUsuario: TLabel
-    StyledSettings = []
-    Position.X = 197.000000000000000000
-    Position.Y = 30.000000000000000000
-    Size.Width = 17.000000000000000000
-    Size.Height = 17.000000000000000000
+  object lblErrorUsuarioContraseña: TLabel
+    StyledSettings = [Family, Size, Style]
+    Position.Y = 6.000000000000000000
+    Size.Width = 237.000000000000000000
+    Size.Height = 15.000000000000000000
     Size.PlatformDefault = False
-    TextSettings.Font.Family = 'Arial'
-    TextSettings.Font.Size = 20.000000000000000000
-    TextSettings.Font.StyleExt = {00090000000000000004000000}
     TextSettings.FontColor = claRed
-    Text = 'X'
+    TextSettings.HorzAlign = Center
+    Text = 'Usuario/Contrase'#241'a incorrecto'
     Visible = False
-    TabOrder = 4
+    TabOrder = 6
   end
   object ZReadOnlyQuery1: TZReadOnlyQuery
     Connection = formPrincipal.ZConnection1
