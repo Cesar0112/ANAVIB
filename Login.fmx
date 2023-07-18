@@ -59,6 +59,12 @@ object formLogin: TformLogin
     Visible = False
     TabOrder = 5
   end
+  object EditUser: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 6
+    Position.X = 89.000000000000000000
+    Position.Y = 29.000000000000000000
+  end
   object lblErrorUsuario: TLabel
     StyledSettings = []
     Position.X = 197.000000000000000000
@@ -73,12 +79,6 @@ object formLogin: TformLogin
     Text = 'X'
     Visible = False
     TabOrder = 4
-  end
-  object EditUser: TEdit
-    Touch.InteractiveGestures = [LongTap, DoubleTap]
-    TabOrder = 6
-    Position.X = 89.000000000000000000
-    Position.Y = 29.000000000000000000
   end
   object ZReadOnlyQuery1: TZReadOnlyQuery
     Connection = formPrincipal.ZConnection1

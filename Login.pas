@@ -17,9 +17,9 @@ type
     EditPassword: TEdit;
     btnIngresar: TButton;
     lblErrorContrasenia: TLabel;
-    lblErrorUsuario: TLabel;
     ZReadOnlyQuery1: TZReadOnlyQuery;
     EditUser: TEdit;
+    lblErrorUsuario: TLabel;
     procedure btnIngresarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure EditPasswordKeyDown(Sender: TObject; var Key: Word;
