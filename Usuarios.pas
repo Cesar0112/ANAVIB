@@ -57,6 +57,7 @@ begin
   btnEditar.Text := 'Editar';
   btnCancelarEdicion.Visible := not btnCancelarEdicion.Visible;
   editUsuario.Text := '';
+  editPass.Text:='';
 end;
 
 procedure TformUsuarios.btnCrearUsuarioClick(Sender: TObject);
@@ -96,13 +97,17 @@ begin
             [TMsgDlgBtn.mbOK], 0);
 
       end;
-      MessageDlg('Usuario ' + editUsuario.Text + ' no fue creado',
-        TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
+
     except
       on E: Exception do
         MessageDlg(E.Message, TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
     end;
 
+  end
+  else
+  begin
+    MessageDlg('Usuario ' + editUsuario.Text + ' no fue creado',
+        TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
   end;
 
   if ContainsText(editUsuario.Text, ' ') then
