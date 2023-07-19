@@ -219,19 +219,7 @@ object formPrincipal: TformPrincipal
         object opcionRuta: TMenuItem
           Locked = True
           Text = '&Rutas'
-          object opcionRutaManipular: TMenuItem
-            Locked = True
-            Text = 'Manipular'
-            OnClick = opcionRutaManipularClick
-          end
-          object MenuItem6: TMenuItem
-            Locked = True
-            Text = 'Importar'
-          end
-          object MenuItem7: TMenuItem
-            Locked = True
-            Text = 'Exportar'
-          end
+          OnClick = opcionRutaClick
         end
         object opcUsuarios: TMenuItem
           Locked = True

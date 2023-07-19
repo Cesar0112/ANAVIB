@@ -11,7 +11,7 @@ uses
   FMXTee.Procs, FMXTee.Chart, FMX.Controls3D, FMXTee.Chart3D, FMXTee.Series,
   Data.DB, Data.SqlExpr, Data.DbxSqlite, FMX.Layouts, ZAbstractConnection,
   ZConnection, ZAbstractRODataset, ZAbstractDataset, ZDataset, FMX.ListBox,
-  fftCalculo;
+  fftCalculo,Winapi.Windows;
 
 type
   ArrayOfDouble = array of Double;
@@ -26,10 +26,7 @@ type
     mainMenu: TMainMenu;
     opcionRuta: TMenuItem;
     opcionSalir: TMenuItem;
-    opcionRutaManipular: TMenuItem;
     opcionAnalisisTendencia: TMenuItem;
-    MenuItem6: TMenuItem;
-    MenuItem7: TMenuItem;
     graficoSenial: TChart;
     Series1: TFastLineSeries;
     lblPicoMax: TLabel;
@@ -80,6 +77,8 @@ type
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure btnEspectroClick(Sender: TObject);
+    procedure opcAutenticarClick(Sender: TObject);
+    procedure opcionRutaClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -252,8 +251,14 @@ begin
   if id_RoleActual <> 1 then
   begin
     opcUsuarios.Visible := False;
-    opcionRutaManipular.Visible := False;
+    //opcionRutaManipular.Visible := False;
   end;
+  if id_RoleActual = 3 then
+  begin
+      btnRegistrar.Visible:=False;
+      opcGestion.Visible:=False;
+  end;
+
   data_global := GenerateSinArray(8192);
   { llenar mediciones }
   listado_mediciones := TStringList.Create;
@@ -326,6 +331,11 @@ begin
 
 end;
 
+procedure TformPrincipal.opcAutenticarClick(Sender: TObject);
+begin
+//Application.Restart;
+end;
+
 procedure TformPrincipal.opcDriverClick(Sender: TObject);
 var
   ventanaSeleccion: TventanaSeleccion;
@@ -345,6 +355,11 @@ procedure TformPrincipal.opcionAnalisisTendenciaClick(Sender: TObject);
 begin
   ventanaAnalisis := TAnalisisTendenciario.Create(Self);
   ventanaAnalisis.ShowModal;
+end;
+
+procedure TformPrincipal.opcionRutaClick(Sender: TObject);
+begin
+opcionRutaManipularClick(Sender);
 end;
 
 procedure TformPrincipal.opcionRutaManipularClick(Sender: TObject);
@@ -611,5 +626,14 @@ begin
 
   end;
 end;
-
+procedure ReiniciarAplicacion;
+const
+  SW_SHOW = 5;
+var
+  rutaAplicacion: string;
+begin
+  rutaAplicacion := ParamStr(0);  // Ruta del archivo ejecutable actual
+  //WinExec(PChar(rutaAplicacion), SW_SHOW);  // Inicia un nuevo proceso reemplazando el actual
+  Application.Terminate;  // Cierra el proceso actual
+end;
 end.
