@@ -320,6 +320,7 @@
         <DCCReference Include="Seleccion.pas">
             <Form>ventanaSeleccion</Form>
         </DCCReference>
+        <DCCReference Include="fftCalculo.pas"/>
         <None Include="ModelSupport_ANAVIB\default.txaPackage"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>

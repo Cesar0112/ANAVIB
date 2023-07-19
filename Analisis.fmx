@@ -3,40 +3,15 @@ object AnalisisTendenciario: TAnalisisTendenciario
   Top = 0
   Caption = 'An'#225'lisis de tendencias'
   ClientHeight = 431
-  ClientWidth = 596
+  ClientWidth = 810
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
   OnShow = FormShow
   DesignerMasterStyle = 0
-  object MenuBar1: TMenuBar
-    Size.Width = 596.000000000000000000
-    Size.Height = 24.000000000000000000
-    Size.PlatformDefault = False
-    TabOrder = 1
-    object opciones: TMenuItem
-      Text = 'Opciones'
-      object Diario: TMenuItem
-        Locked = True
-        Text = 'Diario'
-      end
-      object Semanal: TMenuItem
-        Locked = True
-        Text = 'Semanal'
-      end
-      object Mensual: TMenuItem
-        Locked = True
-        Text = 'Mensual'
-      end
-      object Anual: TMenuItem
-        Locked = True
-        Text = 'Anual'
-      end
-    end
-  end
   object graficoSenial: TChart
     Position.X = 8.000000000000000000
-    Position.Y = 32.000000000000000000
+    Position.Y = 16.000000000000000000
     Foot.Font.StyleExt = {00040000000200000004000000}
     Legend.Alignment = laBottom
     Legend.CheckBoxes = True
@@ -46,12 +21,10 @@ object AnalisisTendenciario: TAnalisisTendenciario
     Legend.Symbol.Gradient.Visible = True
     Legend.Symbol.Shadow.Color = claWhite
     Legend.Title.Font.StyleExt = {00070000000000000004000000}
-    Legend.Visible = False
     ScrollMouseButton = mbLeft
     SubFoot.Font.StyleExt = {00040000000200000004000000}
     Title.Text.Strings = (
-      'Se'#241'al')
-    BottomAxis.Title.Caption = 'tiempo'
+      'Par'#225'metros caracter'#237'sticos')
     LeftAxis.Title.Caption = 'valor'
     Pages.AutoScale = True
     View3D = False
@@ -61,32 +34,250 @@ object AnalisisTendenciario: TAnalisisTendenciario
     Zoom.Pen.Fill.Color = claSilver
     Color = claNull
     TabOrder = 0
-    Size.Width = 560.000000000000000000
+    Cursor = crAppStart
+    Size.Width = 545.000000000000000000
     Size.Height = 377.000000000000000000
     Size.PlatformDefault = False
     ColorPaletteIndex = 13
     object Series2: TFastLineSeries
       HoverElement = []
       Title = 'RMS'
-      LinePen.Color = xFFF39C35
-      LinePen.Fill.Color = xFFF39C35
-      XValues.Name = 'X'
-      XValues.Order = loAscending
-      YValues.Name = 'Y'
-      YValues.Order = loNone
-      object TeeFunction1: TAverageTeeFunction
-      end
-    end
-    object Series1: TFastLineSeries
-      HoverElement = []
       LinePen.Color = xFF4466A3
       LinePen.Fill.Color = xFF4466A3
       XValues.Name = 'X'
       XValues.Order = loAscending
       YValues.Name = 'Y'
       YValues.Order = loNone
-      object TeeFunction2: TAverageTeeFunction
-      end
     end
+    object Series1: TFastLineSeries
+      HoverElement = []
+      Title = 'PicoMax'
+      LinePen.Color = xFFF39C35
+      LinePen.Fill.Color = xFFF39C35
+      XValues.Name = 'X'
+      XValues.Order = loAscending
+      YValues.Name = 'Y'
+      YValues.Order = loNone
+    end
+    object Series3: TFastLineSeries
+      HoverElement = []
+      Title = 'PicoMin'
+      LinePen.Color = xFFF14C14
+      LinePen.Fill.Color = xFFF14C14
+      XValues.Name = 'X'
+      XValues.Order = loAscending
+      YValues.Name = 'Y'
+      YValues.Order = loNone
+    end
+    object Series4: TFastLineSeries
+      HoverElement = []
+      Title = 'Pico-Pico'
+      LinePen.Color = xFF4E97A8
+      LinePen.Fill.Color = xFF4E97A8
+      XValues.Name = 'X'
+      XValues.Order = loAscending
+      YValues.Name = 'Y'
+      YValues.Order = loNone
+    end
+  end
+  object Label1: TLabel
+    Position.X = 583.000000000000000000
+    Position.Y = 80.000000000000000000
+    Size.Width = 33.000000000000000000
+    Size.Height = 25.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'RMS'
+    TabOrder = 5
+  end
+  object asd: TLabel
+    Position.X = 624.000000000000000000
+    Position.Y = 50.000000000000000000
+    Size.Width = 44.000000000000000000
+    Size.Height = 25.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Media'
+    TabOrder = 4
+  end
+  object Label3: TLabel
+    Position.X = 564.000000000000000000
+    Position.Y = 156.000000000000000000
+    Size.Width = 45.000000000000000000
+    Size.Height = 25.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'PicoMin'
+    TabOrder = 3
+  end
+  object Label4: TLabel
+    Position.X = 558.000000000000000000
+    Position.Y = 196.000000000000000000
+    Size.Width = 51.000000000000000000
+    Size.Height = 25.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Pico-Pico'
+    TabOrder = 2
+  end
+  object Label5: TLabel
+    Position.X = 562.000000000000000000
+    Position.Y = 121.000000000000000000
+    Size.Width = 49.000000000000000000
+    Size.Height = 25.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'PicoMax'
+    TabOrder = 1
+  end
+  object lblMediaRMS: TLabel
+    Position.X = 622.000000000000000000
+    Position.Y = 84.000000000000000000
+    Size.Width = 41.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'm'
+    TabOrder = 14
+  end
+  object lblMediaPicoMax: TLabel
+    Position.X = 622.000000000000000000
+    Position.Y = 124.000000000000000000
+    Size.Width = 41.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'a'
+    TabOrder = 15
+  end
+  object lblMediaPicoMin: TLabel
+    Position.X = 622.000000000000000000
+    Position.Y = 160.000000000000000000
+    Size.Width = 41.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'a'
+    TabOrder = 16
+  end
+  object lblMediaPicoPico: TLabel
+    Position.X = 622.000000000000000000
+    Position.Y = 196.000000000000000000
+    Size.Width = 39.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'f'
+    TabOrder = 17
+  end
+  object Label2: TLabel
+    Position.X = 676.000000000000000000
+    Position.Y = 54.000000000000000000
+    Size.Width = 46.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Varianza'
+    Visible = False
+    TabOrder = 21
+  end
+  object Label6: TLabel
+    Position.X = 737.000000000000000000
+    Position.Y = 54.000000000000000000
+    Size.Width = 65.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Desviaci'#243'n'
+    Visible = False
+    TabOrder = 20
+  end
+  object lblVarRms: TLabel
+    Position.X = 682.000000000000000000
+    Position.Y = 84.000000000000000000
+    Size.Width = 40.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'm'
+    Visible = False
+    TabOrder = 13
+  end
+  object lblVarMax: TLabel
+    Position.X = 682.000000000000000000
+    Position.Y = 124.000000000000000000
+    Size.Width = 40.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'm'
+    Visible = False
+    TabOrder = 12
+  end
+  object lblVarPicoMin: TLabel
+    Position.X = 682.000000000000000000
+    Position.Y = 160.000000000000000000
+    Size.Width = 40.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'm'
+    Visible = False
+    TabOrder = 11
+  end
+  object lblVarPicos: TLabel
+    Position.X = 682.000000000000000000
+    Position.Y = 196.000000000000000000
+    Size.Width = 40.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'm'
+    Visible = False
+    TabOrder = 10
+  end
+  object lblDesRms: TLabel
+    Position.X = 737.000000000000000000
+    Position.Y = 84.000000000000000000
+    Size.Width = 40.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'm'
+    Visible = False
+    TabOrder = 9
+  end
+  object lblDesMax: TLabel
+    Position.X = 737.000000000000000000
+    Position.Y = 124.000000000000000000
+    Size.Width = 40.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'm'
+    Visible = False
+    TabOrder = 8
+  end
+  object lblDesMin: TLabel
+    Position.X = 737.000000000000000000
+    Position.Y = 160.000000000000000000
+    Size.Width = 40.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'm'
+    Visible = False
+    TabOrder = 7
+  end
+  object lblDesPicos: TLabel
+    Position.X = 737.000000000000000000
+    Position.Y = 196.000000000000000000
+    Size.Width = 40.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'm'
+    Visible = False
+    TabOrder = 6
+  end
+  object ZReadOnlyQuery1: TZReadOnlyQuery
+    Connection = ZConnection1
+    Params = <>
+    Left = 528
+    Top = 352
+  end
+  object ZConnection1: TZConnection
+    ControlsCodePage = cCP_UTF16
+    Catalog = ''
+    HostName = ''
+    Port = 0
+    Database = 'C:\Users\C'#233'sar\Documents\GitHub\ANAVIB\mydatabase.db'
+    User = ''
+    Password = ''
+    Protocol = 'sqlite-3'
+    LibraryLocation = 'C:\Users\C'#233'sar\Documents\GitHub\ANAVIB\sqlite3.dll'
+    Left = 624
+    Top = 360
   end
 end

@@ -10,8 +10,9 @@ uses
   Rutas in 'Rutas.pas' {ventanaRutas},
   Usuarios in 'Usuarios.pas' {formUsuarios},
   Seguridad in 'Seguridad.pas',
-  Seleccion in 'Seleccion.pas'{ventanaSeleccion};
-
+  Seleccion in 'Seleccion.pas' {ventanaSeleccion},
+ // calculoFFT in 'calculoFFT.pas',
+  fftCalculo in 'fftCalculo.pas';
 
 {$R *.res}
 

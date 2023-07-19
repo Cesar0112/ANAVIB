@@ -1,4 +1,4 @@
-﻿object formPrincipal: TformPrincipal
+object formPrincipal: TformPrincipal
   Left = 0
   Top = 0
   Caption = 'ANAVIB'
@@ -27,43 +27,13 @@
       Size.PlatformDefault = False
       Text = 'Comandos'
       TabOrder = 3
-      object btnPlayPausa: TButton
-        StyleName = 'pause'
-        Position.X = 16.000000000000000000
-        Position.Y = 22.000000000000000000
-        StyleLookup = 'pausetoolbutton'
-        TabOrder = 6
-        Text = 'Pausa'
-        OnClick = btnPlayPausaClick
-      end
       object btnRegistrar: TButton
-        Position.X = 16.000000000000000000
-        Position.Y = 52.000000000000000000
+        Position.X = 19.000000000000000000
+        Position.Y = 36.000000000000000000
         StyleLookup = 'additembutton'
-        TabOrder = 36
+        TabOrder = 35
         Text = 'Registrar'
         OnClick = btnRegistrarClick
-      end
-      object Button1: TButton
-        Position.X = 107.000000000000000000
-        Position.Y = 22.000000000000000000
-        Size.Width = 77.000000000000000000
-        Size.Height = 22.000000000000000000
-        Size.PlatformDefault = False
-        StyleLookup = 'forwardtoolbutton'
-        TabOrder = 38
-        Text = 'Button1'
-        OnClick = Button1Click
-      end
-      object Button2: TButton
-        Position.X = 107.000000000000000000
-        Position.Y = 52.000000000000000000
-        Size.Width = 77.000000000000000000
-        Size.Height = 22.000000000000000000
-        Size.PlatformDefault = False
-        StyleLookup = 'rewindtoolbuttonbordered'
-        TabOrder = 39
-        Text = 'Button2'
       end
     end
     object graficoEspectro: TChart
@@ -291,10 +261,6 @@
         Text = 'An'#225'lisis de tendencia'
         OnClick = opcionAnalisisTendenciaClick
       end
-      object Configuración: TMenuItem
-        Text = 'Configuraci'#243'n'
-        OnClick = ConfiguraciónClick
-      end
       object opcionSalir: TMenuItem
         Text = '&Salir'
         OnClick = opcionSalirClick
@@ -310,28 +276,10 @@
       Text = 'Ruta actual'
       TabOrder = 4
     end
-    object Label3: TLabel
-      Position.X = 584.000000000000000000
-      Position.Y = 269.000000000000000000
-      Size.Width = 64.000000000000000000
-      Size.Height = 17.000000000000000000
-      Size.PlatformDefault = False
-      TextSettings.HorzAlign = Trailing
-      Text = 'Medici'#243'n'
-      TabOrder = 5
-    end
     object ComboBox1: TComboBox
       Position.X = 660.000000000000000000
       Position.Y = 236.000000000000000000
-      TabOrder = 6
-    end
-    object lblMedicion: TLabel
-      Position.X = 660.000000000000000000
-      Position.Y = 270.000000000000000000
-      Size.Width = 100.000000000000000000
-      Size.Height = 17.000000000000000000
-      Size.PlatformDefault = False
-      TabOrder = 7
+      TabOrder = 5
     end
     object Label4: TLabel
       StyledSettings = [Family, Style, FontColor]
@@ -343,7 +291,7 @@
       TextSettings.Font.Size = 20.000000000000000000
       TextSettings.HorzAlign = Trailing
       Text = 'Modo'
-      TabOrder = 8
+      TabOrder = 6
     end
     object lblModo: TLabel
       StyledSettings = [Family, Style, FontColor]
@@ -354,14 +302,22 @@
       Size.PlatformDefault = False
       TextSettings.Font.Size = 20.000000000000000000
       Text = 'Ruta'
-      TabOrder = 9
+      TabOrder = 7
+    end
+    object btnEspectro: TButton
+      Position.X = 683.000000000000000000
+      Position.Y = 330.000000000000000000
+      StyleLookup = 'nexttoolbutton'
+      TabOrder = 8
+      Text = 'Espectro'
+      OnClick = btnEspectroClick
     end
   end
   object ZQuery1: TZQuery
     Connection = ZConnection1
     Params = <>
-    Left = 648
-    Top = 392
+    Left = 592
+    Top = 432
   end
   object ZConnection1: TZConnection
     ControlsCodePage = cCP_UTF16

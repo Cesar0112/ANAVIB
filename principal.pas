@@ -10,21 +10,26 @@ uses
   FMX.ExtCtrls, FMX.Controls.Presentation, FMX.StdCtrls, FMXTee.Engine,
   FMXTee.Procs, FMXTee.Chart, FMX.Controls3D, FMXTee.Chart3D, FMXTee.Series,
   Data.DB, Data.SqlExpr, Data.DbxSqlite, FMX.Layouts, ZAbstractConnection,
-  ZConnection, ZAbstractRODataset, ZAbstractDataset, ZDataset, FMX.ListBox;
+  ZConnection, ZAbstractRODataset, ZAbstractDataset, ZDataset, FMX.ListBox,
+  fftCalculo;
 
 type
   ArrayOfDouble = array of Double;
+
+  Complex = record
+    re, im: Double;
+  end;
+
+  ComplexArray = array of Complex;
 
   TformPrincipal = class(TForm)
     mainMenu: TMainMenu;
     opcionRuta: TMenuItem;
     opcionSalir: TMenuItem;
     opcionRutaManipular: TMenuItem;
-    Configuración: TMenuItem;
     opcionAnalisisTendencia: TMenuItem;
     MenuItem6: TMenuItem;
     MenuItem7: TMenuItem;
-    btnPlayPausa: TButton;
     graficoSenial: TChart;
     Series1: TFastLineSeries;
     lblPicoMax: TLabel;
@@ -47,11 +52,7 @@ type
     opcUsuarios: TMenuItem;
     opcGestion: TMenuItem;
     Label1: TLabel;
-    Label3: TLabel;
     ComboBox1: TComboBox;
-    lblMedicion: TLabel;
-    Button1: TButton;
-    Button2: TButton;
     ZReadOnlyQuery1: TZReadOnlyQuery;
     opcDriver: TMenuItem;
     Label4: TLabel;
@@ -59,6 +60,7 @@ type
     opcModo: TMenuItem;
     opcRuta: TMenuItem;
     opcSimple: TMenuItem;
+    btnEspectro: TButton;
 
     procedure opcionSalirClick(Sender: TObject);
     procedure btnPlayPausaClick(Sender: TObject);
@@ -76,6 +78,8 @@ type
     procedure opcRutaClick(Sender: TObject);
     procedure opcSimpleClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure btnEspectroClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -89,6 +93,7 @@ type
     listado_mediciones: TStringList;
     indice_medicion_actual: Integer;
     tamanio_list_mediciones: Integer;
+    data_global: TArray<Double>;
   end;
 
   { A esta funcion se le pasa un arreglo de amplitudes que son de tipo Double }
@@ -97,7 +102,7 @@ function generarValorALeatorio(): Double;
 function ValueListToArrayOfDouble(ValueList: TChartValueList): ArrayOfDouble;
 function getMediciones(ruta_etiqueta: String): TStringList;
 function getUUIDs: String;
-
+function GenerateSinArray(n: Integer): TArray<Double>;
 procedure insertarSenial(senial: array of Double);
 procedure llenarcomboMaquinas;
 
@@ -109,10 +114,28 @@ var
   FrecMuestreo: Integer; // en milisegundos
   isPlay: Boolean;
   xAnt: Integer;
+  i_global: Integer;
 
 implementation
 
 {$R *.fmx}
+
+procedure TformPrincipal.btnEspectroClick(Sender: TObject);
+var
+  Data, spectrum: TArray<Double>;
+  e: Double;
+  i: Integer;
+begin
+  // Generara algunos datos de prueba
+  i := 0;
+  // SetLength(Data, sizeof(graficoSenial.Series[0].YValues));
+
+  // Calcular el espectro de la FFT de los datos
+  spectrum := CalculateFFTSpectrum(data_global);
+
+  graficoEspectro.Series[0].Clear;
+  graficoEspectro.Series[0].AddArray(spectrum);
+end;
 
 procedure TformPrincipal.btnPlayPausaClick(Sender: TObject);
 var
@@ -125,16 +148,16 @@ begin
   Timer1.Interval := FrecMuestreo;
   Pausa := 'Pausa';
   Reproducir := 'Reproducir';
-  if btnPlayPausa.StyleLookup = 'playtoolbutton' then
-  begin
+  { if btnPlayPausa.StyleLookup = 'playtoolbutton' then
+    begin
     btnPlayPausa.StyleLookup := 'pausetoolbutton';
-  end
+    end
 
-  else
+    else
     btnPlayPausa.StyleLookup := 'playtoolbutton';
 
-  Timer1.Enabled := not Timer1.Enabled; // cambia el estado del reloj
-
+    Timer1.Enabled := not Timer1.Enabled; // cambia el estado del reloj
+  }
 end;
 
 procedure TformPrincipal.btnRegistrarClick(Sender: TObject);
@@ -143,8 +166,9 @@ begin
   if Timer1.Enabled then
     btnPlayPausaClick(Sender);
 
-  insertarSenial(ValueListToArrayOfDouble(graficoSenial.Series[0].YValues));
+  insertarSenial(data_global);
   // le paso a la base de datos el arreglo
+  ShowMessageUser('Señal registrada correctamente');
 end;
 
 procedure TformPrincipal.Button1Click(Sender: TObject);
@@ -152,16 +176,32 @@ begin
 
   if tamanio_list_mediciones > 0 then
   begin
-    lblMedicion.Text := listado_mediciones[indice_medicion_actual];
+    // lblMedicion.Text := listado_mediciones[indice_medicion_actual];
     indice_medicion_actual := indice_medicion_actual + 1;
     tamanio_list_mediciones := tamanio_list_mediciones - 1;
   end
   else
-    begin
-        lblMedicion.Text := '';
-        MessageDlg('Final de las mediciones',TMsgDlgType.mtInformation,[TMsgDlgBtn.mbOK],0);
-    end;
+  begin
 
+    // lblMedicion.Text := '';
+    MessageDlg('Final de las mediciones', TMsgDlgType.mtInformation,
+      [TMsgDlgBtn.mbOK], 0);
+  end;
+
+end;
+
+procedure TformPrincipal.Button2Click(Sender: TObject);
+begin
+  if indice_medicion_actual < 1 then
+  begin
+    // Button2.Visible := False;
+  end
+  else
+  begin
+    // lblMedicion.Text := listado_mediciones[indice_medicion_actual - 1];
+    indice_medicion_actual := indice_medicion_actual - 1;
+    tamanio_list_mediciones := tamanio_list_mediciones + 1;
+  end;
 
 end;
 
@@ -194,12 +234,13 @@ end;
 
 procedure TformPrincipal.FormShow(Sender: TObject);
 var
-list_aux:TStringList;
-elemento:String;
+  list_aux: TStringList;
+  elemento: String;
+  picoMax, picoMin, difPicos, RMS: Double;
 begin
   Timer1.Interval := FrecMuestreo;
-  Timer1.Enabled := True;
-
+  Timer1.Enabled := False;
+  i_global := 0;
   if ZConnection1.Connected then
   begin
     llenarcomboeditRutas;
@@ -213,28 +254,53 @@ begin
     opcUsuarios.Visible := False;
     opcionRutaManipular.Visible := False;
   end;
-
+  data_global := GenerateSinArray(8192);
   { llenar mediciones }
   listado_mediciones := TStringList.Create;
-  list_aux:= TStringList.Create;
-  list_aux:=getMediciones(ComboBox1.Items[ComboBox1.ItemIndex]);
+  list_aux := TStringList.Create;
+  list_aux := getMediciones(ComboBox1.Items[ComboBox1.ItemIndex]);
 
   for elemento in list_aux do
   begin
-      listado_mediciones.Add(elemento);
-      tamanio_list_mediciones:=tamanio_list_mediciones+1;
+    listado_mediciones.Add(elemento);
+    tamanio_list_mediciones := tamanio_list_mediciones + 1;
   end;
-
 
   indice_medicion_actual := 0;
   // si tiene al menos un elemento
   if tamanio_list_mediciones > 0 then
   begin
-    lblMedicion.Text := listado_mediciones[indice_medicion_actual];
+    // lblMedicion.Text := listado_mediciones[indice_medicion_actual];
     indice_medicion_actual := indice_medicion_actual + 1;
     tamanio_list_mediciones := tamanio_list_mediciones - 1;
   end;
 
+  if indice_medicion_actual < 1 then
+  begin
+    // Button2.Visible := False;
+  end;
+
+  graficoSenial.Series[0].AddArray(data_global);
+
+  picoMax := graficoSenial.Series[0].MaxYValue;
+  picoMin := graficoSenial.Series[0].MinYValue;
+  difPicos := picoMax - picoMin;
+  RMS := CalcularVRMS(ValueListToArrayOfDouble(graficoSenial.Series[0]
+    .YValues));
+  lblMuestraValorPicoMaximo.Text := floatToStr(RoundTo(picoMax, -2));
+  lblMuestraValorPicoMinimo.Text := floatToStr(RoundTo(picoMin, -2));
+  lblMuestraValorDePicoPico.Text := floatToStr(RoundTo(difPicos, -2));
+  lblMuestraValorRMS.Text := floatToStr(RoundTo(RMS, -2));
+
+end;
+
+function GenerateSinArray(n: Integer): TArray<Double>;
+var
+  i: Integer;
+begin
+  SetLength(Result, n);
+  for i := 0 to n - 1 do
+    Result[i] := Sin(2 * Pi * i / n);
 end;
 
 function getMediciones(ruta_etiqueta: String): TStringList;
@@ -278,7 +344,7 @@ end;
 procedure TformPrincipal.opcionAnalisisTendenciaClick(Sender: TObject);
 begin
   ventanaAnalisis := TAnalisisTendenciario.Create(Self);
-  ventanaAnalisis.Show;
+  ventanaAnalisis.ShowModal;
 end;
 
 procedure TformPrincipal.opcionRutaManipularClick(Sender: TObject);
@@ -299,8 +365,8 @@ begin
   lblModo.Text := 'Ruta';
   Label1.Visible := True;
   ComboBox1.Visible := True;
-  Label3.Visible := True;
-  lblMedicion.Visible := True;
+  // Label3.Visible := True;
+  // lblMedicion.Visible := True;
 end;
 
 procedure TformPrincipal.opcSimpleClick(Sender: TObject);
@@ -308,8 +374,8 @@ begin
   lblModo.Text := 'Simple';
   Label1.Visible := False;
   ComboBox1.Visible := False;
-  Label3.Visible := False;
-  lblMedicion.Visible := False;
+  // Label3.Visible := False;
+  // lblMedicion.Visible := False;
 end;
 
 procedure TformPrincipal.Timer1Timer(Sender: TObject);
@@ -326,10 +392,18 @@ begin
   }
 
   // generacion del grafico de señal
-  y := generarValorALeatorio();
-  graficoSenial.Series[0].AddXY(x, y);
+  { y := generarValorALeatorio();
+    graficoSenial.Series[0].AddXY(x, y);
+  }
   x := (xAnt + FrecMuestreo) / 1000;
   xAnt := xAnt + FrecMuestreo;
+
+  // hallo el valor de y
+  y := Sin(i_global * Pi / 4);
+  SetLength(data_global, i_global + 1);
+  graficoSenial.Series[0].AddXY(x, y);
+
+  data_global[i_global] := y;
   /// /////////////////////////////
   picoMax := graficoSenial.Series[0].MaxYValue;
   picoMin := graficoSenial.Series[0].MinYValue;
@@ -340,6 +414,14 @@ begin
   lblMuestraValorPicoMinimo.Text := floatToStr(RoundTo(picoMin, -2));
   lblMuestraValorDePicoPico.Text := floatToStr(RoundTo(difPicos, -2));
   lblMuestraValorRMS.Text := floatToStr(RoundTo(RMS, -2));
+  /// /////////////////////////////////////
+
+  i_global := i_global + 1;
+end;
+
+procedure mostrarFFT();
+begin
+
 end;
 
 procedure TformPrincipal.opcUsuariosClick(Sender: TObject);
@@ -352,18 +434,18 @@ end;
 
 function CalcularVRMS(const valoresSenial: ArrayOfDouble): Double;
 var
-  i, N: Integer; // N tamanio del arreglo
+  i, n: Integer; // N tamanio del arreglo
   sumatoria, VRMS: Double;
 begin
   { Funcion que devuelve el valor RMS con paramtros
     una lista de valores double
     mediante la formula: Vrms = sqrt((1/N) * sum(x^2)) }
-  N := Length(valoresSenial); // obtengo el tamanio del arreglo
+  n := Length(valoresSenial); // obtengo el tamanio del arreglo
   sumatoria := 0;
   // calcula la sumatoria de cada valor del arreglo al cuadrado
-  for i := 0 to N - 1 do
+  for i := 0 to n - 1 do
     sumatoria := sumatoria + valoresSenial[i] * valoresSenial[i];
-  VRMS := sqrt((1 / N) * sumatoria); // se aplica la formula
+  VRMS := sqrt((1 / n) * sumatoria); // se aplica la formula
   Result := VRMS; // se retorna el valor
 end;
 
@@ -372,14 +454,14 @@ end;
 }
 function VPicoMax(const valoresSenial: array of Double): Double;
 var
-  i, N: Integer;
+  i, n: Integer;
   maximo: Double;
 
 begin
-  N := Length(valoresSenial);
+  n := Length(valoresSenial);
   maximo := valoresSenial[0];
   // asigno el primer valor del arreglo para no compararlo despues por gusto
-  for i := 1 to N - 1 do
+  for i := 1 to n - 1 do
   begin
     if valoresSenial[i] > maximo then
       maximo := valoresSenial[i];
@@ -390,14 +472,14 @@ end;
 // esta funcion devuelve el pico minimo
 function VPicoMin(const valoresSenial: array of Double): Double;
 var
-  i, N: Integer;
+  i, n: Integer;
   minimo: Double;
 
 begin
-  N := Length(valoresSenial);
+  n := Length(valoresSenial);
   minimo := valoresSenial[0];
   // asigno el primer valor del arreglo para no compararlo despues por gusto
-  for i := 1 to N - 1 do
+  for i := 1 to n - 1 do
   begin
     if valoresSenial[i] < minimo then
       minimo := valoresSenial[i];
@@ -457,15 +539,14 @@ var
 begin
   streamSenial := TMemoryStream.Create;
   consulta :=
-    'INSERT INTO señales (ID_Señal,Dia,Mes,Año,Frecuencia,RMS,PICO_Max,PICO_Min,Hora,Minuto,Segundo,Señal,fk_id_usuario,fk_id_ruta) VALUES (:id,:dia,:mes,:anio,:frecuencia,:rms,:picoMax,:picoMin,:hora,:minuto,:segundo,:senial);';
+    'INSERT INTO señales (ID_Señal,Dia,Mes,Año,Frecuencia,RMS,PICO_Max,PICO_Min,Hora,Minuto,Segundo,Señal,fk_id_usuario,fk_id_ruta) VALUES (:id,:dia,:mes,:anio,:frecuencia,:rms,:picoMax,:picoMin,:hora,:minuto,:segundo,:senial,:fk_id_usuario,:fk_id_ruta);';
 
   try
     for i := 0 to Length(senial) - 1 do
     begin
-      streamSenial.Write(senial[i], SizeOf(Double));
+      streamSenial.Write(senial[i], sizeof(Double));
     end;
 
-    { Posicion inicial en 0 para q lea el stream desde el principio }
     streamSenial.Position := 0;
 
     if formPrincipal.ZQuery1.Active then
@@ -493,10 +574,10 @@ begin
       SecondOf(Now);
     formPrincipal.ZQuery1.Params.ParamByName('senial')
       .LoadFromStream(streamSenial, ftBlob);
-    formPrincipal.ZQuery1.Params.ParamByName('fk_id_usuario').AsInteger :=
-      formPrincipal.id_UsuarioActual;
     formPrincipal.ZQuery1.Params.ParamByName('fk_id_ruta').AsInteger :=
       formPrincipal.id_RutaActual;
+    formPrincipal.ZQuery1.Params.ParamByName('fk_id_usuario').AsInteger :=
+      formPrincipal.id_UsuarioActual;
 
     formPrincipal.ZQuery1.ExecSQL;
 

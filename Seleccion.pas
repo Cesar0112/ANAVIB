@@ -1,12 +1,10 @@
 unit Seleccion;
 
 interface
-
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.StdCtrls,
-  FMX.Controls.Presentation, FMX.Layouts, FMX.ListBox, Winapi.Windows,System.IOUtils;
-
+  FMX.Controls.Presentation, FMX.Layouts, FMX.ListBox, System.IOUtils, Winapi.Windows;
 type
   TDriverLoader = class
   private
@@ -17,26 +15,23 @@ type
     procedure LoadDrivers(DriverListBox: TListBox);
     procedure LoadDriver(const DriverName: string);
   end;
-
   TventanaSeleccion = class(TForm)
     DriverListBox: TListBox;
     LoadDriverButton: TButton;
     Label1: TLabel;
     procedure LoadDriverButtonClick(Sender: TObject);
-
+    procedure CancelClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
-     FDriverLoader: TDriverLoader;
+    FDriverLoader: TDriverLoader;
   public
-    { Public declarations }
+    procedure LoadDrivers;
   end;
-
 var
   ventanaSeleccion: TventanaSeleccion;
-
 implementation
-
 {$R *.fmx}
-
 constructor TDriverLoader.Create;
 begin
   inherited Create;
@@ -50,23 +45,30 @@ begin
 end;
 procedure TDriverLoader.LoadDrivers(DriverListBox: TListBox);
 var
-  DriverFiles: TArray<string>;
+  DriverFiles: TStringDynArray;
   DriverFile: string;
 begin
-  DriverFiles := TDirectory.GetFiles('PathToDrivers', '*.dll');
+  DriverFiles := TDirectory.GetFiles('C:\Users\César\Documents\GitHub\ANAVIB\DLL\', '*.dll');
   for DriverFile in DriverFiles do
-    DriverListBox.Items.Add(ExtractFileName(DriverFile));
+    DriverListBox.Items.Add(TPath.GetFileName(DriverFile));
 end;
 procedure TDriverLoader.LoadDriver(const DriverName: string);
 begin
-  FDriverHandle := LoadLibrary(PChar('PathToDrivers\' + DriverName));
+  FDriverHandle := LoadLibrary(PChar('C:\Users\César\Documents\GitHub\ANAVIB\DLL\' + DriverName));
   if FDriverHandle <> 0 then
-    ShowMessage('Driver loaded successfully.')
+    ShowMessage('Driver cargado satisfactoriamente.')
   else
-    ShowMessage('Failed to load driver.');
+    ShowMessage('Fallo al cargar el Driver.');
 end;
-
-
+procedure TventanaSeleccion.LoadDrivers;
+var
+  DriverFiles: TStringDynArray;
+  DriverFile: string;
+begin
+  DriverFiles := TDirectory.GetFiles('C:\Users\César\Documents\GitHub\ANAVIB\DLL\', '*.dll');
+  for DriverFile in DriverFiles do
+    DriverListBox.Items.Add(TPath.GetFileName(DriverFile));
+end;
 procedure TventanaSeleccion.LoadDriverButtonClick(Sender: TObject);
 var
   SelectedDriver: string;
@@ -74,61 +76,18 @@ begin
   SelectedDriver := DriverListBox.Selected.Text;
   FDriverLoader.LoadDriver(SelectedDriver);
 end;
-end.
-
 procedure TventanaSeleccion.CancelClick(Sender: TObject);
 begin
-
+  Close;
 end;
-end;
-
-
-
 procedure TventanaSeleccion.FormCreate(Sender: TObject);
 begin
+  FDriverLoader := TDriverLoader.Create;
   LoadDrivers;
 end;
-
 procedure TventanaSeleccion.FormDestroy(Sender: TObject);
 begin
-  if FDriverHandle <> 0 then
-    FreeLibrary(FDriverHandle);
+  FDriverLoader.Free;
 end;
-
-procedure TventanaSeleccion.LoadDrivers;
-var
-  SearchRec: TSearchRec;
-  DriverPath: string;
-begin
-  if FindFirst('D:\Universidad\3ro\Prácticas Profesionales 1\Proyecto\ANAVIB\DriverCapturaDatosFichero\*.dll', faAnyFile, SearchRec) = 0 then
-  begin
-    repeat
-      DriverListBox.Items.Add(SearchRec.Name);
-    until FindNext(SearchRec) <> 0;
-    FindClose(SearchRec);
-  end;
-end;
-
-procedure TventanaSeleccion.LoadDriverButtonClick(Sender: TObject);
-var
-  SelectedDriver: string;
-begin
-  SelectedDriver := DriverListBox.Selected.Text;
-  FDriverHandle := LoadLibrary(PChar('PathToDrivers\' + SelectedDriver));
-  if FDriverHandle <> 0 then
-    ShowMessage('Driver loaded successfully.')
-  else
-    ShowMessage('Failed to load driver.');
-end;
-
-procedure TventanaSeleccion.CancelClick(Sender: TObject);
-begin
-
-end;
-
-procedure TventanaSeleccion.Label1Click(Sender: TObject);
-begin
-
-end;
-
 end.
+

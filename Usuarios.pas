@@ -64,7 +64,8 @@ var
   contrasenia: String;
   id_role: Integer;
 begin
-  if not((editUsuario.Text = '') or ContainsText(editUsuario.Text, ' ')) then
+  if not((editUsuario.Text = '') or ContainsText(editUsuario.Text, ' ') or
+    (editPass.Text = '') or (editPass.Text = ' ')) then
   begin
     contrasenia := encriptarSHA256(editPass.Text);
     ConsultaSQL(ZReadOnlyQuery1, 'SELECT id_role FROM Role WHERE role = "' +
@@ -87,18 +88,19 @@ begin
       end
       else
       begin
-        ConsultaSQL(ZReadOnlyQuery1,'SELECT count(nombre) cantd_usuarios FROM usuarios WHERE usuarios.nombre="'+editUsuario.Text+'"');
+        ConsultaSQL(ZReadOnlyQuery1,
+          'SELECT count(nombre) cantd_usuarios FROM usuarios WHERE usuarios.nombre="'
+          + editUsuario.Text + '"');
         if ZReadOnlyQuery1.FieldByName('cantd_usuarios').AsInteger > 0 then
-               MessageDlg('Existe un usuario con ese nombre',
-          TMsgDlgType.mtError, [TMsgDlgBtn.mbOK], 0);
+          MessageDlg('Existe un usuario con ese nombre', TMsgDlgType.mtError,
+            [TMsgDlgBtn.mbOK], 0);
 
       end;
-        MessageDlg('Usuario ' + editUsuario.Text + ' no fue creado',
-          TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
+      MessageDlg('Usuario ' + editUsuario.Text + ' no fue creado',
+        TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
     except
       on E: Exception do
-         MessageDlg(E.Message,
-          TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
+        MessageDlg(E.Message, TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
     end;
 
   end;
@@ -110,7 +112,12 @@ begin
   if editUsuario.Text = '' then
     MessageDlg('ERROR:El campo usuario no puede estar vacío.',
       TMsgDlgType.mtError, [TMsgDlgBtn.mbOK], 0);
-
+  if editPass.Text = '' then
+    MessageDlg('ERROR:El campo contraseña no puede estar vacío.',
+      TMsgDlgType.mtError, [TMsgDlgBtn.mbOK], 0);
+  if editPass.Text = ' ' then
+    MessageDlg('ERROR:El campo contraseña no puede estar en blanco.',
+      TMsgDlgType.mtError, [TMsgDlgBtn.mbOK], 0);
 end;
 
 procedure llenarUsuarios();

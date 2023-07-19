@@ -23,13 +23,14 @@ object ventanaSeleccion: TventanaSeleccion
     Viewport.Height = 205.000000000000000000
   end
   object LoadDriverButton: TButton
-    Position.X = 272.000000000000000000
+    Position.X = 184.000000000000000000
     Position.Y = 280.000000000000000000
     Size.Width = 89.000000000000000000
     Size.Height = 25.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 1
     Text = 'Cargar'
+    OnClick = LoadDriverButtonClick
   end
   object Label1: TLabel
     Position.X = 88.000000000000000000
@@ -39,5 +40,14 @@ object ventanaSeleccion: TventanaSeleccion
     Size.PlatformDefault = False
     Text = 'Panel de Seleccion de Controladores'
     TabOrder = 2
+  end
+  object Cancel: TButton
+    Position.X = 288.000000000000000000
+    Position.Y = 280.000000000000000000
+    Size.Width = 81.000000000000000000
+    Size.Height = 25.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 4
+    Text = 'Cancelar'
   end
 end
