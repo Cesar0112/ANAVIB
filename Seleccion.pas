@@ -69,10 +69,12 @@ begin
   for DriverFile in DriverFiles do
     DriverListBox.Items.Add(TPath.GetFileName(DriverFile));
 end;
+
 procedure TventanaSeleccion.LoadDriverButtonClick(Sender: TObject);
 var
   SelectedDriver: string;
 begin
+  ventanaSeleccion.LoadDrivers;
   SelectedDriver := DriverListBox.Selected.Text;
   FDriverLoader.LoadDriver(SelectedDriver);
 end;

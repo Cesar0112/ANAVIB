@@ -19,6 +19,7 @@ type
     ZReadOnlyQuery1: TZReadOnlyQuery;
     EditUser: TEdit;
     lblErrorUsuarioContraseña: TLabel;
+    PasswordEditButton1: TPasswordEditButton;
     procedure btnIngresarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure EditPasswordKeyDown(Sender: TObject; var Key: Word;
@@ -28,6 +29,9 @@ type
     procedure FormShow(Sender: TObject);
     procedure EditUserKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
       Shift: TShiftState);
+    procedure EditUserChangeTracking(Sender: TObject);
+    procedure btnIngresarMouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Single);
 
   private
     { Private declarations }
@@ -38,7 +42,7 @@ type
 
 function existeUsuario(const usuario: String): Boolean;
 function compruebaContrasenia(passIngresada, usuario: String): Boolean;
-
+procedure mostrarBtnAutenticar();
 procedure cargarConfiguracion();
 
 var
@@ -49,56 +53,90 @@ implementation
 
 {$R *.fmx}
 
+procedure mostrarBtnAutenticar();
+begin
+  if (formLogin.EditUser.Text <> '') and
+    (not formLogin.EditUser.Text.Contains(' ')) and
+    (formLogin.EditPassword.Text <> '') and
+    (sizeOf(formLogin.EditPassword.Text) > 0) and
+    (sizeOf(formLogin.EditUser.Text) > 0) then
+  begin
+
+    formLogin.btnIngresar.Enabled := True;
+
+  end
+  else
+  begin
+    formLogin.btnIngresar.Enabled := False;
+  end;
+
+end;
+
 procedure TformLogin.btnIngresarClick(Sender: TObject);
 var
-
   contrasenia: String;
 begin
-  // comprobacion para ver si es correcta la contraseña
-  usuario := EditUser.Text; // obtengo el usuario
-  contrasenia := encriptarSHA256(EditPassword.Text);
-  // la contrasenia encriptada
-  isValido := False;
-  // verificar usuario
-  if existeUsuario(usuario) then
+  if btnIngresar.Enabled then
   begin
-    isValido := compruebaContrasenia(contrasenia, usuario);
-    // si la contraseña es valida y es la del usuario
+    // comprobacion para ver si es correcta la contraseña
+    usuario := EditUser.Text; // obtengo el usuario
+    contrasenia := encriptarSHA256(EditPassword.Text);
+    // la contrasenia encriptada
+    isValido := False;
+    // verificar usuario
+    if existeUsuario(usuario) then
+    begin
+      isValido := compruebaContrasenia(contrasenia, usuario);
+      // si la contraseña es valida y es la del usuario
+      if isValido then
+      begin
+        ConsultaSQL(ZReadOnlyQuery1,
+          'SELECT id_role,id_usuario FROM Role JOIN usuarios ON Role.id_role = usuarios.fk_id_role WHERE usuarios.Nombre="'
+          + usuario + '"');
+        // obtengo el Role del usuario para saber sus privilegios
+        if not ZReadOnlyQuery1.IsEmpty then
+        begin
+          formPrincipal.id_RoleActual := ZReadOnlyQuery1.FieldByName('id_role')
+            .AsInteger;
+          formPrincipal.id_UsuarioActual := ZReadOnlyQuery1.FieldByName
+            ('id_usuario').AsInteger;
+        end
+        else
+        begin
+          ShowMessage
+            ('Hubo un error en la consulta a la base de datos en el intento de obtener el Role del usuario');
+        end;
+      end;
+
+    end;
+
+    // si todo esta correcto
     if isValido then
     begin
-      ConsultaSQL(ZReadOnlyQuery1,
-        'SELECT id_role,id_usuario FROM Role JOIN usuarios ON Role.id_role = usuarios.fk_id_role WHERE usuarios.Nombre="'
-        + usuario + '"');
-      // obtengo el Role del usuario para saber sus privilegios
-      if not ZReadOnlyQuery1.IsEmpty then
-      begin
-        formPrincipal.id_RoleActual := ZReadOnlyQuery1.FieldByName('id_role')
-          .AsInteger;
-        formPrincipal.id_UsuarioActual := ZReadOnlyQuery1.FieldByName('id_usuario')
-          .AsInteger;
-      end
-      else
-      begin
-        ShowMessage
-          ('Hubo un error en la consulta a la base de datos en el intento de obtener el Role del usuario');
-      end;
+      lblErrorUsuarioContraseña.Visible := False;
+      ShowMessage('Usuario ' + usuario + ' autenticado correctamente');
+      formPrincipal.Visible := True;
+      formLogin.Visible := False;
+    end
+    else
+    begin
+      lblErrorUsuarioContraseña.Visible := True;
     end;
 
   end;
 
-  // si todo esta correcto
-  if isValido then
-  begin
-    lblErrorUsuarioContraseña.Visible := False;
-    ShowMessage('Usuario ' + usuario + ' autenticado correctamente');
-    formPrincipal.Visible := true;
-    formLogin.Visible := False;
-  end
-  else
-  begin
-    lblErrorUsuarioContraseña.Visible := true;
-  end;
+end;
 
+procedure TformLogin.btnIngresarMouseMove(Sender: TObject; Shift: TShiftState;
+  X, Y: Single);
+begin
+ { TODO 2 -oCesar -cMejoras : 
+aqui voy a implementar la funcionalidad que permita
+que cuando el mouse pase por encima del btn ingresar este aqunque este inhabilitado
+muestre el mensaje de que sus datos son incorrectos }
+
+
+ 
 end;
 
 procedure TformLogin.ComboEditUserKeyDown(Sender: TObject; var Key: Word;
@@ -116,17 +154,22 @@ procedure TformLogin.EditPasswordKeyDown(Sender: TObject; var Key: Word;
   var KeyChar: Char; Shift: TShiftState);
 begin
   if Key = vkReturn then
-  begin
     btnIngresarClick(Sender);
+end;
 
-  end;
+procedure TformLogin.EditUserChangeTracking(Sender: TObject);
+begin
+  mostrarBtnAutenticar;
 end;
 
 procedure TformLogin.EditUserKeyDown(Sender: TObject; var Key: Word;
   var KeyChar: Char; Shift: TShiftState);
 begin
   if Key = vkReturn then
+  begin
     btnIngresarClick(Sender);
+  end;
+
 end;
 
 procedure TformLogin.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -154,7 +197,7 @@ begin
   begin
     // si hay un solo usuario con ese nombre de usuario
     if formLogin.ZReadOnlyQuery1.FieldByName('cantdUsuarios').AsInteger = 1 then
-      result := true;
+      result := True;
   end;
 end;
 
@@ -227,7 +270,7 @@ begin
       ('Contraseña').AsString;
     // si las contraseñas son iguales
     if passBDEncriptada = passIngresada then
-      result := true;
+      result := True;
   end;
 end;
 
