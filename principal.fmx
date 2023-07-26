@@ -2,7 +2,7 @@ object formPrincipal: TformPrincipal
   Left = 0
   Top = 0
   Caption = 'ANAVIB'
-  ClientHeight = 519
+  ClientHeight = 631
   ClientWidth = 1226
   Position = DesktopCenter
   WindowState = wsMaximized
@@ -16,7 +16,7 @@ object formPrincipal: TformPrincipal
   object panelPrincipal: TPanel
     Align = Client
     Size.Width = 1226.000000000000000000
-    Size.Height = 519.000000000000000000
+    Size.Height = 631.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 1
     object comandosGrafico: TGroupBox
@@ -82,7 +82,7 @@ object formPrincipal: TformPrincipal
     end
     object graficoSenial: TChart
       Position.X = 8.000000000000000000
-      Position.Y = 65.000000000000000000
+      Position.Y = 62.000000000000000000
       Foot.Font.StyleExt = {00040000000200000004000000}
       Legend.Alignment = laBottom
       Legend.CheckBoxes = True

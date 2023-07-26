@@ -11,7 +11,7 @@ uses
   FMXTee.Procs, FMXTee.Chart, FMX.Controls3D, FMXTee.Chart3D, FMXTee.Series,
   Data.DB, Data.SqlExpr, Data.DbxSqlite, FMX.Layouts, ZAbstractConnection,
   ZConnection, ZAbstractRODataset, ZAbstractDataset, ZDataset, FMX.ListBox,
-  fftCalculo,Winapi.Windows;
+  fftCalculo,Winapi.Windows, DSPack, MediaSampleRingbuffer;
 
 type
   ArrayOfDouble = array of Double;
