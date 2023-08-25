@@ -11,7 +11,7 @@ uses
   FMXTee.Procs, FMXTee.Chart, FMX.Controls3D, FMXTee.Chart3D, FMXTee.Series,
   Data.DB, Data.SqlExpr, Data.DbxSqlite, FMX.Layouts, ZAbstractConnection,
   ZConnection, ZAbstractRODataset, ZAbstractDataset, ZDataset, FMX.ListBox,
-  fftCalculo,Winapi.Windows, DSPack, MediaSampleRingbuffer;
+  fftCalculo, Winapi.Windows;
 
 type
   ArrayOfDouble = array of Double;
@@ -251,12 +251,12 @@ begin
   if id_RoleActual <> 1 then
   begin
     opcUsuarios.Visible := False;
-    //opcionRutaManipular.Visible := False;
+    // opcionRutaManipular.Visible := False;
   end;
   if id_RoleActual = 3 then
   begin
-      btnRegistrar.Visible:=False;
-      opcGestion.Visible:=False;
+    btnRegistrar.Visible := False;
+    opcGestion.Visible := False;
   end;
 
   data_global := GenerateSinArray(8192);
@@ -333,7 +333,7 @@ end;
 
 procedure TformPrincipal.opcAutenticarClick(Sender: TObject);
 begin
-//Application.Restart;
+  // Application.Restart;
 end;
 
 procedure TformPrincipal.opcDriverClick(Sender: TObject);
@@ -359,7 +359,7 @@ end;
 
 procedure TformPrincipal.opcionRutaClick(Sender: TObject);
 begin
-opcionRutaManipularClick(Sender);
+  opcionRutaManipularClick(Sender);
 end;
 
 procedure TformPrincipal.opcionRutaManipularClick(Sender: TObject);
@@ -626,14 +626,16 @@ begin
 
   end;
 end;
+
 procedure ReiniciarAplicacion;
 const
   SW_SHOW = 5;
 var
   rutaAplicacion: string;
 begin
-  rutaAplicacion := ParamStr(0);  // Ruta del archivo ejecutable actual
-  //WinExec(PChar(rutaAplicacion), SW_SHOW);  // Inicia un nuevo proceso reemplazando el actual
-  Application.Terminate;  // Cierra el proceso actual
+  rutaAplicacion := ParamStr(0); // Ruta del archivo ejecutable actual
+  // WinExec(PChar(rutaAplicacion), SW_SHOW);  // Inicia un nuevo proceso reemplazando el actual
+  Application.Terminate; // Cierra el proceso actual
 end;
+
 end.

@@ -8,8 +8,7 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMXTee.Engine,
   FMXTee.Procs, FMXTee.Chart, FMX.Menus, FMXTee.Series, FMXTee.Chart.Functions,
   FMX.Controls.Presentation, FMX.StdCtrls, Data.DB, ZAbstractRODataset,
-  ZDataset,
-  ZAbstractConnection, ZConnection;
+  ZDataset, ZAbstractConnection, ZConnection;
 
 type
   TAnalisisTendenciario = class(TForm)
@@ -49,6 +48,7 @@ type
 var
   AnalisisTendenciario: TAnalisisTendenciario;
   arrayRms, arrayMax, arrayMin, arrayPicos: array of Double;
+
 implementation
 
 {$R *.fmx}
@@ -57,7 +57,7 @@ procedure TAnalisisTendenciario.FormShow(Sender: TObject);
 var
   consulta, consultaAVG, consultaSTDDEV, consultaVAR, consultaMedian: String;
 
-  cant,i: Integer;
+  cant, i: Integer;
 begin
   ZConnection1.Connect;
   consultaAVG :=
@@ -103,16 +103,16 @@ begin
     SetLength(arrayPicos, cant);
     consulta :=
       'SELECT RMS ,PICO_Max as max, PICO_Min as min,(PICO_Max-PICO_Min) as picos FROM señales';
-    i:=0;
+    i := 0;
     ConsultaSQL(ZReadOnlyQuery1, consulta);
     while not ZReadOnlyQuery1.Eof do
     begin
-      arrayRms[i]:= ZReadOnlyQuery1.FieldByName('RMS').AsFloat;
-      arrayMax[i]:= ZReadOnlyQuery1.FieldByName('max').AsFloat;
-      arrayMin[i]:= ZReadOnlyQuery1.FieldByName('min').AsFloat;
-      arrayPicos[i]:= ZReadOnlyQuery1.FieldByName('picos').AsFloat;
+      arrayRms[i] := ZReadOnlyQuery1.FieldByName('RMS').AsFloat;
+      arrayMax[i] := ZReadOnlyQuery1.FieldByName('max').AsFloat;
+      arrayMin[i] := ZReadOnlyQuery1.FieldByName('min').AsFloat;
+      arrayPicos[i] := ZReadOnlyQuery1.FieldByName('picos').AsFloat;
       ZReadOnlyQuery1.Next;
-      i:=i+1;
+      i := i + 1;
     end;
 
     graficoSenial.Series[0].AddArray(arrayRms);

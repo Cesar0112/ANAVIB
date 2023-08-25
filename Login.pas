@@ -30,8 +30,8 @@ type
     procedure EditUserKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
       Shift: TShiftState);
     procedure EditUserChangeTracking(Sender: TObject);
-    procedure btnIngresarMouseMove(Sender: TObject; Shift: TShiftState; X,
-      Y: Single);
+    procedure btnIngresarMouseMove(Sender: TObject; Shift: TShiftState;
+      X, Y: Single);
 
   private
     { Private declarations }
@@ -130,13 +130,11 @@ end;
 procedure TformLogin.btnIngresarMouseMove(Sender: TObject; Shift: TShiftState;
   X, Y: Single);
 begin
- { TODO 2 -oCesar -cMejoras : 
-aqui voy a implementar la funcionalidad que permita
-que cuando el mouse pase por encima del btn ingresar este aqunque este inhabilitado
-muestre el mensaje de que sus datos son incorrectos }
+  { TODO 2 -oCesar -cMejoras :
+    aqui voy a implementar la funcionalidad que permita
+    que cuando el mouse pase por encima del btn ingresar este aqunque este inhabilitado
+    muestre el mensaje de que sus datos son incorrectos }
 
-
- 
 end;
 
 procedure TformLogin.ComboEditUserKeyDown(Sender: TObject; var Key: Word;
@@ -160,6 +158,11 @@ end;
 procedure TformLogin.EditUserChangeTracking(Sender: TObject);
 begin
   mostrarBtnAutenticar;
+  // Si no tiene texto oculta el visualizador de contraseñas
+  if EditPassword.Text.Length < 1 then
+    PasswordEditButton1.Visible := False
+  else
+    PasswordEditButton1.Visible := True;
 end;
 
 procedure TformLogin.EditUserKeyDown(Sender: TObject; var Key: Word;

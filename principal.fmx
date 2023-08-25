@@ -271,7 +271,7 @@ object formPrincipal: TformPrincipal
     end
     object Label4: TLabel
       StyledSettings = [Family, Style, FontColor]
-      Position.X = 448.000000000000000000
+      Position.X = 518.000000000000000000
       Position.Y = 8.000000000000000000
       Size.Width = 145.000000000000000000
       Size.Height = 41.000000000000000000
@@ -283,7 +283,7 @@ object formPrincipal: TformPrincipal
     end
     object lblModo: TLabel
       StyledSettings = [Family, Style, FontColor]
-      Position.X = 608.000000000000000000
+      Position.X = 678.000000000000000000
       Position.Y = 8.000000000000000000
       Size.Width = 120.000000000000000000
       Size.Height = 41.000000000000000000

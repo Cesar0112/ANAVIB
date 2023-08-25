@@ -36,7 +36,7 @@
     TabOrder = 2
     Password = True
     Position.X = 76.000000000000000000
-    Position.Y = 63.000000000000000000
+    Position.Y = 64.000000000000000000
     Hint = 'Aqu'#237' se escribe la contrase'#241'a'
     Size.Width = 125.000000000000000000
     Size.Height = 22.000000000000000000
@@ -51,6 +51,7 @@
       Size.Height = 18.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 0
+      Visible = False
     end
   end
   object btnIngresar: TButton
