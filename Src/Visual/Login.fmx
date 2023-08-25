@@ -4,8 +4,8 @@
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = Single
   Caption = 'Autenticar'
-  ClientHeight = 145
-  ClientWidth = 225
+  ClientHeight = 146
+  ClientWidth = 221
   Position = DesktopCenter
   FormFactor.Width = 320
   FormFactor.Height = 480

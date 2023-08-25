@@ -293,34 +293,34 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="Login.pas">
+        <DCCReference Include="Src\Visual\Login.pas">
             <Form>formLogin</Form>
             <FormType>fmx</FormType>
         </DCCReference>
-        <DCCReference Include="principal.pas">
+        <DCCReference Include="Src\Visual\principal.pas">
             <Form>formPrincipal</Form>
         </DCCReference>
-        <DCCReference Include="Configuracion.pas">
-            <Form>formConfiguracion</Form>
-            <FormType>fmx</FormType>
-        </DCCReference>
-        <DCCReference Include="Analisis.pas">
-            <Form>AnalisisTendenciario</Form>
-            <FormType>fmx</FormType>
-        </DCCReference>
-        <DCCReference Include="Rutas.pas">
+        <DCCReference Include="Src\Visual\Rutas.pas">
             <Form>ventanaRutas</Form>
-            <FormType>fmx</FormType>
         </DCCReference>
-        <DCCReference Include="Usuarios.pas">
+        <DCCReference Include="Src\Visual\Usuarios.pas">
             <Form>formUsuarios</Form>
+        </DCCReference>
+        <DCCReference Include="Src\Visual\CambioDeUbicacion.pas">
+            <Form>Form1</Form>
+        </DCCReference>
+        <DCCReference Include="Src\Visual\Configuracion.pas">
+            <Form>formConfiguracion</Form>
+        </DCCReference>
+        <DCCReference Include="Src\Visual\Analisis.pas">
+            <Form>AnalisisTendenciario</Form>
+        </DCCReference>
+        <DCCReference Include="Src\Visual\Seleccion.pas">
+            <Form>ventanaSeleccion</Form>
             <FormType>fmx</FormType>
         </DCCReference>
-        <DCCReference Include="Seguridad.pas"/>
-        <DCCReference Include="Seleccion.pas">
-            <Form>ventanaSeleccion</Form>
-        </DCCReference>
-        <DCCReference Include="fftCalculo.pas"/>
+        <DCCReference Include="Src\Logic\fftCalculo.pas"/>
+        <DCCReference Include="Src\Logic\Seguridad.pas"/>
         <None Include="ModelSupport_ANAVIB\default.txaPackage"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
