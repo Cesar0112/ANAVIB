@@ -280,4 +280,11 @@ object AnalisisTendenciario: TAnalisisTendenciario
     Left = 624
     Top = 360
   end
+  object StyleBook1: TStyleBook
+    Styles = <
+      item
+      end>
+    Left = 720
+    Top = 360
+  end
 end

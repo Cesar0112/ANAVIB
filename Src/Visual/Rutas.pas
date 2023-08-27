@@ -31,6 +31,7 @@ type
     btnEliminarRuta: TButton;
     btnEliminarMaquina: TButton;
     ComboEditMaquina: TComboEdit;
+    StyleBook1: TStyleBook;
     procedure FormShow(Sender: TObject);
     procedure ComboEdit_etiquetaKeyDown(Sender: TObject; var Key: Word;
       var KeyChar: Char; Shift: TShiftState);

@@ -58,6 +58,7 @@ type
     opcRuta: TMenuItem;
     opcSimple: TMenuItem;
     btnEspectro: TButton;
+    StyleBook1: TStyleBook;
 
     procedure opcionSalirClick(Sender: TObject);
     procedure btnPlayPausaClick(Sender: TObject);

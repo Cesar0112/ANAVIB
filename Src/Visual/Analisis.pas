@@ -38,6 +38,7 @@ type
     lblDesMax: TLabel;
     lblDesMin: TLabel;
     lblDesPicos: TLabel;
+    StyleBook1: TStyleBook;
     procedure FormShow(Sender: TObject);
   private
     { Private declarations }

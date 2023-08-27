@@ -27,6 +27,7 @@ type
     btnCancelarEdicion: TButton;
     Label4: TLabel;
     ComboBox1: TComboBox;
+    StyleBook1: TStyleBook;
     procedure btnCrearUsuarioClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure CheckBox1Change(Sender: TObject);

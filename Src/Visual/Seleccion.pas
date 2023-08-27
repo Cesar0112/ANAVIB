@@ -19,6 +19,7 @@ type
     DriverListBox: TListBox;
     LoadDriverButton: TButton;
     Label1: TLabel;
+    StyleBook1: TStyleBook;
     procedure LoadDriverButtonClick(Sender: TObject);
     procedure CancelClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);

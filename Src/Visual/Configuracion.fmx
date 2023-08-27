@@ -41,4 +41,9 @@ object formConfiguracion: TformConfiguracion
     Size.Height = 17.000000000000000000
     Size.PlatformDefault = False
   end
+  object StyleBook1: TStyleBook
+    Styles = <>
+    Left = 8
+    Top = 112
+  end
 end

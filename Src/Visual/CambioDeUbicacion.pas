@@ -10,6 +10,7 @@ uses
 type
   TForm1 = class(TForm)
     Label1: TLabel;
+    StyleBook1: TStyleBook;
   private
     { Private declarations }
   public

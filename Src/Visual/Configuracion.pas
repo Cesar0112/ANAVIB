@@ -14,6 +14,7 @@ type
     btnCancelar: TButton;
     Label1: TLabel;
     SpinBox1: TSpinBox;
+    StyleBook1: TStyleBook;
     procedure btnCancelarClick(Sender: TObject);
   private
     { Private declarations }

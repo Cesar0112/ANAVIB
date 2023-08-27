@@ -20,6 +20,7 @@ type
     EditUser: TEdit;
     lblErrorUsuarioContraseña: TLabel;
     PasswordEditButton1: TPasswordEditButton;
+    StyleBook1: TStyleBook;
     procedure btnIngresarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure EditPasswordKeyDown(Sender: TObject; var Key: Word;
@@ -76,6 +77,7 @@ procedure TformLogin.btnIngresarClick(Sender: TObject);
 var
   contrasenia: String;
 begin
+      { TODO 2 -oCésar -cBase de datos : Deberia de agregar comprobacion a la conexion a la BD }
   if btnIngresar.Enabled then
   begin
     // comprobacion para ver si es correcta la contraseña

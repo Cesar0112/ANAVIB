@@ -5,6 +5,7 @@ object formPrincipal: TformPrincipal
   ClientHeight = 631
   ClientWidth = 1226
   Position = DesktopCenter
+  StyleBook = ventanaRutas.StyleBook1
   WindowState = wsMaximized
   FormFactor.Width = 320
   FormFactor.Height = 480
@@ -31,7 +32,7 @@ object formPrincipal: TformPrincipal
         Position.X = 19.000000000000000000
         Position.Y = 36.000000000000000000
         StyleLookup = 'additembutton'
-        TabOrder = 35
+        TabOrder = 33
         Text = 'Registrar'
         OnClick = btnRegistrarClick
       end
@@ -175,7 +176,7 @@ object formPrincipal: TformPrincipal
         Size.Height = 17.000000000000000000
         Size.PlatformDefault = False
         Text = '*****        '
-        TabOrder = 35
+        TabOrder = 33
       end
       object lblMuestraValorPicoMaximo: TLabel
         Position.X = 135.000000000000000000
@@ -184,7 +185,7 @@ object formPrincipal: TformPrincipal
         Size.Height = 17.000000000000000000
         Size.PlatformDefault = False
         Text = '*****'
-        TabOrder = 38
+        TabOrder = 35
       end
       object lblMuestraValorPicoMinimo: TLabel
         Position.X = 135.000000000000000000
@@ -193,7 +194,7 @@ object formPrincipal: TformPrincipal
         Size.Height = 17.000000000000000000
         Size.PlatformDefault = False
         Text = '*****'
-        TabOrder = 40
+        TabOrder = 37
       end
       object lblMuestraValorDePicoPico: TLabel
         Position.X = 135.000000000000000000
@@ -202,7 +203,7 @@ object formPrincipal: TformPrincipal
         Size.Height = 16.000000000000000000
         Size.PlatformDefault = False
         Text = '*****'
-        TabOrder = 43
+        TabOrder = 40
       end
     end
     object Timer1: TTimer
@@ -312,7 +313,7 @@ object formPrincipal: TformPrincipal
     Catalog = ''
     HostName = ''
     Port = 0
-    Database = ''
+    Database = 'C:\Users\C'#233'sar\Documents\GitHub\ANAVIB\Src\BD\mydatabase.db'
     User = ''
     Password = ''
     Protocol = ''
@@ -324,5 +325,12 @@ object formPrincipal: TformPrincipal
     Params = <>
     Left = 344
     Top = 424
+  end
+  object StyleBook1: TStyleBook
+    Styles = <
+      item
+      end>
+    Left = 24
+    Top = 24
   end
 end
