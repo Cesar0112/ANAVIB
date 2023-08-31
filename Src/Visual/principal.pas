@@ -58,7 +58,10 @@ type
     opcRuta: TMenuItem;
     opcSimple: TMenuItem;
     btnEspectro: TButton;
-    StyleBook1: TStyleBook;
+    StyleClaro: TStyleBook;
+    StyleOscuro: TStyleBook;
+    btnModo: TButton;
+    ScrollBox1: TScrollBox;
 
     procedure opcionSalirClick(Sender: TObject);
     procedure btnPlayPausaClick(Sender: TObject);
@@ -80,6 +83,7 @@ type
     procedure btnEspectroClick(Sender: TObject);
     procedure opcAutenticarClick(Sender: TObject);
     procedure opcionRutaClick(Sender: TObject);
+    procedure btnModoClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -119,6 +123,22 @@ var
 implementation
 
 {$R *.fmx}
+
+procedure TformPrincipal.btnModoClick(Sender: TObject);
+begin
+  if btnModo.Text = 'Claro' then
+  begin
+    // Cambia a modo oscuro
+    btnModo.Text := 'Oscuro';
+    formPrincipal.StyleBook := StyleOscuro;
+  end
+  else
+  begin
+    // cambia a modo claro
+    btnModo.Text := 'Claro';
+    formPrincipal.StyleBook := StyleClaro;
+  end;
+end;
 
 procedure TformPrincipal.btnEspectroClick(Sender: TObject);
 var

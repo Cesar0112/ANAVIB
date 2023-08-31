@@ -2,48 +2,91 @@ object formConfiguracion: TformConfiguracion
   Left = 0
   Top = 0
   Caption = 'Configuraci'#243'n'
-  ClientHeight = 205
-  ClientWidth = 274
+  ClientHeight = 441
+  ClientWidth = 707
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
   DesignerMasterStyle = 0
-  object btnSalvar: TButton
-    Position.X = 24.000000000000000000
-    Position.Y = 149.000000000000000000
+  object ScrollBox1: TScrollBox
+    Align = Client
+    Size.Width = 707.000000000000000000
+    Size.Height = 441.000000000000000000
+    Size.PlatformDefault = False
     TabOrder = 0
-    Text = 'Salvar'
-  end
-  object btnCancelar: TButton
-    Position.X = 160.000000000000000000
-    Position.Y = 149.000000000000000000
-    TabOrder = 1
-    Text = 'Cancelar'
-    OnClick = btnCancelarClick
-  end
-  object Label1: TLabel
-    Position.X = 24.000000000000000000
-    Position.Y = 24.000000000000000000
-    Size.Width = 121.000000000000000000
-    Size.Height = 25.000000000000000000
-    Size.PlatformDefault = False
-    Text = 'Frecuencia de muestro'
-    TabOrder = 2
-  end
-  object SpinBox1: TSpinBox
-    Touch.InteractiveGestures = [LongTap, DoubleTap]
-    TabOrder = 3
-    Cursor = crIBeam
-    DecimalDigits = 4
-    Position.X = 168.000000000000000000
-    Position.Y = 29.000000000000000000
-    Size.Width = 81.000000000000000000
-    Size.Height = 17.000000000000000000
-    Size.PlatformDefault = False
-  end
-  object StyleBook1: TStyleBook
-    Styles = <>
-    Left = 8
-    Top = 112
+    Viewport.Width = 707.000000000000000000
+    Viewport.Height = 441.000000000000000000
+    object Label1: TLabel
+      Position.X = 336.000000000000000000
+      Position.Y = 133.000000000000000000
+      Size.Width = 129.000000000000000000
+      Size.Height = 17.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Frecuencia de muestro'
+      TabOrder = 2
+    end
+    object btnSalvar: TButton
+      Position.X = 40.000000000000000000
+      Position.Y = 164.000000000000000000
+      TabOrder = 0
+      Text = 'Salvar'
+    end
+    object btnCancelar: TButton
+      Position.X = 154.000000000000000000
+      Position.Y = 164.000000000000000000
+      TabOrder = 1
+      Text = 'Cancelar'
+      OnClick = btnCancelarClick
+    end
+    object SpinBox1: TSpinBox
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 3
+      Cursor = crIBeam
+      DecimalDigits = 4
+      Position.X = 153.000000000000000000
+      Position.Y = 21.000000000000000000
+      Size.Width = 81.000000000000000000
+      Size.Height = 17.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object StyleBook1: TStyleBook
+      Styles = <
+        item
+        end>
+      Left = 248
+      Top = 160
+    end
+    object lblModoClaro_Oscuro: TLabel
+      Position.X = 24.000000000000000000
+      Position.Y = 64.000000000000000000
+      Size.Width = 113.000000000000000000
+      Size.Height = 17.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Modo'
+      TabOrder = 4
+    end
+    object GridPanelLayout1: TGridPanelLayout
+      Position.X = 336.000000000000000000
+      Position.Y = 112.000000000000000000
+      Size.Width = 177.000000000000000000
+      Size.Height = 153.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 5
+      ColumnCollection = <
+        item
+          Value = 50.000000000000000000
+        end
+        item
+          Value = 50.000000000000000000
+        end>
+      ControlCollection = <>
+      RowCollection = <
+        item
+          Value = 50.000000000000000000
+        end
+        item
+          Value = 50.000000000000000000
+        end>
+    end
   end
 end

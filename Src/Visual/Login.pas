@@ -213,9 +213,9 @@ var
 
 begin
   try
-    AssignFile(archivo, 'Config.cfg');
-
-    // Leer datos del archivo .cfg
+    AssignFile(archivo, 'config.cfg');
+    //Deberia verificar que existe primero
+    // Leer datos del archivo config.cfg
     Reset(archivo);
     while not Eof(archivo) do // lee hasta el final del archivo
     begin

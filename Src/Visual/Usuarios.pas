@@ -8,7 +8,8 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   UASUtilesDB, Seguridad,
   FMX.Controls.Presentation, FMX.StdCtrls, FMX.Edit, FMX.ListBox, Data.DB,
-  ZAbstractRODataset, ZDataset, ZAbstractDataset;
+  ZAbstractRODataset, ZDataset, ZAbstractDataset, System.Rtti, FMX.Grid.Style,
+  FMX.ScrollBox, FMX.Grid;
 
 type
   TformUsuarios = class(TForm)
@@ -28,6 +29,7 @@ type
     Label4: TLabel;
     ComboBox1: TComboBox;
     StyleBook1: TStyleBook;
+    Grid1: TGrid;
     procedure btnCrearUsuarioClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure CheckBox1Change(Sender: TObject);

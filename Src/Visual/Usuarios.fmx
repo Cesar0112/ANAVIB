@@ -2,8 +2,8 @@ object formUsuarios: TformUsuarios
   Left = 0
   Top = 0
   Caption = 'Usuarios'
-  ClientHeight = 156
-  ClientWidth = 464
+  ClientHeight = 446
+  ClientWidth = 492
   StyleBook = StyleBook1
   FormFactor.Width = 320
   FormFactor.Height = 480
@@ -128,18 +128,6 @@ object formUsuarios: TformUsuarios
     Size.Height = 22.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 13
-  end
-  object ZReadOnlyQuery1: TZReadOnlyQuery
-    Connection = formPrincipal.ZConnection1
-    Params = <>
-    Left = 376
-    Top = 80
-  end
-  object ZQuery1: TZQuery
-    Connection = formPrincipal.ZConnection1
-    Params = <>
-    Left = 280
-    Top = 80
   end
   object StyleBook1: TStyleBook
     Styles = <
@@ -3124,5 +3112,29 @@ object formUsuarios: TformUsuarios
       end>
     Left = 24
     Top = 120
+  end
+  object Grid1: TGrid
+    CanFocus = True
+    ClipChildren = True
+    Position.X = 72.000000000000000000
+    Position.Y = 224.000000000000000000
+    Size.Width = 277.000000000000000000
+    Size.Height = 161.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 14
+    Viewport.Width = 277.000000000000000000
+    Viewport.Height = 161.000000000000000000
+  end
+  object ZReadOnlyQuery1: TZReadOnlyQuery
+    Connection = formPrincipal.ZConnection1
+    Params = <>
+    Left = 184
+    Top = 152
+  end
+  object ZQuery1: TZQuery
+    Connection = formPrincipal.ZConnection1
+    Params = <>
+    Left = 120
+    Top = 152
   end
 end
