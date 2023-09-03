@@ -4002,7 +4002,7 @@ object formPrincipal: TformPrincipal
           Size.Height = 17.000000000000000000
           Size.PlatformDefault = False
           Text = '*****        '
-          TabOrder = 32
+          TabOrder = 26
         end
         object lblMuestraValorPicoMaximo: TLabel
           Position.X = 135.000000000000000000
@@ -4011,7 +4011,7 @@ object formPrincipal: TformPrincipal
           Size.Height = 17.000000000000000000
           Size.PlatformDefault = False
           Text = '*****'
-          TabOrder = 34
+          TabOrder = 28
         end
         object lblMuestraValorPicoMinimo: TLabel
           Position.X = 135.000000000000000000
@@ -4020,7 +4020,7 @@ object formPrincipal: TformPrincipal
           Size.Height = 17.000000000000000000
           Size.PlatformDefault = False
           Text = '*****'
-          TabOrder = 36
+          TabOrder = 30
         end
         object lblMuestraValorDePicoPico: TLabel
           Position.X = 135.000000000000000000
@@ -4029,7 +4029,7 @@ object formPrincipal: TformPrincipal
           Size.Height = 16.000000000000000000
           Size.PlatformDefault = False
           Text = '*****'
-          TabOrder = 40
+          TabOrder = 34
         end
       end
       object mainMenu: TMainMenu
@@ -4064,6 +4064,18 @@ object formPrincipal: TformPrincipal
             Locked = True
             Text = 'Simple'
             OnClick = opcSimpleClick
+          end
+        end
+        object MenuItem1: TMenuItem
+          Text = 'Visual'
+          object opcVisualClaro: TMenuItem
+            Locked = True
+            Text = 'Claro'
+            OnClick = opcVisualClaroClick
+          end
+          object MenuItem3: TMenuItem
+            Locked = True
+            Text = 'Oscuro'
           end
         end
         object opcionAnalisisTendencia: TMenuItem
@@ -4126,7 +4138,7 @@ object formPrincipal: TformPrincipal
       end
       object graficoSenial: TChart
         Position.X = 8.000000000000000000
-        Position.Y = 62.000000000000000000
+        Position.Y = 57.000000000000000000
         Foot.Font.StyleExt = {00040000000200000004000000}
         Legend.Alignment = laBottom
         Legend.CheckBoxes = True
@@ -4213,7 +4225,7 @@ object formPrincipal: TformPrincipal
           Position.X = 19.000000000000000000
           Position.Y = 36.000000000000000000
           StyleLookup = 'additembutton'
-          TabOrder = 33
+          TabOrder = 27
           Text = 'Registrar'
           OnClick = btnRegistrarClick
         end
@@ -4226,38 +4238,7 @@ object formPrincipal: TformPrincipal
         Text = 'Espectro'
         OnClick = btnEspectroClick
       end
-      object btnModo: TButton
-        Position.X = 1016.000000000000000000
-        Position.Y = 27.000000000000000000
-        TabOrder = 9
-        Text = 'Claro'
-        OnClick = btnModoClick
-      end
     end
-  end
-  object ZQuery1: TZQuery
-    Connection = ZConnection1
-    Params = <>
-    Left = 592
-    Top = 432
-  end
-  object ZConnection1: TZConnection
-    ControlsCodePage = cCP_UTF16
-    Catalog = ''
-    HostName = ''
-    Port = 0
-    Database = 'C:\Users\C'#233'sar\Documents\GitHub\ANAVIB\Src\BD\mydatabase.db'
-    User = ''
-    Password = ''
-    Protocol = ''
-    Left = 488
-    Top = 424
-  end
-  object ZReadOnlyQuery1: TZReadOnlyQuery
-    Connection = ZConnection1
-    Params = <>
-    Left = 344
-    Top = 424
   end
   object StyleOscuro: TStyleBook
     Styles = <
@@ -7414,5 +7395,47 @@ object formPrincipal: TformPrincipal
       end>
     Left = 88
     Top = 22
+  end
+  object ZQuery1: TZQuery
+    Connection = ZConnection1
+    Params = <>
+    Left = 592
+    Top = 432
+  end
+  object ZConnection1: TZConnection
+    ControlsCodePage = cCP_UTF16
+    Catalog = ''
+    HostName = ''
+    Port = 0
+    Database = 'C:\Users\C'#233'sar\Documents\GitHub\ANAVIB\Src\BD\mydatabase.db'
+    User = ''
+    Password = ''
+    Protocol = ''
+    Left = 488
+    Top = 424
+  end
+  object ZReadOnlyQuery1: TZReadOnlyQuery
+    Connection = ZConnection1
+    Params = <>
+    Left = 344
+    Top = 424
+  end
+  object RandomGenerator: TSLRandomGen
+    SampleRate = 10000.000000000000000000
+    OutputPin.Form = formPrincipal
+    OutputPin.SinkPins = (
+      formPrincipal.SLGenericReal1.InputPin)
+    Low = -2000.000000000000000000
+    High = 2000.000000000000000000
+    Left = 176
+    Top = 24
+  end
+  object SLGenericReal1: TSLGenericReal
+    InputPin.Form = formPrincipal
+    InputPin.SourcePin = formPrincipal.RandomGenerator.OutputPin
+    SynchronizeType = stSingleBuffer
+    OnProcessData = SLGenericReal1ProcessData
+    Left = 272
+    Top = 24
   end
 end

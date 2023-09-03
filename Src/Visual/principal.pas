@@ -11,7 +11,8 @@ uses
   FMXTee.Procs, FMXTee.Chart, FMX.Controls3D, FMXTee.Chart3D, FMXTee.Series,
   Data.DB, Data.SqlExpr, Data.DbxSqlite, FMX.Layouts, ZAbstractConnection,
   ZConnection, ZAbstractRODataset, ZAbstractDataset, ZDataset, FMX.ListBox,
-  fftCalculo, Winapi.Windows;
+  fftCalculo, Winapi.Windows, LPComponent, SLCommonFilter, SLBasicGenericReal,
+  SLGenericReal, Mitov.Types, SLCommonGen, SLRandomGen;
 
 type
   ArrayOfDouble = array of Double;
@@ -60,8 +61,12 @@ type
     btnEspectro: TButton;
     StyleClaro: TStyleBook;
     StyleOscuro: TStyleBook;
-    btnModo: TButton;
     ScrollBox1: TScrollBox;
+    MenuItem1: TMenuItem;
+    opcVisualClaro: TMenuItem;
+    MenuItem3: TMenuItem;
+    RandomGenerator: TSLRandomGen;
+    SLGenericReal1: TSLGenericReal;
 
     procedure opcionSalirClick(Sender: TObject);
     procedure btnPlayPausaClick(Sender: TObject);
@@ -83,7 +88,11 @@ type
     procedure btnEspectroClick(Sender: TObject);
     procedure opcAutenticarClick(Sender: TObject);
     procedure opcionRutaClick(Sender: TObject);
-    procedure btnModoClick(Sender: TObject);
+    procedure MenuItem2Click(Sender: TObject);
+    procedure opcVisualClaroClick(Sender: TObject);
+    procedure SLGenericReal1ProcessData(ASender: TObject;
+      AInBuffer: ISLRealBuffer; var AOutBuffer: ISLRealBuffer;
+      var ASendOutputData: Boolean);
 
   private
     { Private declarations }
@@ -123,22 +132,6 @@ var
 implementation
 
 {$R *.fmx}
-
-procedure TformPrincipal.btnModoClick(Sender: TObject);
-begin
-  if btnModo.Text = 'Claro' then
-  begin
-    // Cambia a modo oscuro
-    btnModo.Text := 'Oscuro';
-    formPrincipal.StyleBook := StyleOscuro;
-  end
-  else
-  begin
-    // cambia a modo claro
-    btnModo.Text := 'Claro';
-    formPrincipal.StyleBook := StyleClaro;
-  end;
-end;
 
 procedure TformPrincipal.btnEspectroClick(Sender: TObject);
 var
@@ -468,7 +461,33 @@ begin
   ventanaUsuarios.Visible := True;
 end;
 
+procedure TformPrincipal.opcVisualClaroClick(Sender: TObject);
+begin
+  /// Cuando de click se va a poner el tema claro y va a cambiar las configuraciones
+  /// en el txt de config.cfg
+  if not(formPrincipal.StyleBook = StyleClaro) then
+  begin
+    formPrincipal.StyleOscuro := StyleOscuro;
+    // Aqui llama al metodo que cambia la configuracion
+  end;
+end;
+
+procedure TformPrincipal.SLGenericReal1ProcessData(ASender: TObject;
+  AInBuffer: ISLRealBuffer; var AOutBuffer: ISLRealBuffer;
+  var ASendOutputData: Boolean);
+var
+  i: Integer;
+begin
+  { Este metodo va a mostrar la señal aleatoria en el TChart de la señal }
+  graficoSenial.Series[0].Clear;
+
+  for i := 0 to AInBuffer.Size - 1 do
+    graficoSenial.Series[0].Add(AInBuffer.Items[i], '', clTeeColor);
+
+end;
+
 function CalcularVRMS(const valoresSenial: ArrayOfDouble): Double;
+{ RMS : Valor eficaz de la señal }
 var
   i, n: Integer; // N tamanio del arreglo
   sumatoria, VRMS: Double;

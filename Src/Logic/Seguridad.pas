@@ -5,10 +5,8 @@ interface
 uses
   Hash, System.SysUtils, FMX.Dialogs;
 
-
-
- var
- usuario: String;
+var
+  usuario: String;
 function encriptarSHA256(const pass: string): String;
 
 implementation
@@ -20,7 +18,7 @@ begin
 
   try
     hashSHA := THashSHA2.Create;
-    Result := THashSHA2.GetHashString(pass,SHA256);
+    Result := THashSHA2.GetHashString(pass, SHA256);
 
   except
     on E: Exception do

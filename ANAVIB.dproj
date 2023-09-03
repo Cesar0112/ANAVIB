@@ -321,6 +321,7 @@
         </DCCReference>
         <DCCReference Include="Src\Logic\fftCalculo.pas"/>
         <DCCReference Include="Src\Logic\Seguridad.pas"/>
+        <DCCReference Include="Src\Logic\MetodoConfiguracion.pas"/>
         <None Include="ModelSupport_ANAVIB\default.txaPackage"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>

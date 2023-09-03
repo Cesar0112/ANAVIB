@@ -20,7 +20,8 @@ type
     EditUser: TEdit;
     lblErrorUsuarioContraseña: TLabel;
     PasswordEditButton1: TPasswordEditButton;
-    StyleBook1: TStyleBook;
+    StyleClaro: TStyleBook;
+    StyleOscuro: TStyleBook;
     procedure btnIngresarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure EditPasswordKeyDown(Sender: TObject; var Key: Word;
@@ -45,10 +46,11 @@ function existeUsuario(const usuario: String): Boolean;
 function compruebaContrasenia(passIngresada, usuario: String): Boolean;
 procedure mostrarBtnAutenticar();
 procedure cargarConfiguracion();
+procedure cargarEstilo(modo: String);
 
 var
   formLogin: TformLogin;
-  Database, Protocol, LibraryLocation: String;
+  modo, Database, Protocol, LibraryLocation: String;
 
 implementation
 
@@ -77,7 +79,7 @@ procedure TformLogin.btnIngresarClick(Sender: TObject);
 var
   contrasenia: String;
 begin
-      { TODO 2 -oCésar -cBase de datos : Deberia de agregar comprobacion a la conexion a la BD }
+  { TODO 2 -oCésar -cBase de datos : Deberia de agregar comprobacion a la conexion a la BD }
   if btnIngresar.Enabled then
   begin
     // comprobacion para ver si es correcta la contraseña
@@ -186,6 +188,8 @@ end;
 procedure TformLogin.FormShow(Sender: TObject);
 begin
   cargarConfiguracion;
+  if (Modo <> '') or (Modo <> ' ') then
+    cargarEstilo(Modo);
   EditUser.SetFocus;
 end;
 
@@ -206,6 +210,14 @@ begin
   end;
 end;
 
+procedure cargarEstilo(modo: String);
+begin
+  if modo = 'claro' then
+    formLogin.StyleBook := formLogin.StyleClaro
+  else
+    formLogin.StyleBook := formLogin.StyleOscuro;
+end;
+
 procedure cargarConfiguracion();
 var
   archivo: TextFile;
@@ -214,7 +226,7 @@ var
 begin
   try
     AssignFile(archivo, 'config.cfg');
-    //Deberia verificar que existe primero
+    // Deberia verificar que existe primero
     // Leer datos del archivo config.cfg
     Reset(archivo);
     while not Eof(archivo) do // lee hasta el final del archivo
@@ -244,6 +256,10 @@ begin
       else if clave = 'Frecuencia de muestreo' then
       begin
         FrecMuestreo := StrToInt(valor);
+      end
+      else if clave = 'Modo' then
+      begin
+        modo := valor;
       end;
     end;
 

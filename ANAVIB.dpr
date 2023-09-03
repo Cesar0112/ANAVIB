@@ -12,7 +12,8 @@ uses
   Analisis in 'Src\Visual\Analisis.pas' {AnalisisTendenciario},
   Seleccion in 'Src\Visual\Seleccion.pas' {ventanaSeleccion},
   fftCalculo in 'Src\Logic\fftCalculo.pas',
-  Seguridad in 'Src\Logic\Seguridad.pas';
+  Seguridad in 'Src\Logic\Seguridad.pas',
+  MetodoConfiguracion in 'Src\Logic\MetodoConfiguracion.pas';
 
 {$R *.res}
 
