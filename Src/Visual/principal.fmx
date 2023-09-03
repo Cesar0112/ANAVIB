@@ -3946,10 +3946,9 @@ object formPrincipal: TformPrincipal
       Viewport.Width = 1396.000000000000000000
       Viewport.Height = 631.000000000000000000
       object Timer1: TTimer
-        Enabled = False
         OnTimer = Timer1Timer
-        Left = 592
-        Top = 385
+        Left = 312
+        Top = 25
       end
       object valoresGlobales: TGroupBox
         Position.X = 576.000000000000000000
@@ -4002,7 +4001,7 @@ object formPrincipal: TformPrincipal
           Size.Height = 17.000000000000000000
           Size.PlatformDefault = False
           Text = '*****        '
-          TabOrder = 26
+          TabOrder = 16
         end
         object lblMuestraValorPicoMaximo: TLabel
           Position.X = 135.000000000000000000
@@ -4011,7 +4010,7 @@ object formPrincipal: TformPrincipal
           Size.Height = 17.000000000000000000
           Size.PlatformDefault = False
           Text = '*****'
-          TabOrder = 28
+          TabOrder = 18
         end
         object lblMuestraValorPicoMinimo: TLabel
           Position.X = 135.000000000000000000
@@ -4020,7 +4019,7 @@ object formPrincipal: TformPrincipal
           Size.Height = 17.000000000000000000
           Size.PlatformDefault = False
           Text = '*****'
-          TabOrder = 30
+          TabOrder = 20
         end
         object lblMuestraValorDePicoPico: TLabel
           Position.X = 135.000000000000000000
@@ -4029,12 +4028,12 @@ object formPrincipal: TformPrincipal
           Size.Height = 16.000000000000000000
           Size.PlatformDefault = False
           Text = '*****'
-          TabOrder = 34
+          TabOrder = 24
         end
       end
       object mainMenu: TMainMenu
-        Left = 496
-        Top = 216
+        Left = 472
+        Top = 24
         object opcGestion: TMenuItem
           Text = 'Gesti'#243'n'
           object opcionRuta: TMenuItem
@@ -4087,7 +4086,7 @@ object formPrincipal: TformPrincipal
           OnClick = opcionSalirClick
         end
       end
-      object ComboBox1: TComboBox
+      object ComboBoxRutas: TComboBox
         Position.X = 660.000000000000000000
         Position.Y = 236.000000000000000000
         TabOrder = 5
@@ -4180,7 +4179,7 @@ object formPrincipal: TformPrincipal
           YValues.Order = loNone
         end
       end
-      object Label1: TLabel
+      object LabelRuta: TLabel
         Position.X = 584.000000000000000000
         Position.Y = 241.000000000000000000
         Size.Width = 64.000000000000000000
@@ -4225,18 +4224,18 @@ object formPrincipal: TformPrincipal
           Position.X = 19.000000000000000000
           Position.Y = 36.000000000000000000
           StyleLookup = 'additembutton'
-          TabOrder = 27
+          TabOrder = 16
           Text = 'Registrar'
           OnClick = btnRegistrarClick
         end
-      end
-      object btnEspectro: TButton
-        Position.X = 683.000000000000000000
-        Position.Y = 330.000000000000000000
-        StyleLookup = 'nexttoolbutton'
-        TabOrder = 8
-        Text = 'Espectro'
-        OnClick = btnEspectroClick
+        object btnEspectro: TButton
+          Position.X = 107.000000000000000000
+          Position.Y = 36.000000000000000000
+          StyleLookup = 'nexttoolbutton'
+          TabOrder = 8
+          Text = 'Espectro'
+          OnClick = btnEspectroClick
+        end
       end
     end
   end
@@ -7399,8 +7398,8 @@ object formPrincipal: TformPrincipal
   object ZQuery1: TZQuery
     Connection = ZConnection1
     Params = <>
-    Left = 592
-    Top = 432
+    Left = 520
+    Top = 24
   end
   object ZConnection1: TZConnection
     ControlsCodePage = cCP_UTF16
@@ -7411,20 +7410,22 @@ object formPrincipal: TformPrincipal
     User = ''
     Password = ''
     Protocol = ''
-    Left = 488
-    Top = 424
+    Left = 352
+    Top = 24
   end
   object ZReadOnlyQuery1: TZReadOnlyQuery
     Connection = ZConnection1
     Params = <>
-    Left = 344
-    Top = 424
+    Left = 408
+    Top = 24
   end
   object RandomGenerator: TSLRandomGen
+    ClockSource = csExternal
     SampleRate = 10000.000000000000000000
     OutputPin.Form = formPrincipal
     OutputPin.SinkPins = (
-      formPrincipal.SLGenericReal1.InputPin)
+      formPrincipal.SLGenericReal1.InputPin
+      formPrincipal.SLFourier1.InputPin)
     Low = -2000.000000000000000000
     High = 2000.000000000000000000
     Left = 176
@@ -7435,7 +7436,23 @@ object formPrincipal: TformPrincipal
     InputPin.SourcePin = formPrincipal.RandomGenerator.OutputPin
     SynchronizeType = stSingleBuffer
     OnProcessData = SLGenericReal1ProcessData
-    Left = 272
+    Left = 264
+    Top = 24
+  end
+  object SLFourier1: TSLFourier
+    InputPin.Form = formPrincipal
+    InputPin.SourcePin = formPrincipal.RandomGenerator.OutputPin
+    SpectrumOutputPin.Form = formPrincipal
+    SpectrumOutputPin.SinkPins = (
+      formPrincipal.SLGenericReal2.InputPin)
+    Left = 574
+    Top = 24
+  end
+  object SLGenericReal2: TSLGenericReal
+    InputPin.Form = formPrincipal
+    InputPin.SourcePin = formPrincipal.SLFourier1.SpectrumOutputPin
+    OnProcessData = SLGenericReal2ProcessData
+    Left = 630
     Top = 24
   end
 end

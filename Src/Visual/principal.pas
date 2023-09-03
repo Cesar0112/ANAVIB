@@ -12,7 +12,7 @@ uses
   Data.DB, Data.SqlExpr, Data.DbxSqlite, FMX.Layouts, ZAbstractConnection,
   ZConnection, ZAbstractRODataset, ZAbstractDataset, ZDataset, FMX.ListBox,
   fftCalculo, Winapi.Windows, LPComponent, SLCommonFilter, SLBasicGenericReal,
-  SLGenericReal, Mitov.Types, SLCommonGen, SLRandomGen;
+  SLGenericReal, Mitov.Types, SLCommonGen, SLRandomGen, SLFourier;
 
 type
   ArrayOfDouble = array of Double;
@@ -49,8 +49,8 @@ type
     ZConnection1: TZConnection;
     opcUsuarios: TMenuItem;
     opcGestion: TMenuItem;
-    Label1: TLabel;
-    ComboBox1: TComboBox;
+    LabelRuta: TLabel;
+    ComboBoxRutas: TComboBox;
     ZReadOnlyQuery1: TZReadOnlyQuery;
     opcDriver: TMenuItem;
     Label4: TLabel;
@@ -67,6 +67,8 @@ type
     MenuItem3: TMenuItem;
     RandomGenerator: TSLRandomGen;
     SLGenericReal1: TSLGenericReal;
+    SLFourier1: TSLFourier;
+    SLGenericReal2: TSLGenericReal;
 
     procedure opcionSalirClick(Sender: TObject);
     procedure btnPlayPausaClick(Sender: TObject);
@@ -88,9 +90,11 @@ type
     procedure btnEspectroClick(Sender: TObject);
     procedure opcAutenticarClick(Sender: TObject);
     procedure opcionRutaClick(Sender: TObject);
-    procedure MenuItem2Click(Sender: TObject);
     procedure opcVisualClaroClick(Sender: TObject);
     procedure SLGenericReal1ProcessData(ASender: TObject;
+      AInBuffer: ISLRealBuffer; var AOutBuffer: ISLRealBuffer;
+      var ASendOutputData: Boolean);
+    procedure SLGenericReal2ProcessData(ASender: TObject;
       AInBuffer: ISLRealBuffer; var AOutBuffer: ISLRealBuffer;
       var ASendOutputData: Boolean);
 
@@ -231,8 +235,7 @@ end;
 
 procedure TformPrincipal.FormCreate(Sender: TObject);
 begin
-  FrecMuestreo := 10;
-  // configuracion inicial aunque despues va a cambiar por el archivo Config.cfg
+
   graficoSenial.Series[0].Clear; // Limpia los datos previos del gráfico
   xAnt := 0; // inicializa en 0 pq el tiempo empieza en 0
   x := 0; // inicializa en 0 pq el tiempo empieza en 0
@@ -249,16 +252,17 @@ procedure TformPrincipal.FormShow(Sender: TObject);
 var
   list_aux: TStringList;
   elemento: String;
-  picoMax, picoMin, difPicos, RMS: Double;
+
 begin
   Timer1.Interval := FrecMuestreo;
-  Timer1.Enabled := False;
+  Timer1.Enabled := True;
   i_global := 0;
+  // Llena el combo de rutas
   if ZConnection1.Connected then
   begin
     llenarcomboeditRutas;
-    ComboBox1.Items.Assign(listado_rutas);
-    ComboBox1.ItemIndex := 0;
+    ComboBoxRutas.Items.Assign(listado_rutas);
+    ComboBoxRutas.ItemIndex := 0;
   end;
   // restricciones de privilegios
   // si no es administrador no se muestra la gestion->usuarios
@@ -273,11 +277,10 @@ begin
     opcGestion.Visible := False;
   end;
 
-  data_global := GenerateSinArray(8192);
   { llenar mediciones }
   listado_mediciones := TStringList.Create;
   list_aux := TStringList.Create;
-  list_aux := getMediciones(ComboBox1.Items[ComboBox1.ItemIndex]);
+  list_aux := getMediciones(ComboBoxRutas.Items[ComboBoxRutas.ItemIndex]);
 
   for elemento in list_aux do
   begin
@@ -298,19 +301,6 @@ begin
   begin
     // Button2.Visible := False;
   end;
-
-  graficoSenial.Series[0].AddArray(data_global);
-
-  picoMax := graficoSenial.Series[0].MaxYValue;
-  picoMin := graficoSenial.Series[0].MinYValue;
-  difPicos := picoMax - picoMin;
-  RMS := CalcularVRMS(ValueListToArrayOfDouble(graficoSenial.Series[0]
-    .YValues));
-  lblMuestraValorPicoMaximo.Text := floatToStr(RoundTo(picoMax, -2));
-  lblMuestraValorPicoMinimo.Text := floatToStr(RoundTo(picoMin, -2));
-  lblMuestraValorDePicoPico.Text := floatToStr(RoundTo(difPicos, -2));
-  lblMuestraValorRMS.Text := floatToStr(RoundTo(RMS, -2));
-
 end;
 
 function GenerateSinArray(n: Integer): TArray<Double>;
@@ -392,8 +382,8 @@ end;
 procedure TformPrincipal.opcRutaClick(Sender: TObject);
 begin
   lblModo.Text := 'Ruta';
-  Label1.Visible := True;
-  ComboBox1.Visible := True;
+  LabelRuta.Visible := True;
+  ComboBoxRutas.Visible := True;
   // Label3.Visible := True;
   // lblMedicion.Visible := True;
 end;
@@ -401,8 +391,8 @@ end;
 procedure TformPrincipal.opcSimpleClick(Sender: TObject);
 begin
   lblModo.Text := 'Simple';
-  Label1.Visible := False;
-  ComboBox1.Visible := False;
+  LabelRuta.Visible := False;
+  ComboBoxRutas.Visible := False;
   // Label3.Visible := False;
   // lblMedicion.Visible := False;
 end;
@@ -420,20 +410,7 @@ begin
     2- Calcular el valor del pico mínimo
   }
 
-  // generacion del grafico de señal
-  { y := generarValorALeatorio();
-    graficoSenial.Series[0].AddXY(x, y);
-  }
-  x := (xAnt + FrecMuestreo) / 1000;
-  xAnt := xAnt + FrecMuestreo;
-
-  // hallo el valor de y
-  y := Sin(i_global * Pi / 4);
-  SetLength(data_global, i_global + 1);
-  graficoSenial.Series[0].AddXY(x, y);
-
-  data_global[i_global] := y;
-  /// /////////////////////////////
+  RandomGenerator.Pump(); // Le da el siguiente impulso
   picoMax := graficoSenial.Series[0].MaxYValue;
   picoMin := graficoSenial.Series[0].MinYValue;
   difPicos := picoMax - picoMin;
@@ -445,7 +422,6 @@ begin
   lblMuestraValorRMS.Text := floatToStr(RoundTo(RMS, -2));
   /// /////////////////////////////////////
 
-  i_global := i_global + 1;
 end;
 
 procedure mostrarFFT();
@@ -484,6 +460,18 @@ begin
   for i := 0 to AInBuffer.Size - 1 do
     graficoSenial.Series[0].Add(AInBuffer.Items[i], '', clTeeColor);
 
+end;
+
+procedure TformPrincipal.SLGenericReal2ProcessData(ASender: TObject;
+  AInBuffer: ISLRealBuffer; var AOutBuffer: ISLRealBuffer;
+  var ASendOutputData: Boolean);
+var
+  i: Integer;
+begin
+  graficoEspectro.Series[0].Clear;
+
+  for i := 0 to AInBuffer.Size - 1 do
+    graficoEspectro.Series[0].Add(AInBuffer.Items[i], '', clTeeColor);
 end;
 
 function CalcularVRMS(const valoresSenial: ArrayOfDouble): Double;

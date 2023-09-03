@@ -253,7 +253,7 @@ begin
         // Valor correspondiente a 'Protocol'
         Protocol := valor;
       end
-      else if clave = 'Frecuencia de muestreo' then
+      else if clave = 'Frecuencia de Muestreo' then
       begin
         FrecMuestreo := StrToInt(valor);
       end
