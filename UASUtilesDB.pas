@@ -2,7 +2,7 @@ unit UASUtilesDB;
 
 interface
 
-uses Windows, SysUtils, Classes, ZAbstractRODataset, ZDataset, ZAbstractDataset,
+uses Windows,FMX.Dialogs,UITypes, SysUtils, Classes, ZAbstractRODataset, ZDataset, ZAbstractDataset,
   ZSqlUpdate;
 
 // Funciones Genericas para Insertar, Modificar, Eliminar, Consultar
@@ -108,7 +108,7 @@ Begin
     Qry.SQL.Add(SQLCmd);
     Qry.Active := true;
   except
-    on E: Exception do
+    on E: Exception  do
     Begin
       result := false;
       ErrorMsg := E.Message;

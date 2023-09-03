@@ -1,0 +1,33 @@
+{
+  "*": [
+    {
+      "Name": "RandomGenerator",
+      "Y": 384,
+      "X": 256,
+      "Type": "Component"
+    },
+    {
+      "Name": "SLGenericReal1",
+      "Y": 256,
+      "X": 464,
+      "Type": "Component"
+    },
+    {
+      "Name": "SLFourier1",
+      "Y": 400,
+      "X": 496,
+      "Type": "Component"
+    },
+    {
+      "Name": "SLGenericReal2",
+      "Y": 256,
+      "X": 688,
+      "Type": "Component"
+    }
+  ],
+  "Version": "2",
+  "Name": "formPrincipal",
+  "Content": "OpenWire Diagram",
+  "Type": "Diagram",
+  "Product": "Hosted Editor"
+}

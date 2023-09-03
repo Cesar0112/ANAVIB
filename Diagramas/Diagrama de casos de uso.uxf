@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="15.0.0">
-  <zoom_level>6</zoom_level>
+  <zoom_level>9</zoom_level>
   <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>450</x>
-      <y>552</y>
-      <w>84</w>
-      <h>66</h>
+      <x>405</x>
+      <y>819</y>
+      <w>126</w>
+      <h>99</h>
     </coordinates>
     <panel_attributes>Equipo monitoreador</panel_attributes>
     <additional_attributes/>
@@ -15,21 +15,21 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>384</x>
-      <y>264</y>
-      <w>60</w>
-      <h>114</h>
+      <x>396</x>
+      <y>378</y>
+      <w>54</w>
+      <h>81</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;165.0;80.0;10.0</additional_attributes>
+    <additional_attributes>40.0;65.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
       <x>540</x>
-      <y>294</y>
-      <w>72</w>
-      <h>24</h>
+      <y>432</y>
+      <w>108</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>Capturar señal
 bg=yellow</panel_attributes>
@@ -38,33 +38,22 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>354</x>
-      <y>360</y>
-      <w>72</w>
-      <h>30</h>
+      <x>378</x>
+      <y>432</y>
+      <w>108</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>Iniciar Monitoreo
 bg=yellow</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>462</x>
-      <y>258</y>
-      <w>90</w>
-      <h>60</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>130.0;80.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>294</x>
-      <y>84</y>
-      <w>72</w>
-      <h>66</h>
+      <x>171</x>
+      <y>117</y>
+      <w>108</w>
+      <h>99</h>
     </coordinates>
     <panel_attributes>Usuario genérico</panel_attributes>
     <additional_attributes/>
@@ -72,10 +61,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>426</x>
-      <y>330</y>
-      <w>72</w>
-      <h>24</h>
+      <x>405</x>
+      <y>576</y>
+      <w>108</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>Detectar señal
 bg=yellow</panel_attributes>
@@ -84,10 +73,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>570</x>
-      <y>228</y>
-      <w>72</w>
-      <h>30</h>
+      <x>585</x>
+      <y>333</y>
+      <w>108</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>Gestionar alertas
 bg=yellow</panel_attributes>
@@ -96,43 +85,32 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>330</x>
-      <y>120</y>
-      <w>114</w>
-      <h>132</h>
+      <x>225</x>
+      <y>171</y>
+      <w>153</w>
+      <h>171</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;170.0;200.0</additional_attributes>
+    <additional_attributes>10.0;10.0;150.0;170.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>462</x>
-      <y>234</y>
-      <w>120</w>
-      <h>36</h>
+      <x>405</x>
+      <y>342</y>
+      <w>198</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>180.0;10.0;10.0;40.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>456</x>
-      <y>276</y>
-      <w>18</w>
-      <h>66</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+    <additional_attributes>200.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>180</x>
-      <y>102</y>
-      <w>60</w>
-      <h>66</h>
+      <x>0</x>
+      <y>144</y>
+      <w>90</w>
+      <h>99</h>
     </coordinates>
     <panel_attributes>Administrador</panel_attributes>
     <additional_attributes/>
@@ -140,10 +118,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>600</x>
-      <y>372</y>
-      <w>72</w>
-      <h>36</h>
+      <x>630</x>
+      <y>549</y>
+      <w>108</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>Graficar señal
 bg=yellow</panel_attributes>
@@ -153,21 +131,21 @@ bg=yellow</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>468</x>
-      <y>324</y>
-      <w>144</w>
-      <h>78</h>
+      <y>558</y>
+      <w>180</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 &lt;&lt;include&gt;&gt;</panel_attributes>
-    <additional_attributes>220.0;110.0;10.0;10.0</additional_attributes>
+    <additional_attributes>180.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>576</x>
-      <y>312</y>
-      <w>72</w>
-      <h>72</h>
+      <x>594</x>
+      <y>459</y>
+      <w>108</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 &lt;&lt;include&gt;&gt;</panel_attributes>
@@ -176,10 +154,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>672</x>
-      <y>294</y>
-      <w>108</w>
-      <h>42</h>
+      <x>738</x>
+      <y>432</y>
+      <w>162</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>Detectar parámetros 
 característicos
@@ -189,10 +167,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>606</x>
-      <y>300</y>
-      <w>78</w>
-      <h>30</h>
+      <x>639</x>
+      <y>441</y>
+      <w>117</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 &lt;&lt;include&gt;&gt;</panel_attributes>
@@ -201,10 +179,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>456</x>
-      <y>456</y>
-      <w>72</w>
-      <h>48</h>
+      <x>414</x>
+      <y>675</y>
+      <w>108</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>Enviar y recibir 
 información
@@ -214,22 +192,22 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>456</x>
-      <y>348</y>
-      <w>66</w>
-      <h>120</h>
+      <x>450</x>
+      <y>603</y>
+      <w>81</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 &lt;&lt;include&gt;&gt;</panel_attributes>
-    <additional_attributes>50.0;180.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>420</x>
-      <y>240</y>
-      <w>60</w>
-      <h>66</h>
+      <x>342</x>
+      <y>324</y>
+      <w>90</w>
+      <h>99</h>
     </coordinates>
     <panel_attributes>Especialista</panel_attributes>
     <additional_attributes/>
@@ -237,10 +215,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>486</x>
-      <y>498</y>
-      <w>18</w>
-      <h>66</h>
+      <x>459</x>
+      <y>738</y>
+      <w>27</w>
+      <h>99</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
@@ -248,34 +226,22 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>522</x>
-      <y>402</y>
-      <w>132</w>
-      <h>90</h>
+      <x>513</x>
+      <y>594</y>
+      <w>198</w>
+      <h>135</h>
     </coordinates>
     <panel_attributes>lt=.&gt;
 &lt;&lt;extends&gt;&gt;</panel_attributes>
     <additional_attributes>10.0;130.0;200.0;130.0;200.0;10.0</additional_attributes>
   </element>
   <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>384</x>
-      <y>384</y>
-      <w>84</w>
-      <h>108</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.
-&lt;&lt;include&gt;&gt;</panel_attributes>
-    <additional_attributes>120.0;160.0;10.0;160.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>558</x>
-      <y>174</y>
-      <w>78</w>
-      <h>42</h>
+      <x>567</x>
+      <y>252</y>
+      <w>117</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>Visualizar señal
 bg=yellow</panel_attributes>
@@ -284,21 +250,21 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>456</x>
-      <y>192</y>
-      <w>114</w>
-      <h>60</h>
+      <x>396</x>
+      <y>279</y>
+      <w>189</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>170.0;10.0;10.0;80.0</additional_attributes>
+    <additional_attributes>190.0;10.0;10.0;50.0</additional_attributes>
   </element>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>264</x>
-      <y>276</y>
-      <w>78</w>
-      <h>42</h>
+      <x>126</x>
+      <y>405</y>
+      <w>117</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>Visualizar espectro
 bg=yellow</panel_attributes>
@@ -307,21 +273,21 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>336</x>
-      <y>258</y>
-      <w>108</w>
-      <h>48</h>
+      <x>234</x>
+      <y>351</y>
+      <w>144</w>
+      <h>99</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;60.0;160.0;10.0</additional_attributes>
+    <additional_attributes>10.0;90.0;140.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>390</x>
-      <y>66</y>
-      <w>72</w>
-      <h>42</h>
+      <x>315</x>
+      <y>90</y>
+      <w>108</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>Autenticar usuario
 bg=yellow</panel_attributes>
@@ -330,10 +296,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>342</x>
-      <y>84</y>
-      <w>60</w>
-      <h>18</h>
+      <x>243</x>
+      <y>117</y>
+      <w>90</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
@@ -341,10 +307,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>228</x>
-      <y>354</y>
-      <w>78</w>
-      <h>42</h>
+      <x>198</x>
+      <y>504</y>
+      <w>117</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>Registrar señal
 bg=yellow</panel_attributes>
@@ -353,21 +319,21 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>294</x>
-      <y>264</y>
-      <w>150</w>
-      <h>108</h>
+      <x>297</x>
+      <y>360</y>
+      <w>81</w>
+      <h>171</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;160.0;230.0;10.0</additional_attributes>
+    <additional_attributes>10.0;170.0;70.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>222</x>
-      <y>102</y>
-      <w>102</w>
-      <h>18</h>
+      <x>63</x>
+      <y>144</y>
+      <w>153</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>150.0;10.0;10.0;10.0</additional_attributes>
@@ -375,10 +341,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>180</x>
-      <y>36</y>
-      <w>60</w>
-      <h>36</h>
+      <x>0</x>
+      <y>45</y>
+      <w>90</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>Gestionar
 usuarios
@@ -388,24 +354,25 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>180</x>
-      <y>180</y>
-      <w>66</w>
-      <h>54</h>
+      <x>0</x>
+      <y>261</y>
+      <w>99</w>
+      <h>81</h>
     </coordinates>
     <panel_attributes>Configurar 
 parametros
-de conexión
+de conexión a la
+BD
 bg=yellow</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>306</x>
-      <y>6</y>
-      <w>60</w>
-      <h>36</h>
+      <x>189</x>
+      <y>0</y>
+      <w>90</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>Solicitar
 cambio de
@@ -416,10 +383,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>324</x>
-      <y>36</y>
-      <w>18</w>
-      <h>60</h>
+      <x>216</x>
+      <y>45</y>
+      <w>27</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
@@ -427,10 +394,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>204</x>
-      <y>66</y>
-      <w>18</w>
-      <h>48</h>
+      <x>36</x>
+      <y>90</y>
+      <w>27</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
@@ -438,10 +405,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>204</x>
-      <y>138</y>
-      <w>18</w>
-      <h>54</h>
+      <x>36</x>
+      <y>198</y>
+      <w>27</w>
+      <h>81</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
@@ -449,15 +416,49 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>516</x>
-      <y>120</y>
-      <w>78</w>
-      <h>42</h>
+      <x>504</x>
+      <y>171</y>
+      <w>117</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>Gestionar 
-registro de
 máquinas
 bg=yellow</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>387</x>
+      <y>216</y>
+      <w>153</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>150.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>441</x>
+      <y>468</y>
+      <w>81</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;include&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>477</x>
+      <y>432</y>
+      <w>81</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;include&gt;&gt;</panel_attributes>
+    <additional_attributes>70.0;20.0;10.0;20.0</additional_attributes>
   </element>
 </diagram>
