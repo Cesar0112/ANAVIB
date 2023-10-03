@@ -4,8 +4,8 @@
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = Single
   Caption = 'Autenticar'
-  ClientHeight = 146
-  ClientWidth = 232
+  ClientHeight = 162
+  ClientWidth = 248
   Position = DesktopCenter
   StyleBook = StyleClaro
   FormFactor.Width = 320
@@ -4006,12 +4006,6 @@
     Left = 16
     Top = 112
   end
-  object ZReadOnlyQuery1: TZReadOnlyQuery
-    Connection = formPrincipal.ZConnection1
-    Params = <>
-    Left = 176
-    Top = 104
-  end
   object StyleOscuro: TStyleBook
     Styles = <
       item
@@ -7167,5 +7161,28 @@
       end>
     Left = 208
     Top = 64
+  end
+  object ZReadOnlyQuery1: TZReadOnlyQuery
+    Connection = ZConnection1
+    Params = <>
+    Left = 176
+    Top = 104
+  end
+  object ZConnection1: TZConnection
+    ControlsCodePage = cCP_UTF16
+    Catalog = ''
+    Properties.Strings = (
+      'controls_cp=CP_UTF16')
+    HostName = ''
+    Port = 0
+    Database = 'C:\Users\C'#233'sar\Documents\GitHub\ANAVIB\Src\BD\mydatabase.db'
+    User = ''
+    Password = ''
+    Protocol = 'sqlite-3'
+    LibraryLocation = 
+      'C:\Users\C'#233'sar\Documents\GitHub\ANAVIB\Src\BD\sqlite-dll-win32-x' +
+      '86-3430100\sqlite3.dll'
+    Left = 48
+    Top = 112
   end
 end

@@ -7409,7 +7409,10 @@ object formPrincipal: TformPrincipal
     Database = 'C:\Users\C'#233'sar\Documents\GitHub\ANAVIB\Src\BD\mydatabase.db'
     User = ''
     Password = ''
-    Protocol = ''
+    Protocol = 'sqlite-3'
+    LibraryLocation = 
+      'C:\Users\C'#233'sar\Documents\GitHub\ANAVIB\Src\BD\sqlite-dll-win64-x' +
+      '64-3420000\sqlite3.dll'
     Left = 352
     Top = 24
   end

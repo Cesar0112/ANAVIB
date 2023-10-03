@@ -22,6 +22,7 @@ type
     PasswordEditButton1: TPasswordEditButton;
     StyleClaro: TStyleBook;
     StyleOscuro: TStyleBook;
+    ZConnection1: TZConnection;
     procedure btnIngresarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure EditPasswordKeyDown(Sender: TObject; var Key: Word;
