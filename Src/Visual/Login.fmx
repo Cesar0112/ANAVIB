@@ -4,7 +4,7 @@
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = Single
   Caption = 'Autenticar'
-  ClientHeight = 162
+  ClientHeight = 151
   ClientWidth = 248
   Position = DesktopCenter
   StyleBook = StyleClaro

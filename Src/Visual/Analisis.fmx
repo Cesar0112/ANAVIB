@@ -261,6 +261,13 @@ object AnalisisTendenciario: TAnalisisTendenciario
     Visible = False
     TabOrder = 6
   end
+  object StyleBook1: TStyleBook
+    Styles = <
+      item
+      end>
+    Left = 720
+    Top = 360
+  end
   object ZReadOnlyQuery1: TZReadOnlyQuery
     Connection = ZConnection1
     Params = <>
@@ -278,13 +285,6 @@ object AnalisisTendenciario: TAnalisisTendenciario
     Protocol = 'sqlite-3'
     LibraryLocation = 'C:\Users\C'#233'sar\Documents\GitHub\ANAVIB\sqlite3.dll'
     Left = 624
-    Top = 360
-  end
-  object StyleBook1: TStyleBook
-    Styles = <
-      item
-      end>
-    Left = 720
     Top = 360
   end
 end

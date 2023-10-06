@@ -270,6 +270,11 @@ begin
     on E: Exception do
       Writeln('Error: ' + E.Message);
   end;
+  formLogin.ZConnection1.Database := Database;
+  formLogin.ZConnection1.LibraryLocation := LibraryLocation;
+  formLogin.ZConnection1.Protocol := Protocol;
+  formLogin.ZConnection1.Connect;
+
   formPrincipal.ZConnection1.Database := Database;
   formPrincipal.ZConnection1.LibraryLocation := LibraryLocation;
   formPrincipal.ZConnection1.Protocol := Protocol;

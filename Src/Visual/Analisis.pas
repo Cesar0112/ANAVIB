@@ -60,6 +60,13 @@ var
 
   cant, i: Integer;
 begin
+  // Esto de aqui no puede cargarse de esta manera asi estatico
+  { TODO 3 -oCesar -cBase de datos :
+    Cargar la configuracion de el objeto ZConnection1 de manera dinamica cargando los
+    datos mientras lee el archivo .cfg }
+  ZConnection1.Database := './mydatabase.db';
+  ZConnection1.HostName := 'localhost';
+  ZConnection1.LibraryLocation := './sqlite-dll-win32-x86-3430100/sqlite3.dll';
   ZConnection1.Connect;
   consultaAVG :=
     'SELECT AVG(RMS) as avg_rms,AVG(PICO_Max) as avg_max,AVG(PICO_Min) as avg_min, AVG(PICO_Max-PICO_Min) as avg_picos FROM señales';
