@@ -10,6 +10,7 @@ object formPrincipal: TformPrincipal
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  FullScreen = True
   OnCreate = FormCreate
   OnClose = FormClose
   OnShow = FormShow
@@ -3937,7 +3938,7 @@ object formPrincipal: TformPrincipal
     Size.Height = 631.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 1
-    object ScrollBox1: TScrollBox
+    object R: TScrollBox
       Align = Client
       Size.Width = 1396.000000000000000000
       Size.Height = 631.000000000000000000
@@ -3977,7 +3978,7 @@ object formPrincipal: TformPrincipal
           TabOrder = 3
         end
         object lblRMS: TLabel
-          Position.X = 98.000000000000000000
+          Position.X = 94.000000000000000000
           Position.Y = 44.000000000000000000
           Size.Width = 33.000000000000000000
           Size.Height = 21.000000000000000000
@@ -4087,6 +4088,7 @@ object formPrincipal: TformPrincipal
         end
       end
       object ComboBoxRutas: TComboBox
+        Cursor = crHandPoint
         Position.X = 660.000000000000000000
         Position.Y = 236.000000000000000000
         TabOrder = 5
@@ -4221,20 +4223,30 @@ object formPrincipal: TformPrincipal
         Text = 'Comandos'
         TabOrder = 3
         object btnRegistrar: TButton
+          Cursor = crHandPoint
+          Hint = 'Alamacenar se'#241'al'
           Position.X = 19.000000000000000000
           Position.Y = 36.000000000000000000
           StyleLookup = 'additembutton'
-          TabOrder = 16
+          TabOrder = 14
           Text = 'Registrar'
+          ParentShowHint = False
+          ShowHint = True
           OnClick = btnRegistrarClick
         end
-        object btnEspectro: TButton
+        object btnPlayPause: TButton
+          Cursor = crHandPoint
           Position.X = 107.000000000000000000
           Position.Y = 36.000000000000000000
-          StyleLookup = 'nexttoolbutton'
-          TabOrder = 8
-          Text = 'Espectro'
-          OnClick = btnEspectroClick
+          Size.Width = 77.000000000000000000
+          Size.Height = 22.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'playtoolbutton'
+          TabOrder = 16
+          Text = 'playtoolbutton'
+          ParentShowHint = False
+          ShowHint = True
+          OnClick = btnPlayPauseClick
         end
       end
     end

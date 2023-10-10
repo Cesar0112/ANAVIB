@@ -58,10 +58,9 @@ type
     opcModo: TMenuItem;
     opcRuta: TMenuItem;
     opcSimple: TMenuItem;
-    btnEspectro: TButton;
     StyleClaro: TStyleBook;
     StyleOscuro: TStyleBook;
-    ScrollBox1: TScrollBox;
+    R: TScrollBox;
     MenuItem1: TMenuItem;
     opcVisualClaro: TMenuItem;
     MenuItem3: TMenuItem;
@@ -69,6 +68,7 @@ type
     SLGenericReal1: TSLGenericReal;
     SLFourier1: TSLFourier;
     SLGenericReal2: TSLGenericReal;
+    btnPlayPause: TButton;
 
     procedure opcionSalirClick(Sender: TObject);
     procedure btnPlayPausaClick(Sender: TObject);
@@ -97,6 +97,7 @@ type
     procedure SLGenericReal2ProcessData(ASender: TObject;
       AInBuffer: ISLRealBuffer; var AOutBuffer: ISLRealBuffer;
       var ASendOutputData: Boolean);
+    procedure btnPlayPauseClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -177,6 +178,22 @@ begin
   }
 end;
 
+procedure TformPrincipal.btnPlayPauseClick(Sender: TObject);
+begin
+  // Boton que detiene y reanuda la captura de la señal
+  if btnPlayPause.StyleLookup <> 'playtoolbutton' then
+  begin
+    btnPlayPause.StyleLookup := 'playtoolbutton';
+    Timer1.Enabled := true;
+  end
+  else
+  begin
+    btnPlayPause.StyleLookup := 'pausetoolbutton';
+    Timer1.Enabled:=false;
+  end;
+
+end;
+
 procedure TformPrincipal.btnRegistrarClick(Sender: TObject);
 begin
   // va a registrar todos los datos de la señal en la base de datos
@@ -255,7 +272,7 @@ var
 
 begin
   Timer1.Interval := FrecMuestreo;
-  Timer1.Enabled := True;
+  Timer1.Enabled := true;
   i_global := 0;
   // Llena el combo de rutas
   if ZConnection1.Connected then
@@ -382,8 +399,8 @@ end;
 procedure TformPrincipal.opcRutaClick(Sender: TObject);
 begin
   lblModo.Text := 'Ruta';
-  LabelRuta.Visible := True;
-  ComboBoxRutas.Visible := True;
+  LabelRuta.Visible := true;
+  ComboBoxRutas.Visible := true;
   // Label3.Visible := True;
   // lblMedicion.Visible := True;
 end;
@@ -408,6 +425,8 @@ begin
     Ademas de:
     1- Calcular el valor del pico maximo
     2- Calcular el valor del pico mínimo
+    3- Calcular RMS
+    4- Calcular el valor pico a pico
   }
 
   RandomGenerator.Pump(); // Le da el siguiente impulso
@@ -434,7 +453,7 @@ var
   ventanaUsuarios: TformUsuarios;
 begin
   ventanaUsuarios := TformUsuarios.Create(Self);
-  ventanaUsuarios.Visible := True;
+  ventanaUsuarios.Visible := true;
 end;
 
 procedure TformPrincipal.opcVisualClaroClick(Sender: TObject);
