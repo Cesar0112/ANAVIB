@@ -22,7 +22,6 @@ type
     PasswordEditButton1: TPasswordEditButton;
     StyleClaro: TStyleBook;
     StyleOscuro: TStyleBook;
-    ZConnection1: TZConnection;
     procedure btnIngresarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure EditPasswordKeyDown(Sender: TObject; var Key: Word;
@@ -189,8 +188,8 @@ end;
 procedure TformLogin.FormShow(Sender: TObject);
 begin
   cargarConfiguracion;
-  if (Modo <> '') or (Modo <> ' ') then
-    cargarEstilo(Modo);
+  if (modo <> '') or (modo <> ' ') then
+    cargarEstilo(modo);
   EditUser.SetFocus;
 end;
 
@@ -270,10 +269,6 @@ begin
     on E: Exception do
       Writeln('Error: ' + E.Message);
   end;
-  formLogin.ZConnection1.Database := Database;
-  formLogin.ZConnection1.LibraryLocation := LibraryLocation;
-  formLogin.ZConnection1.Protocol := Protocol;
-  formLogin.ZConnection1.Connect;
 
   formPrincipal.ZConnection1.Database := Database;
   formPrincipal.ZConnection1.LibraryLocation := LibraryLocation;
