@@ -564,7 +564,7 @@ begin
   streamSenial := TMemoryStream.Create;
   consulta :=
     'INSERT INTO señales (ID_Señal,Dia,Mes,Año,Frecuencia,RMS,PICO_Max,PICO_Min,Hora,Minuto,Segundo,Señal,fk_id_usuario,fk_id_ruta) VALUES (:id,:dia,:mes,:anio,:frecuencia,:rms,:picoMax,:picoMin,:hora,:minuto,:segundo,:senial,:fk_id_usuario,:fk_id_ruta);';
-
+    formPrincipal.ZConnection1.Connect;
   try
     for i := 0 to Length(signal) - 1 do
     begin
