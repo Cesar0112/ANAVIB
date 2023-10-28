@@ -71,7 +71,6 @@ type
     btnPlayPause: TButton;
 
     procedure opcionSalirClick(Sender: TObject);
-    procedure btnPlayPausaClick(Sender: TObject);
     procedure opcFrecuenciaMuestreoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
@@ -87,7 +86,6 @@ type
     procedure opcSimpleClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
-    procedure btnEspectroClick(Sender: TObject);
     procedure opcAutenticarClick(Sender: TObject);
     procedure opcionRutaClick(Sender: TObject);
     procedure opcVisualClaroClick(Sender: TObject);
@@ -121,7 +119,7 @@ function ValueListToArrayOfDouble(ValueList: TChartValueList): ArrayOfDouble;
 function getMediciones(ruta_etiqueta: String): TStringList;
 function getUUIDs: String;
 function GenerateSinArray(n: Integer): TArray<Double>;
-procedure insertarSenial(senial: array of Double);
+procedure insertarSenial(signal: array of Double);
 procedure llenarcomboMaquinas;
 
 var
@@ -137,47 +135,6 @@ var
 implementation
 
 {$R *.fmx}
-
-procedure TformPrincipal.btnEspectroClick(Sender: TObject);
-var
-  Data, spectrum: TArray<Double>;
-  e: Double;
-  i: Integer;
-begin
-  // Generara algunos datos de prueba
-  i := 0;
-  // SetLength(Data, sizeof(graficoSenial.Series[0].YValues));
-
-  // Calcular el espectro de la FFT de los datos
-  spectrum := CalculateFFTSpectrum(data_global);
-
-  graficoEspectro.Series[0].Clear;
-  graficoEspectro.Series[0].AddArray(spectrum);
-end;
-
-procedure TformPrincipal.btnPlayPausaClick(Sender: TObject);
-var
-  i: Integer;
-  Pausa: String;
-  Reproducir: String;
-begin
-
-  // establesco el intervalo de cambio de reloj con la configuracion
-  Timer1.Interval := FrecMuestreo;
-  Pausa := 'Pausa';
-  Reproducir := 'Reproducir';
-  { if btnPlayPausa.StyleLookup = 'playtoolbutton' then
-    begin
-    btnPlayPausa.StyleLookup := 'pausetoolbutton';
-    end
-
-    else
-    btnPlayPausa.StyleLookup := 'playtoolbutton';
-
-    Timer1.Enabled := not Timer1.Enabled; // cambia el estado del reloj
-  }
-end;
-
 procedure TformPrincipal.btnPlayPauseClick(Sender: TObject);
 begin
   // Boton que detiene y reanuda la captura de la señal
@@ -189,7 +146,7 @@ begin
   else
   begin
     btnPlayPause.StyleLookup := 'pausetoolbutton';
-    Timer1.Enabled:=false;
+    Timer1.Enabled := false;
   end;
 
 end;
@@ -198,7 +155,10 @@ procedure TformPrincipal.btnRegistrarClick(Sender: TObject);
 begin
   // va a registrar todos los datos de la señal en la base de datos
   if Timer1.Enabled then
-    btnPlayPausaClick(Sender);
+  begin
+    btnPlayPause.StyleLookup := 'pausetoolbutton';
+    Timer1.Enabled := false;
+  end;
 
   insertarSenial(data_global);
   // le paso a la base de datos el arreglo
@@ -261,7 +221,7 @@ begin
     nunca el mostrar grafico
 
   }
-  isPlay := False;
+  isPlay := false;
 
 end;
 
@@ -285,13 +245,13 @@ begin
   // si no es administrador no se muestra la gestion->usuarios
   if id_RoleActual <> 1 then
   begin
-    opcUsuarios.Visible := False;
+    opcUsuarios.Visible := false;
     // opcionRutaManipular.Visible := False;
   end;
   if id_RoleActual = 3 then
   begin
-    btnRegistrar.Visible := False;
-    opcGestion.Visible := False;
+    btnRegistrar.Visible := false;
+    opcGestion.Visible := false;
   end;
 
   { llenar mediciones }
@@ -408,8 +368,8 @@ end;
 procedure TformPrincipal.opcSimpleClick(Sender: TObject);
 begin
   lblModo.Text := 'Simple';
-  LabelRuta.Visible := False;
-  ComboBoxRutas.Visible := False;
+  LabelRuta.Visible := false;
+  ComboBoxRutas.Visible := false;
   // Label3.Visible := False;
   // lblMedicion.Visible := False;
 end;
@@ -593,7 +553,7 @@ begin
   Result := GUIDToString(uuids); // lo convierto a string y listo para usar
 end;
 
-procedure insertarSenial(senial: array of Double);
+procedure insertarSenial(signal: array of Double);
 var
   streamSenial: TMemoryStream; // en bytes esto es lo que va a la BD
   consulta: String;
@@ -604,9 +564,9 @@ begin
     'INSERT INTO señales (ID_Señal,Dia,Mes,Año,Frecuencia,RMS,PICO_Max,PICO_Min,Hora,Minuto,Segundo,Señal,fk_id_usuario,fk_id_ruta) VALUES (:id,:dia,:mes,:anio,:frecuencia,:rms,:picoMax,:picoMin,:hora,:minuto,:segundo,:senial,:fk_id_usuario,:fk_id_ruta);';
 
   try
-    for i := 0 to Length(senial) - 1 do
+    for i := 0 to Length(signal) - 1 do
     begin
-      streamSenial.Write(senial[i], sizeof(Double));
+      streamSenial.Write(signal[i], sizeof(Double));
     end;
 
     streamSenial.Position := 0;
