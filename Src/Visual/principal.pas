@@ -109,7 +109,7 @@ type
     listado_mediciones: TStringList;
     indice_medicion_actual: Integer;
     tamanio_list_mediciones: Integer;
-    data_global: TArray<Double>;
+    data_global: ArrayOfDouble;
   end;
 
   { A esta funcion se le pasa un arreglo de amplitudes que son de tipo Double }
@@ -135,6 +135,7 @@ var
 implementation
 
 {$R *.fmx}
+
 procedure TformPrincipal.btnPlayPauseClick(Sender: TObject);
 begin
   // Boton que detiene y reanuda la captura de la señal
@@ -160,8 +161,9 @@ begin
     Timer1.Enabled := false;
   end;
 
-  insertarSenial(data_global);
+  data_global := ValueListToArrayOfDouble(graficoSenial.Series[0].YValues);
   // le paso a la base de datos el arreglo
+  insertarSenial(data_global);
   ShowMessageUser('Señal registrada correctamente');
 end;
 
@@ -380,7 +382,7 @@ var
 
 begin
   {
-    Cada vez que marque un intervalo refresca el grafico agrgando un valor
+    Cada vez que marque un intervalo refresca el grafico agregando un valor
     aleatorio de señal
     Ademas de:
     1- Calcular el valor del pico maximo
