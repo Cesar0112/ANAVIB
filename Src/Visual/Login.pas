@@ -16,12 +16,12 @@ type
     Label2: TLabel;
     EditPassword: TEdit;
     btnIngresar: TButton;
-    ZReadOnlyQuery1: TZReadOnlyQuery;
     EditUser: TEdit;
     lblErrorUsuarioContraseña: TLabel;
     PasswordEditButton1: TPasswordEditButton;
     StyleClaro: TStyleBook;
     StyleOscuro: TStyleBook;
+    ZReadOnlyQuery1: TZReadOnlyQuery;
     procedure btnIngresarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure EditPasswordKeyDown(Sender: TObject; var Key: Word;
@@ -188,8 +188,8 @@ end;
 procedure TformLogin.FormShow(Sender: TObject);
 begin
   cargarConfiguracion;
-  if (modo <> '') or (modo <> ' ') then
-    cargarEstilo(modo);
+  if (Modo <> '') or (Modo <> ' ') then
+    cargarEstilo(Modo);
   EditUser.SetFocus;
 end;
 
