@@ -3,12 +3,15 @@ unit MetodoConfiguracion;
 interface
 
 uses System.SysUtils, System.Types, System.UITypes, System.Classes,
-  System.Variants;
+  System.Variants, FMX.Controls, FMX.Forms;
 
 var
   Modo, Database, Protocol, LibraryLocation: String;
   FrecMuestreo: Integer;
+  StyleClaro: TStyleBook;
+  StyleOscuro: TStyleBook;
 procedure cargarConfiguracion();
+procedure cargarEstilo(var Ventana: TObject);
 
 implementation
 
@@ -63,6 +66,14 @@ begin
     on E: Exception do
       Writeln('Error: ' + E.Message);
   end;
+end;
+
+procedure cargarEstilo(var Ventana: TObject);
+begin
+  if Modo = 'claro' then
+    Ventana := StyleClaro
+  else
+    Ventana := StyleOscuro
 end;
 
 end.

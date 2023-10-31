@@ -20,8 +20,6 @@ type
     EditUser: TEdit;
     lblErrorUsuarioContraseña: TLabel;
     PasswordEditButton1: TPasswordEditButton;
-    StyleClaro: TStyleBook;
-    StyleOscuro: TStyleBook;
     ZReadOnlyQuery1: TZReadOnlyQuery;
     procedure btnIngresarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -46,7 +44,6 @@ type
 function existeUsuario(const usuario: String): Boolean;
 function compruebaContrasenia(passIngresada, usuario: String): Boolean;
 procedure mostrarBtnAutenticar();
-procedure cargarEstilo(modo: String);
 
 var
   formLogin: TformLogin;
@@ -190,8 +187,9 @@ begin
   formPrincipal.ZConnection1.LibraryLocation := LibraryLocation;
   formPrincipal.ZConnection1.Protocol := Protocol;
   formPrincipal.ZConnection1.Connect;
+  
   if (modo <> '') or (modo <> ' ') then
-    cargarEstilo(modo);
+    cargarEstilo(Sender);
   EditUser.SetFocus;
 end;
 
@@ -210,14 +208,6 @@ begin
     if formLogin.ZReadOnlyQuery1.FieldByName('cantdUsuarios').AsInteger = 1 then
       result := True;
   end;
-end;
-
-procedure cargarEstilo(modo: String);
-begin
-  if modo = 'claro' then
-    formLogin.StyleBook := formLogin.StyleClaro
-  else
-    formLogin.StyleBook := formLogin.StyleOscuro;
 end;
 
 function compruebaContrasenia(passIngresada, usuario: String): Boolean;

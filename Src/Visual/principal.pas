@@ -233,6 +233,7 @@ var
   elemento: String;
 
 begin
+  cargarConfiguracion;
   Timer1.Interval := FrecMuestreo;
   Timer1.Enabled := true;
   i_global := 0;
@@ -280,6 +281,8 @@ begin
   begin
     // Button2.Visible := False;
   end;
+
+
 
 end;
 
