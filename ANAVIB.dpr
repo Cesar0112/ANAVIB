@@ -13,8 +13,7 @@ uses
   Seleccion in 'Src\Visual\Seleccion.pas' {ventanaSeleccion},
   fftCalculo in 'Src\Logic\fftCalculo.pas',
   Seguridad in 'Src\Logic\Seguridad.pas',
-  MetodoConfiguracion in 'Src\Logic\MetodoConfiguracion.pas',
-  ConsultaConTransacciones in 'ConsultaConTransacciones.pas';
+  MetodoConfiguracion in 'Src\Logic\MetodoConfiguracion.pas';
 
 {$R *.res}
 

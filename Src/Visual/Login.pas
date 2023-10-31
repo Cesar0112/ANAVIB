@@ -8,6 +8,7 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Edit,
   FMX.ListBox, FMX.Controls.Presentation, FMX.StdCtrls, FMX.ComboEdit, Data.DB,
   ZAbstractRODataset, ZDataset, ZAbstractConnection, ZConnection,
+  MetodoConfiguracion,
   ZAbstractDataset;
 
 type
@@ -45,13 +46,10 @@ type
 function existeUsuario(const usuario: String): Boolean;
 function compruebaContrasenia(passIngresada, usuario: String): Boolean;
 procedure mostrarBtnAutenticar();
-procedure cargarConfiguracion();
 procedure cargarEstilo(modo: String);
 
 var
   formLogin: TformLogin;
-  modo, Database, Protocol, LibraryLocation: String;
-
 implementation
 
 {$R *.fmx}
@@ -188,8 +186,12 @@ end;
 procedure TformLogin.FormShow(Sender: TObject);
 begin
   cargarConfiguracion;
-  if (Modo <> '') or (Modo <> ' ') then
-    cargarEstilo(Modo);
+  formPrincipal.ZConnection1.Database := Database;
+  formPrincipal.ZConnection1.LibraryLocation := LibraryLocation;
+  formPrincipal.ZConnection1.Protocol := Protocol;
+  formPrincipal.ZConnection1.Connect;
+  if (modo <> '') or (modo <> ' ') then
+    cargarEstilo(modo);
   EditUser.SetFocus;
 end;
 
@@ -216,65 +218,6 @@ begin
     formLogin.StyleBook := formLogin.StyleClaro
   else
     formLogin.StyleBook := formLogin.StyleOscuro;
-end;
-
-procedure cargarConfiguracion();
-var
-  archivo: TextFile;
-  linea, clave, valor: string;
-
-begin
-  try
-    AssignFile(archivo, 'config.cfg');
-    // Deberia verificar que existe primero
-    // Leer datos del archivo config.cfg
-    Reset(archivo);
-    while not Eof(archivo) do // lee hasta el final del archivo
-    begin
-      Readln(archivo, linea);
-
-      // Separar la clave y el valor en cada línea
-      // asumiendo que están separados por el caracter '='
-      clave := Copy(linea, 1, Pos('=', linea) - 1);
-      valor := Copy(linea, Pos('=', linea) + 1, Length(linea));
-
-      // Utilizar las claves y valores para configurar la aplicación
-      if clave = 'Database' then
-      begin;
-        Database := valor;
-      end
-      else if clave = 'LibraryLocation' then
-      begin
-        // Valor correspondiente a 'LibraryLocation'
-        LibraryLocation := valor;
-      end
-      else if clave = 'Protocol' then
-      begin
-        // Valor correspondiente a 'Protocol'
-        Protocol := valor;
-      end
-      else if clave = 'Frecuencia de Muestreo' then
-      begin
-        FrecMuestreo := StrToInt(valor);
-      end
-      else if clave = 'Modo' then
-      begin
-        modo := valor;
-      end;
-    end;
-
-    // Cerrar el archivo después de leer
-    CloseFile(archivo);
-  except
-    on E: Exception do
-      Writeln('Error: ' + E.Message);
-  end;
-
-  formPrincipal.ZConnection1.Database := Database;
-  formPrincipal.ZConnection1.LibraryLocation := LibraryLocation;
-  formPrincipal.ZConnection1.Protocol := Protocol;
-  formPrincipal.ZConnection1.Connect;
-
 end;
 
 function compruebaContrasenia(passIngresada, usuario: String): Boolean;

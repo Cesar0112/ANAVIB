@@ -12,7 +12,7 @@ uses
   Data.DB, Data.SqlExpr, Data.DbxSqlite, FMX.Layouts, ZAbstractConnection,
   ZConnection, ZAbstractRODataset, ZAbstractDataset, ZDataset, FMX.ListBox,
   fftCalculo, Winapi.Windows, LPComponent, SLCommonFilter, SLBasicGenericReal,
-  SLGenericReal, Mitov.Types, SLCommonGen, SLRandomGen, SLFourier;
+  SLGenericReal, Mitov.Types, SLCommonGen, SLRandomGen, SLFourier,MetodoConfiguracion;
 
 type
   ArrayOfDouble = array of Double;
@@ -127,7 +127,7 @@ var
   ventanaConfiguracion: TformConfiguracion;
   ventanaAnalisis: TAnalisisTendenciario;
 
-  FrecMuestreo: Integer; // en milisegundos
+//  FrecMuestreo: Integer; // en milisegundos
   isPlay: Boolean;
   xAnt: Integer;
   i_global: Integer;
@@ -280,6 +280,7 @@ begin
   begin
     // Button2.Visible := False;
   end;
+
 end;
 
 function GenerateSinArray(n: Integer): TArray<Double>;
@@ -564,7 +565,7 @@ begin
   streamSenial := TMemoryStream.Create;
   consulta :=
     'INSERT INTO señales (ID_Señal,Dia,Mes,Año,Frecuencia,RMS,PICO_Max,PICO_Min,Hora,Minuto,Segundo,Señal,fk_id_usuario,fk_id_ruta) VALUES (:id,:dia,:mes,:anio,:frecuencia,:rms,:picoMax,:picoMin,:hora,:minuto,:segundo,:senial,:fk_id_usuario,:fk_id_ruta);';
-    formPrincipal.ZConnection1.Connect;
+  formPrincipal.ZConnection1.Connect;
   try
     for i := 0 to Length(signal) - 1 do
     begin
