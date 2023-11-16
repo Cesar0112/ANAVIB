@@ -8,7 +8,7 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMXTee.Engine,
   FMXTee.Procs, FMXTee.Chart, FMX.Menus, FMXTee.Series, FMXTee.Chart.Functions,
   FMX.Controls.Presentation, FMX.StdCtrls, Data.DB, ZAbstractRODataset,
-  ZDataset, ZAbstractConnection, ZConnection;
+  ZDataset, ZAbstractConnection, MetodoConfiguracion, ZConnection;
 
 type
   TAnalisisTendenciario = class(TForm)
@@ -38,13 +38,18 @@ type
     lblDesMax: TLabel;
     lblDesMin: TLabel;
     lblDesPicos: TLabel;
-    StyleBook1: TStyleBook;
+    StyleClaro: TStyleBook;
+    StyleOscuro: TStyleBook;
     procedure FormShow(Sender: TObject);
+
   private
     { Private declarations }
   public
     { Public declarations }
+
   end;
+
+procedure cargarEstilo(var Ventana: TAnalisisTendenciario);
 
 var
   AnalisisTendenciario: TAnalisisTendenciario;
@@ -60,10 +65,14 @@ var
 
   cant, i: Integer;
 begin
+  cargarConfiguracion;
   // Esto de aqui no puede cargarse de esta manera asi estatico
   { TODO 3 -oCesar -cBase de datos :
     Cargar la configuracion de el objeto ZConnection1 de manera dinamica cargando los
     datos mientras lee el archivo .cfg }
+
+//  if (modo <> '') or (modo <> ' ') then
+//    cargarEstilo(Self);
   ZConnection1.Database := './mydatabase.db';
   ZConnection1.HostName := 'localhost';
   ZConnection1.LibraryLocation := './sqlite-dll-win32-x86-3430100/sqlite3.dll';
@@ -129,6 +138,14 @@ begin
     graficoSenial.Series[3].AddArray(arrayPicos);
   end;
 
+end;
+
+procedure cargarEstilo(var Ventana: TAnalisisTendenciario);
+begin
+  if modo = 'claro' then
+    Ventana.StyleBook := StyleClaro
+  else
+    Ventana.StyleBook := StyleOscuro
 end;
 
 end.

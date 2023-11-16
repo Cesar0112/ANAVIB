@@ -324,6 +324,8 @@
         <DCCReference Include="Src\Logic\MetodoConfiguracion.pas">
             <Form>$R *.res</Form>
         </DCCReference>
+        <DCCReference Include="Src\Logic\User.pas"/>
+        <DCCReference Include="Role.pas"/>
         <None Include="ModelSupport_ANAVIB\default.txaPackage"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>

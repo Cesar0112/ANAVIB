@@ -10,8 +10,9 @@ var
   FrecMuestreo: Integer;
   StyleClaro: TStyleBook;
   StyleOscuro: TStyleBook;
+
+
 procedure cargarConfiguracion();
-procedure cargarEstilo(var Ventana: TObject);
 
 implementation
 
@@ -68,12 +69,6 @@ begin
   end;
 end;
 
-procedure cargarEstilo(var Ventana: TObject);
-begin
-  if Modo = 'claro' then
-    Ventana := StyleClaro
-  else
-    Ventana := StyleOscuro
-end;
+
 
 end.

@@ -15,6 +15,7 @@ object formPrincipal: TformPrincipal
   OnShow = FormShow
   DesignerMasterStyle = 0
   object StyleClaro: TStyleBook
+    StyleName = 'Light'
     Styles = <
       item
         ResourcesBin = {
@@ -3951,14 +3952,15 @@ object formPrincipal: TformPrincipal
         Top = 25
       end
       object valoresGlobales: TGroupBox
-        Position.X = 576.000000000000000000
-        Position.Y = 77.000000000000000000
+        Position.X = 585.000000000000000000
+        Position.Y = 76.000000000000000000
         Size.Width = 192.000000000000000000
         Size.Height = 157.000000000000000000
         Size.PlatformDefault = False
         Text = 'Valores globales'
         TabOrder = 2
         object lblPicoMax: TLabel
+          StyledSettings = [Family, Size, FontColor]
           Position.X = 54.000000000000000000
           Position.Y = 73.000000000000000000
           Size.Width = 77.000000000000000000
@@ -4075,6 +4077,7 @@ object formPrincipal: TformPrincipal
           object MenuItem3: TMenuItem
             Locked = True
             Text = 'Oscuro'
+            OnClick = MenuItem3Click
           end
         end
         object opcionAnalisisTendencia: TMenuItem
@@ -4088,7 +4091,7 @@ object formPrincipal: TformPrincipal
       end
       object ComboBoxRutas: TComboBox
         Cursor = crHandPoint
-        Position.X = 660.000000000000000000
+        Position.X = 669.000000000000000000
         Position.Y = 236.000000000000000000
         TabOrder = 5
       end
@@ -4181,7 +4184,7 @@ object formPrincipal: TformPrincipal
         end
       end
       object LabelRuta: TLabel
-        Position.X = 584.000000000000000000
+        Position.X = 593.000000000000000000
         Position.Y = 241.000000000000000000
         Size.Width = 64.000000000000000000
         Size.Height = 17.000000000000000000
@@ -4214,7 +4217,7 @@ object formPrincipal: TformPrincipal
         TabOrder = 7
       end
       object comandosGrafico: TGroupBox
-        Position.X = 576.000000000000000000
+        Position.X = 585.000000000000000000
         Position.Y = 294.000000000000000000
         Size.Width = 192.000000000000000000
         Size.Height = 88.000000000000000000
@@ -4251,6 +4254,7 @@ object formPrincipal: TformPrincipal
     end
   end
   object StyleOscuro: TStyleBook
+    StyleName = 'Dark'
     Styles = <
       item
         ResourcesBin = {

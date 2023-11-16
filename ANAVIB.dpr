@@ -13,7 +13,16 @@ uses
   Seleccion in 'Src\Visual\Seleccion.pas' {ventanaSeleccion},
   fftCalculo in 'Src\Logic\fftCalculo.pas',
   Seguridad in 'Src\Logic\Seguridad.pas',
-  MetodoConfiguracion in 'Src\Logic\MetodoConfiguracion.pas';
+  {$R}
+  {$R}
+  {$R}
+  {$R}
+  {$R}
+  {$R}
+  {$R}
+  MetodoConfiguracion in 'Src\Logic\MetodoConfiguracion.pas' {$R *.res},
+  User in 'Src\Logic\User.pas',
+  Role in 'Role.pas';
 
 {$R *.res}
 

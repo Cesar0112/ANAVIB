@@ -12,7 +12,8 @@ uses
   Data.DB, Data.SqlExpr, Data.DbxSqlite, FMX.Layouts, ZAbstractConnection,
   ZConnection, ZAbstractRODataset, ZAbstractDataset, ZDataset, FMX.ListBox,
   fftCalculo, Winapi.Windows, LPComponent, SLCommonFilter, SLBasicGenericReal,
-  SLGenericReal, Mitov.Types, SLCommonGen, SLRandomGen, SLFourier,MetodoConfiguracion;
+  SLGenericReal, Mitov.Types, SLCommonGen, SLRandomGen, SLFourier,
+  MetodoConfiguracion;
 
 type
   ArrayOfDouble = array of Double;
@@ -96,6 +97,7 @@ type
       AInBuffer: ISLRealBuffer; var AOutBuffer: ISLRealBuffer;
       var ASendOutputData: Boolean);
     procedure btnPlayPauseClick(Sender: TObject);
+    procedure MenuItem3Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -121,13 +123,14 @@ function getUUIDs: String;
 function GenerateSinArray(n: Integer): TArray<Double>;
 procedure insertarSenial(signal: array of Double);
 procedure llenarcomboMaquinas;
+procedure cargarEstilo(var Ventana: TformPrincipal);
 
 var
   formPrincipal: TformPrincipal;
   ventanaConfiguracion: TformConfiguracion;
   ventanaAnalisis: TAnalisisTendenciario;
 
-//  FrecMuestreo: Integer; // en milisegundos
+  // FrecMuestreo: Integer; // en milisegundos
   isPlay: Boolean;
   xAnt: Integer;
   i_global: Integer;
@@ -234,6 +237,7 @@ var
 
 begin
   cargarConfiguracion;
+  cargarEstilo(Self);
   Timer1.Interval := FrecMuestreo;
   Timer1.Enabled := true;
   i_global := 0;
@@ -282,8 +286,17 @@ begin
     // Button2.Visible := False;
   end;
 
+end;
 
-
+procedure TformPrincipal.MenuItem3Click(Sender: TObject);
+begin
+  /// Cuando de click se va a poner el tema claro y va a cambiar las configuraciones
+  /// en el txt de config.cfg
+  if not(Self.StyleBook = StyleOscuro) then
+  begin
+    Self.StyleBook := StyleClaro;
+    // Aqui llama al metodo que cambia la configuracion
+  end;
 end;
 
 function GenerateSinArray(n: Integer): TArray<Double>;
@@ -426,9 +439,9 @@ procedure TformPrincipal.opcVisualClaroClick(Sender: TObject);
 begin
   /// Cuando de click se va a poner el tema claro y va a cambiar las configuraciones
   /// en el txt de config.cfg
-  if not(formPrincipal.StyleBook = StyleClaro) then
+  if not(Self.StyleBook = StyleClaro) then
   begin
-    formPrincipal.StyleOscuro := StyleOscuro;
+    Self.StyleBook := StyleOscuro;
     // Aqui llama al metodo que cambia la configuracion
   end;
 end;
@@ -649,6 +662,14 @@ begin
   rutaAplicacion := ParamStr(0); // Ruta del archivo ejecutable actual
   // WinExec(PChar(rutaAplicacion), SW_SHOW);  // Inicia un nuevo proceso reemplazando el actual
   Application.Terminate; // Cierra el proceso actual
+end;
+
+procedure cargarEstilo(var Ventana: TformPrincipal);
+begin
+  if modo = 'claro' then
+    Ventana.StyleBook := formPrincipal.StyleClaro
+  else
+    Ventana.StyleBook := formPrincipal.StyleOscuro
 end;
 
 end.

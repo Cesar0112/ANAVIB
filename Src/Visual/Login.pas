@@ -34,6 +34,7 @@ type
     procedure btnIngresarMouseMove(Sender: TObject; Shift: TShiftState;
       X, Y: Single);
 
+
   private
     { Private declarations }
   public
@@ -44,9 +45,10 @@ type
 function existeUsuario(const usuario: String): Boolean;
 function compruebaContrasenia(passIngresada, usuario: String): Boolean;
 procedure mostrarBtnAutenticar();
-
+procedure cargarEstilo(var Ventana: TformLogin);
 var
   formLogin: TformLogin;
+
 implementation
 
 {$R *.fmx}
@@ -113,7 +115,7 @@ begin
     if isValido then
     begin
       lblErrorUsuarioContraseña.Visible := False;
-      ShowMessage('Usuario ' + usuario + ' autenticado correctamente');
+//      ShowMessage('Usuario ' + usuario + ' autenticado correctamente');
       formPrincipal.Visible := True;
       formLogin.Visible := False;
     end
@@ -187,9 +189,9 @@ begin
   formPrincipal.ZConnection1.LibraryLocation := LibraryLocation;
   formPrincipal.ZConnection1.Protocol := Protocol;
   formPrincipal.ZConnection1.Connect;
-  
+
   if (modo <> '') or (modo <> ' ') then
-    cargarEstilo(Sender);
+    cargarEstilo(Self);
   EditUser.SetFocus;
 end;
 
@@ -227,6 +229,14 @@ begin
     if passBDEncriptada = passIngresada then
       result := True;
   end;
+end;
+
+procedure cargarEstilo(var Ventana: TformLogin);
+begin
+  if modo = 'claro' then
+    Ventana.StyleBook := formPrincipal.StyleClaro
+  else
+    Ventana.StyleBook := formPrincipal.StyleOscuro
 end;
 
 end.
