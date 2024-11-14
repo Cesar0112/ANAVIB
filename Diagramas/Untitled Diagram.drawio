@@ -166,7 +166,7 @@
         <mxCell id="ngtWubl5Bu052-Ww2ULE-38" value="Preferencias" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#cce5ff;strokeColor=#36393d;labelBackgroundColor=none;" vertex="1" parent="1">
           <mxGeometry x="902" y="266" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ngtWubl5Bu052-Ww2ULE-39" value="Cofiguración de comunicaciones" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#cce5ff;strokeColor=#36393d;labelBackgroundColor=none;" vertex="1" parent="1">
+        <mxCell id="ngtWubl5Bu052-Ww2ULE-39" value="Configuración de comunicaciones" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#cce5ff;strokeColor=#36393d;labelBackgroundColor=none;" vertex="1" parent="1">
           <mxGeometry x="902" y="368" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
